@@ -6,13 +6,15 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:49:08 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 11:49:48 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 15:03:19 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINT_H
 # define PRINT_H
 
+#include <unistd.h>
 
+void	print_board(char **board);
 
 #endif

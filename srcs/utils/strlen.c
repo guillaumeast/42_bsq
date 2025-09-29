@@ -6,8 +6,16 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:57:07 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 11:57:24 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 13:24:21 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_strlen(char *str)
+{
+	int	i;
 
+	i = 0;
+	while (str[i] != '\0')
+		++i;
+	return (i);
+}
