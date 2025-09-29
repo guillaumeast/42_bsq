@@ -6,11 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:57:41 by adouieb           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/09/29 19:19:59 by gastesan         ###   ########.fr       */
-=======
-/*   Updated: 2025/09/29 19:44:21 by adouieb          ###   ########.fr       */
->>>>>>> origin/Alexander
+/*   Updated: 2025/09/29 20:33:44 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +16,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-<<<<<<< HEAD
 void	ft_free_rules(t_rules **rules);
-=======
-char	is_whitespace(char c);
-int		ft_atoi(char *str);
-
->>>>>>> origin/Alexander
 void	ft_free_str(char **str_addr);
 void	ft_str_list(char ***str_arr_addr, int n);
+
+char	is_whitespace(char c);
+int		ft_atoi(char *str);
 
 void	ft_putstr(char *str);
 
