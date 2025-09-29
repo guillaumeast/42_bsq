@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:30 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 00:03:27 by gastesan         ###   ########.fr       */
+/*   Updated: 2025/09/30 00:06:44 by gastesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,11 @@ t_run	get_rules(char *str, t_run run)
 		// free + null + error
 		return (0);
 	}
-	rules = malloc(sizeof(t_rules));
-	if (!rules)
-	{
-		// free + null + error
-		return (0);
-	}
 	size = ft_strlen(str);
 	number = strndup(str, size - 3);
 	if (!number)
 	{
+		// free + null + error
 		ft_free_rules(&rules);
 		return (0);
 	}
