@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 13:20:38 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 18:25:54 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:43:56 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void   ft_free_str(char **str_addr)
     *str_addr = NULL;
 }
 
-void	ft_free_board(char ***board_addr, int rows)
+void	ft_str_list(char ***str_arr_addr, int n)
 {
 	int	i;
 
 	i = 0;
-	while ((rows != -1 && i < rows) || (rows == -1 && (*board_addr)[i] != NULL))
+	while ((n != -1 && i < n) || (n == -1 && (*str_arr_addr)[i] != NULL))
 	{
-		free((*board_addr)[i]);
-		(*board_addr)[i] = NULL;
+		free((*str_arr__addr)[i]);
+		(*str_arr_addr)[i] = NULL;
 		++i;
 	}
-	free(*board_addr);
-	*board_addr = NULL;
+	free(*str_arr_addr);
+	*str_arr_addr = NULL;
 }
