@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 00:04:18 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/30 00:11:09 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_rules	init_rules()
 {
 	t_rules	rules;
 
-	rules.size = 0;
+	rules.width = 0;
+	rules.height = 0;
 	rules.empty = '\0';
 	rules.obstacle = '\0';
 	rules.filled = '\0';
