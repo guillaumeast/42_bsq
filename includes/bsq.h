@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:50:46 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 21:19:06 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 21:58:02 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 #include "print.h"
 #include "read.h"
 #include "utils.h"
+
+typedef enum e_status
+{
+	VALID,
+	ERROR,
+}	t_status;
 
 typedef	struct cell
 {
@@ -32,12 +38,13 @@ typedef	struct solution
 	t_cell	last_best;
 }	t_solution;
 
-typedef struct exercice
+typedef struct run
 {
 	t_file_content	content;
 	t_rules			rules;
 	t_board			map;
 	t_solution		solution;
-}	t_exercice;
+	t_status		status;
+}	t_run;
 
 #endif

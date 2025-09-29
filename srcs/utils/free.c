@@ -6,11 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 13:20:38 by adouieb           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/09/29 19:18:43 by gastesan         ###   ########.fr       */
-=======
-/*   Updated: 2025/09/29 19:43:56 by adouieb          ###   ########.fr       */
->>>>>>> origin/Alexander
+/*   Updated: 2025/09/29 21:59:34 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +24,7 @@ void	ft_free_str(char **str_addr)
     *str_addr = NULL;
 }
 
-void	ft_str_list(char ***str_arr_addr, int n)
+void	ft_free_str_list(char ***str_arr_addr, int n)
 {
 	int	i;
 
