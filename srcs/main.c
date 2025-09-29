@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 14:56:16 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 18:26:43 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	main(int argc, char **argv)
 	printf("argv %p\n", argv);
 
 	char	*str = ft_read_file("/home/adouieb/Documents/Piscine/BSQ/tests/basic_test");
+	char	**board = ft_split(str, "\n");
 
-	printf("%s\n", str);
+	print_board(board);
 	ft_free_str(&str);
+	ft_free_board(&board, -1);
 }
