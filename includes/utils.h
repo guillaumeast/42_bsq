@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:57:41 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 18:18:10 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:19:59 by gastesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void	ft_free_rules(t_rules **rules);
 void	ft_free_str(char **str_addr);
 void	ft_free_board(char ***board_addr, int rows);
 void	ft_putstr(char *str);
