@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:47:18 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 21:05:01 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/30 00:06:16 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef char** t_board;
 
 typedef struct rules
 {
-	int		size;
+	int		width;
+	int		heigth;
 	char	empty;
 	char	obstacle;
 	char	filled;
