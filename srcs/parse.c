@@ -6,14 +6,35 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:30 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 20:29:58 by gastesan         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:35:16 by gastesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parse.h"
 
-// Check imprimable
-// Check non doublon
+char	check_rules(char *str)
+{
+	int	i;
+	int	j;
+
+	if (ft_strlen(str) < 4)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < 32)
+			return (0);
+		j = 1;
+		while (str[i + j])
+		{
+			if (str[i] == str[i + j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 // Caller must free t_rules
 char get_rules(char *str, t_rules **rules)
@@ -22,29 +43,32 @@ char get_rules(char *str, t_rules **rules)
 	int		size;
 	char	*number;
 
-	if (ft_strlen(str) < 4)
-		return (NULL);
+	if (!check_rules)
+		return (0);
 	rules = malloc(sizeof(t_rules));
 	if (!rules)
-		return (NULL);
+		return (0);
 	size = ft_strlen(str);
 	number = strndup(str, size - 3);
 	if (!number)
 	{
 		ft_free_rules(&rules);
-		return (NULL);
+		return (0);
 	}
 	rules->size = atoi(number);
 	if (rules->size == 0)
-		return (NULL);
-	free(number);
+	{
+		ft_free_str(&number);
+		return (0);
+	}
+	ft_free_str(&number);
 	rules->empty = str[size - 3];
 	rules->obstacle = str[size - 2];
 	rules->filled = str[size - 1];
 	return (rules);
 }
 
-char	**parse(t_rules *rules, char *input)
+t_exercice	parse(t_exercice)
 {
 	char	**lines;
 	int		i;
@@ -52,10 +76,9 @@ char	**parse(t_rules *rules, char *input)
 	lines = ft_split(input, "\n");
 	if (!lines)
 		return (NULL);
-	rules = get_rules(lines[0]);
-	if (!rules)
+	if (!get_rules(lines[0], &rules))
 	{
-		// TODO : free lines (ft_free_str_array ?)
+		ft_free_list(&lines, -1)
 		return (NULL);
 	}
 	i = 1;
