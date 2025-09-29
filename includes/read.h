@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:49:51 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 14:27:13 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 21:06:22 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 #include <unistd.h>
 
 typedef char*	t_file_content;
+typedef	char*	t_filepath;
 
 # define BUFFER_SIZE 1024
 
-t_file_content	ft_read_file(const char *pathname);
+t_file_content	ft_read_file(const t_filepath	pathname);
+t_file_content	ft_read_stdin();
 
 #endif

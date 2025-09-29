@@ -6,14 +6,15 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:52 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 15:10:54 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 21:07:23 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print.h"
 #include "utils.h"
+#include "parse.h"
 
-void	print_board(char **board)
+void	print_board(t_board board)
 {
 	int	y;
 	int	x;
