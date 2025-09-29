@@ -6,14 +6,14 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:33:01 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 14:57:12 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 21:07:56 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "read.h"
 #include "utils.h"
 
-t_file_content	ft_read_file(const char *pathname)
+t_file_content	ft_read_file(const t_filepath pathname)
 {
 	t_file_content	content;
 	int				file_descriptor;

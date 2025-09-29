@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:47:18 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 18:03:26 by gastesan         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:05:01 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <stdlib.h>
 #include "includes/utils.h"
+
+typedef char** t_board;
 
 typedef struct rules
 {
