@@ -1,27 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.h                                             :+:      :+:    :+:   */
+/*   strcat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 11:49:51 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 12:20:15 by adouieb          ###   ########.fr       */
+/*   Created: 2025/09/29 12:17:36 by adouieb           #+#    #+#             */
+/*   Updated: 2025/09/29 12:17:57 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READ_H
-# define READ_H
 
-typedef char*	t_file_content;
-
-typedef struct charset
-{
-	char	empty;
-	char	filled;
-	char	obstacle;
-}	t_charset;
-
-t_file_content	read_file(char *pathname);
-
-#endif
