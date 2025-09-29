@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 13:20:38 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 15:15:11 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 18:25:54 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free_board(char ***board_addr, int rows)
 	int	i;
 
 	i = 0;
-	while (i < rows)
+	while ((rows != -1 && i < rows) || (rows == -1 && (*board_addr)[i] != NULL))
 	{
 		free((*board_addr)[i]);
 		(*board_addr)[i] = NULL;
