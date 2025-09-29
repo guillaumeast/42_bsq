@@ -6,29 +6,51 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 23:00:01 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/30 00:04:18 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "bsq.h"
 
-
-t_run	from_file_to_run(t_filepath path)
+t_rules	init_rules()
 {
-	t_run			instance;
-	t_file_content	content;
-	t_solution		solution;
-	t_cell			cell;
+	t_rules	rules;
+
+	rules.size = 0;
+	rules.empty = '\0';
+	rules.obstacle = '\0';
+	rules.filled = '\0';
+	return (rules);
+}
+
+t_cell	init_cell()
+{
+	t_cell	cell;
 
 	cell.x = 0;
 	cell.y = 0;
 	cell.value = 0;
+	return (cell);
+}
+
+t_solution	init_solution()
+{
+	t_solution	solution;
+
 	solution.table = NULL;
-	solution.last_best = cell;
-	instance.rules = NULL;
+	solution.last_best = init_cell();
+	return (solution);
+}
+
+t_run	init_run(t_filepath path)
+{
+	t_run			instance;
+	t_file_content	content;
+
+	instance.rules = init_rules();
 	instance.map = NULL;
-	instance.solution = solution;
+	instance.solution = init_solution();
 	content = ft_read_file(path);
 	if (content == NULL)
 	{
@@ -50,6 +72,21 @@ t_run	*from_files_to_runs(t_filepath *paths, int size)
 
 t_run	*from_stdin_to_runs()
 {
+	t_filepath	_[1];
+
+	_ = '\0';
+	return (file_to_run_map(paths, 1, from_file_to_run);
+}
+
+void	on_solution_table_failed(t_run run)
+{
+	
+}
+
+t_run	init_solution_table(t_run run)
+{
+	if (run.status == ERROR)
+		return (run);
 	
 }
 
@@ -61,6 +98,4 @@ int	main(int argc, char **argv)
 		runs = from_stdin_to_runs();
 	else
 		runs = from_files_to_runs(argv + 1, argc - 1);
-	
-    solution.table = NULL;
 }
