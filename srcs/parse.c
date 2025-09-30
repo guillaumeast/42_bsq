@@ -12,24 +12,6 @@
 
 #include "../includes/bsq.h"
 
-t_run	*on_parse_fail(t_run *run)
-{
-	ft_free_str(run->content);
-	run->content = NULL;
-	run->rules.size.height = 0;
-	run->rules.size.width = 0;
-	run->rules.empty = '\0';
-	run->rules.obstacle = '\0';
-	run->rules.filled = '\0';
-	if (run->map)
-	{
-		ft_free_str_list(&run->map, -1);
-		run->map = NULL;
-	}
-	run->status = ERROR;
-	return (run);
-}
-
 char	check_rules(char *str)
 {
 	int	i;
@@ -56,29 +38,22 @@ char	check_rules(char *str)
 
 t_run	*get_rules(char *str, t_run *run)
 {
+	t_rules	rules;
 	char	*height_str;
 
 	if (!check_rules(str))
-	{
-		on_parse_fail(run);
-		return (run);
-	}
+		return (clean_run(run));
 	height_str = ft_strndup(str, ft_strlen(str) - 3);
 	if (!height_str)
-	{
-		on_parse_fail(run);
-		return (run);
-	}
-	run->rules.size.height = atoi(height_str);
+		return (clean_run(run));
+	rules.size.height = atoi(height_str);
 	ft_free_str(&height_str);
-	if (run->rules.size.height == 0)
-	{
-		on_parse_fail(run);
-		return (run);
-	}
-	run->rules.empty = str[ft_strlen(str) - 3];
-	run->rules.obstacle = str[ft_strlen(str) - 2];
-	run->rules.filled = str[ft_strlen(str) - 1];
+	if (rules.size.height == 0)
+		return (clean_run(run));
+	rules.empty = str[ft_strlen(str) - 3];
+	rules.obstacle = str[ft_strlen(str) - 2];
+	rules.filled = str[ft_strlen(str) - 1];
+	set_rules(run, rules);
 	return (run);
 }
 
@@ -130,15 +105,13 @@ t_run	*create_map(t_run *run, char **lines)
 t_run	*parse(t_run *run)
 {
 	char	**lines;
+	t_rules	rules;
 
 	if (run->status == ERROR)
 		return (run);
 	lines = ft_split(run->content, "\n");
 	if (!lines)
-	{
-		on_parse_fail(run);
-		return (run);
-	}
+		return (clean_run(run));
 	run = get_rules(lines[0], run);
 	if (run->status == ERROR)
 	{
@@ -148,10 +121,8 @@ t_run	*parse(t_run *run)
 	if (!check_board(lines + 1, &run))
 	{
 		ft_free_str_list(&lines, -1);
-		on_parse_fail(run);
-		return (run);
+		return (clean_run(run));
 	}
 	create_map(run, lines);
-	ft_free_str_list(&lines, -1);
 	return (run);
 }
