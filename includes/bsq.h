@@ -20,4 +20,6 @@
 #include "read.h"
 #include "utils.h"
 
+t_run	*on_solution_table_failed(t_run *run_addr, t_board_i *table);
+
 #endif

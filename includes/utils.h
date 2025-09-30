@@ -22,9 +22,10 @@ int		ft_atoi(char *str);
 
 void	ft_free_str(char **str_addr);
 void	ft_free_str_list(char ***str_arr_addr, int n);
+void	ft_free_int_list(int ***str_arr_addr, int n);
 
 t_run	*file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath));
-t_run	*run_to_run_map(t_run *instance, int size, t_run (*act)(t_run));
+t_run	*run_to_run_map(t_run *instance, int size, t_run *(*act)(t_run *));
 
 void	ft_putstr(char *str);
 

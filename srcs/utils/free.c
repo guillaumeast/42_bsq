@@ -32,3 +32,18 @@ void	ft_free_str_list(char ***str_arr_addr, int n)
 	free(*str_arr_addr);
 	*str_arr_addr = NULL;
 }
+
+void	ft_free_int_list(int ***str_arr_addr, int n)
+{
+	int	i;
+
+	i = 0;
+	while ((n != -1 && i < n) || (n == -1 && (*str_arr_addr)[i] != NULL))
+	{
+		free((*str_arr_addr)[i]);
+		(*str_arr_addr)[i] = NULL;
+		++i;
+	}
+	free(*str_arr_addr);
+	*str_arr_addr = NULL;
+}

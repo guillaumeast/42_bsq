@@ -6,12 +6,12 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 14:10:39 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/30 14:29:02 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "bsq.h"
+#include "../includes/bsq.h"
 
 t_run	*init_size(t_run *run_addr)
 {
@@ -81,7 +81,7 @@ t_run	*init_solution(t_run *run_addr)
 t_run	*clean_solution(t_run *run_addr)
 {
 	if (run_addr->solution.table != NULL)
-		ft_free_str_arr(&(run_addr->solution.table), -1);
+		ft_free_int_list(&(run_addr->solution.table), -1);
 	clean_cell(run_addr);
     return (run_addr);
 }
@@ -187,7 +187,7 @@ t_run	from_file_to_run(t_filepath *path)
 }
 t_run	*from_files_to_runs(t_filepath *paths, int size)
 {
-	return (file_to_run_map(paths, size, from_file_to_run);
+	return (file_to_run_map(paths, size, init_run));
 }
 
 t_run	*from_stdin_to_run()
@@ -195,6 +195,22 @@ t_run	*from_stdin_to_run()
 	return (file_to_run_map("", 1, from_file_to_run);
 }
 
+// TEST
+int	main(void)
+{
+	t_file_content content;
+
+	content = ft_read_stdin("");
+	printf("--------");
+	printf("CONTENT:");
+	printf("%s\n", content);
+	printf("END OF CONTENT");
+	ft_free_str(&content);
+	return (0);
+}
+// END TEST
+
+/*
 int	main(int argc, char **argv)
 {
 	t_run	*runs;
@@ -205,3 +221,4 @@ int	main(int argc, char **argv)
 		runs = from_files_to_runs(argv + 1, argc - 1);
 	
 }
+*/

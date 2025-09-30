@@ -12,21 +12,21 @@
 
 #include "../includes/bsq.h"
 
-t_run	make_error(t_run run)
+t_run	*on_parse_fail(t_run *run)
 {
-	ft_free_str(&run.content);
-	run.content = NULL;
-	run.rules.heigth = 0;
-	run.rules.width = 0;
-	run.rules.empty = '\0';
-	run.rules.obstacle = '\0';
-	run.rules.filled = '\0';
-	if (run.map)
+	ft_free_str(run->content);
+	run->content = NULL;
+	run->rules.height = 0;
+	run->rules.width = 0;
+	run->rules.empty = '\0';
+	run->rules.obstacle = '\0';
+	run->rules.filled = '\0';
+	if (run->map)
 	{
-		ft_free_str_list(&run.map, -1);
-		run.map = NULL;
+		ft_free_str_list(&run->map, -1);
+		run->map = NULL;
 	}
-	run.status = ERROR;
+	run->status = ERROR;
 	return (run);
 }
 
@@ -54,35 +54,35 @@ char	check_rules(char *str)
 	return (1);
 }
 
-t_run	get_rules(char *str, t_run run)
+t_run	*get_rules(char *str, t_run *run)
 {
-	char	*heigth_str;
+	char	*height_str;
 
 	if (!check_rules(str))
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
-	heigth_str = ft_strndup(str, ft_strlen(str) - 3);
-	if (!heigth_str)
+	height_str = ft_strndup(str, ft_strlen(str) - 3);
+	if (!height_str)
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
-	run.rules.heigth = atoi(heigth_str);
-	ft_free_str(&heigth_str);
-	if (run.rules.heigth == 0)
+	run->rules.height = atoi(height_str);
+	ft_free_str(&height_str);
+	if (run->rules.height == 0)
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
-	run.rules.empty = str[ft_strlen(str) - 3];
-	run.rules.obstacle = str[ft_strlen(str) - 2];
-	run.rules.filled = str[ft_strlen(str) - 1];
+	run->rules.empty = str[ft_strlen(str) - 3];
+	run->rules.obstacle = str[ft_strlen(str) - 2];
+	run->rules.filled = str[ft_strlen(str) - 1];
 	return (run);
 }
 
-char	check_board(char **board, t_run *run)
+char	check_board(t_board_c board, t_run *run)
 {
 	int		i;
 	int		j;
@@ -102,15 +102,16 @@ char	check_board(char **board, t_run *run)
 		j = 0;
 		while (board[i][j])
 		{
-			if (!is_in_charset(board[i][j], charset))
+			if (!is_in_charset(board[i][j++], charset))
 				return (0);
-			j++;
 		}	
 	}
+	if (i + 1 != run->rules.height)
+		return (0);
 	return (1);
 }
 
-t_run	create_map(t_run run, char **lines)
+t_run	*create_map(t_run *run, char **lines)
 {
 	int	i;
 
@@ -122,24 +123,24 @@ t_run	create_map(t_run run, char **lines)
 		i++;
 	}
 	lines[i - 1] = NULL;
-	run.map = lines;
+	run->map = lines;
 	return (run);
 }
 
-t_run	parse(t_run run)
+t_run	*parse(t_run *run)
 {
 	char	**lines;
 
-	if (run.status == ERROR)
+	if (run->status == ERROR)
 		return (run);
-	lines = ft_split(run.content, "\n");
+	lines = ft_split(run->content, "\n");
 	if (!lines)
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	run = get_rules(lines[0], run);
-	if (run.status == ERROR)
+	if (run->status == ERROR)
 	{
 		ft_free_str_list(&lines, -1);
 		return (run);
@@ -147,31 +148,34 @@ t_run	parse(t_run run)
 	if (!check_board(lines + 1, &run))
 	{
 		ft_free_str_list(&lines, -1);
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	create_map(run, lines);
 	ft_free_str_list(&lines, -1);
 	return (run);
 }
+
+/*
 #include <stdio.h>
 // ccc srcs/parse.c srcs/utils/free.c srcs/utils/strlen.c srcs/utils/split.c srcs/utils/strndup.c
 int	main(void)
 {
-	t_run 	run;
+	t_run 	*run;
 	int		i;
 
-	run.content = "3.ox\n.....\n..o..\nooooo";
-	run = parse(run);
-	printf("Content = %s\n", run.content);
-	printf("Heigth = %d | width = %d | empty = %c | obstacle = %c | filled = %c\n", run.rules.heigth, run.rules.width, run.rules.empty, run.rules.obstacle, run.rules.filled);
-	printf("Status = %u\n", run.status);
+	run->content = "3.ox\n.....\n..o..\nooooo";
+	run = parse(&run);
+	printf("Content = %s\n", run->content);
+	printf("height = %d | width = %d | empty = %c | obstacle = %c | filled = %c\n", run->rules.height, run->rules.width, run->rules.empty, run->rules.obstacle, run->rules.filled);
+	printf("Status = %u\n", run->status);
 	printf("Map:\n");
 	i = 0;
-	while (run.map[i])
+	while (run->map[i])
 	{
-		printf("%s\n", run.map[i]);
+		printf("%s\n", run->map[i]);
 		i++;
 	}
 	return (0);
 }
+*/

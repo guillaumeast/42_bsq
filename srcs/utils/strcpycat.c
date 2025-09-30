@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../../includes/bsq.h"
 
 char	*ft_strcpycat(char *prev, char *new, int size)
 {

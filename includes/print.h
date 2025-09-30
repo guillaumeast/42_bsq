@@ -15,6 +15,6 @@
 
 #include <unistd.h>
 
-void	print_board(t_board board);
+void	print_board(t_board_c board);
 
 #endif

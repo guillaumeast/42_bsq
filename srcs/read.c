@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read.h"
-#include "utils.h"
+#include "../includes/bsq.h"
 
 t_file_content	ft_read_file(const t_filepath pathname)
 {

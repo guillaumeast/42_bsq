@@ -14,7 +14,7 @@
 #include "utils.h"
 #include "parse.h"
 
-void	print_board(t_board board)
+void	print_board(t_board_c board)
 {
 	int	y;
 	int	x;
