@@ -124,15 +124,21 @@ void	print_debug_run(t_run *runs, int size)
 	while (i < size)
 	{
 		printf("DEBUG RUN %d\n", i);
-		print_debug_content(runs[i]);
-		printf("\n--------\n");
-		print_debug_rules(runs[i]);
-		printf("\n--------\n");
-		print_debug_map(runs[i]);
-		printf("\n--------\n");
-		print_debug_solution(runs[i]);
-		printf("\n--------\n");
-		print_debug_status(runs[i]);
-		printf("\n================================\n");
+		if (runs[i].status != ERROR)
+		{
+			print_debug_content(runs[i]);
+			printf("\n--------\n");
+			print_debug_rules(runs[i]);
+			printf("\n--------\n");
+			print_debug_map(runs[i]);
+			printf("\n--------\n");
+			print_debug_solution(runs[i]);
+			printf("\n--------\n");
+			print_debug_status(runs[i]);
+			printf("\n================================\n");
+		}
+		else
+			printf("ERROR\n");
+		++i;
 	}
 }

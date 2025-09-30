@@ -164,7 +164,9 @@ t_run	init_run(t_file_content content)
 	init_map(&instance);
 	init_solution(&instance);
 	if (content == NULL)
+	{
 		instance.status = ERROR;
+	}
 	else
 	{
 		instance.content = content;
@@ -219,9 +221,7 @@ int	main(int argc, char **argv)
 		runs = from_files_to_runs(argv + 1, size);
 	}
 	run_to_run_map(runs, size, parse);
-	printf("After parse");
 	run_to_run_map(runs, size, init_solution_table);
-	printf("After init_solution_table");
 	print_debug_run(runs, size);
 	printf("After print_debug_run");
 }

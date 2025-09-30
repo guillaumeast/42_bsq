@@ -27,15 +27,12 @@ char	check_rules(char *str)
 	{
 		if (str[i] < 32 || str[i] > 126)
 			return (0);
-		if (i >= len - 3) // Check doublons only for last 3 chars
+		j = 1;
+		while (str[i + j])
 		{
-			j = 1;
-			while (str[i + j])
-			{
-				if (str[i] == str[i + j])
-					return (0);
-				j++;
-			}
+			if (str[i] == str[i + j])
+				return (0);
+			j++;
 		}
 		i++;
 	}
