@@ -12,24 +12,17 @@
 
 #include "../includes/bsq.h"
 
-#include <stdio.h>
-
 t_file_content	ft_read_file(const t_filepath pathname)
 {
-	printf("ft_read_file\n");
-
 	t_file_content	content;
 	int				file_descriptor;
 	int				read_bytes_c;
 	char			buffer[BUFFER_SIZE];
 
 	(1 && (content = NULL), (read_bytes_c = -1));
-	printf("Opening file at path %s\n", pathname);
 	file_descriptor = open(pathname, O_RDONLY);
-	printf("Open with fd %d\n", file_descriptor);
 	if (file_descriptor == -1)
 		return (NULL);
-	printf("reading file with file descriptor %d\n", file_descriptor);
 	while (read_bytes_c != 0)
 	{
 		read_bytes_c = read(file_descriptor, buffer, BUFFER_SIZE);
@@ -45,7 +38,6 @@ t_file_content	ft_read_file(const t_filepath pathname)
 				return (NULL);
 		}
 	}
-	printf("content = \n%s\n", content);
 	return (content);
 }
 

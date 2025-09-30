@@ -14,7 +14,6 @@
 #include "utils.h"
 #include "parse.h"
 #include "types.h"
-#include <stdio.h>
 
 t_boundary_box *set_boundaries(t_run *run, t_boundary_box *box)
 {

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/bsq.h"
-#include <stdio.h>
 
 char	check_rules(char *str)
 {
