@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include "bsq.h"
 
-void	print_board(t_run *run);
+t_run	*print_board(t_run *run);
 void	print_debug_run(t_run *runs, int size);
 
 #endif

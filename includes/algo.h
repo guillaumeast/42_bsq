@@ -13,6 +13,6 @@
 #ifndef ALGO_H
 # define ALGO_H
 
-t_run   *compute(t_run *run);
+t_run   *resolve(t_run *run);
 
 #endif

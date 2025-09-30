@@ -32,7 +32,7 @@ t_run   *set_best(t_run *run, int y, int x)
     return (run);
 }
 
-t_run   *compute(t_run *run)
+t_run   *resolve(t_run *run)
 {
     int x;
     int y;
@@ -48,7 +48,7 @@ t_run   *compute(t_run *run)
             else if (run->map[y][x] == run->rules.obstacle)
                 run->solution.table[y][x] = 0;
             else
-                run->solution.table[y][x] = ft_min_3(run, y, x);
+                run->solution.table[y][x] = ft_min_3(run, y, x) + 1;
             if (run->solution.table[y][x] > run->solution.last_best.value)
                 set_best(run, y, x);
             x++;
