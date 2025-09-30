@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../../includes/bsq.h"
 
 char	is_in_charset(char c, char *charset)
 {
@@ -68,7 +68,7 @@ void	ft_multistrdup(char **result, char* str, char *charset)
 				++i;
 			result[result_i] = ft_strndup(str + start, i - start);
 			if (result[result_i] == NULL)
-				ft_free_board(&result, result_i);
+				ft_free_str_list(&result, result_i);
 			++result_i;
         }
         else if (is_in_charset(str[i], charset) == 1 && in_word == 1)

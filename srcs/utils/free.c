@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../../includes/bsq.h"
 
 void	ft_free_str(char **str_addr)
 {

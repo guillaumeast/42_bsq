@@ -14,7 +14,6 @@
 # define PRINT_H
 
 #include <unistd.h>
-#include "parse.h"
 
 void	print_board(t_board board);
 

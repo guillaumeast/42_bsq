@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "types.h"
 
 char	is_whitespace(char c);
 int		ft_atoi(char *str);

@@ -14,17 +14,5 @@
 # define PARSE_H
 
 #include <stdlib.h>
-#include "includes/utils.h"
-
-typedef char** t_board;
-
-typedef struct rules
-{
-	int		width;
-	int		heigth;
-	char	empty;
-	char	obstacle;
-	char	filled;
-}	t_rules;
 
 #endif

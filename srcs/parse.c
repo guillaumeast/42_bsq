@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/parse.h"
-#include "includes/bsq.h"
+#include "../includes/bsq.h"
 
 t_run	make_error(t_run run)
 {
@@ -28,6 +27,7 @@ t_run	make_error(t_run run)
 		run.map = NULL;
 	}
 	run.status = ERROR;
+	return (run);
 }
 
 char	check_rules(char *str)
@@ -58,12 +58,12 @@ t_run	get_rules(char *str, t_run run)
 {
 	char	*heigth_str;
 
-	if (!check_rules)
+	if (!check_rules(str))
 	{
 		make_error(run);
 		return (run);
 	}
-	heigth_str = strndup(str, ft_strlen(str) - 3);
+	heigth_str = ft_strndup(str, ft_strlen(str) - 3);
 	if (!heigth_str)
 	{
 		make_error(run);
@@ -86,7 +86,7 @@ char	check_board(char **board, t_run *run)
 {
 	int		i;
 	int		j;
-	char	*charset;
+	char	charset[3];
 	
 	if (!board[0] || !board[0][0])
 		return (0);
@@ -97,7 +97,7 @@ char	check_board(char **board, t_run *run)
 	charset[2] = '\0';
 	while(board[i])
 	{
-		if (ft_strlen(board[i] != run->rules.width))
+		if (ft_strlen(board[i]) != run->rules.width)
 			return (0);
 		j = 0;
 		while (board[i][j])
@@ -107,6 +107,7 @@ char	check_board(char **board, t_run *run)
 			j++;
 		}	
 	}
+	return (1);
 }
 
 t_run	create_map(t_run run, char **lines)
@@ -154,7 +155,7 @@ t_run	parse(t_run run)
 	return (run);
 }
 #include <stdio.h>
-
+// ccc srcs/parse.c srcs/utils/free.c srcs/utils/strlen.c srcs/utils/split.c srcs/utils/strndup.c
 int	main(void)
 {
 	t_run 	run;
@@ -164,7 +165,7 @@ int	main(void)
 	run = parse(run);
 	printf("Content = %s\n", run.content);
 	printf("Heigth = %d | width = %d | empty = %c | obstacle = %c | filled = %c\n", run.rules.heigth, run.rules.width, run.rules.empty, run.rules.obstacle, run.rules.filled);
-	printf("Status = %s\n", run.status);
+	printf("Status = %u\n", run.status);
 	printf("Map:\n");
 	i = 0;
 	while (run.map[i])
