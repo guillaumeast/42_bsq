@@ -56,7 +56,7 @@ void	print_board(t_run *run)
 
 void	print_debug_content(t_run run)
 {
-	printf("content = %s\n", run.content);
+	printf("content = \n%s\n", run.content);
 }
 
 void	print_debug_rules(t_run run)

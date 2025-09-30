@@ -78,23 +78,15 @@ char	check_board(t_board_c board, t_run *run)
 	while(board[i])
 	{
 		if (ft_strlen(board[i]) != run->rules.size.width)
-		{
-			printf("=> WIDTH KO |%d|%d|\n", ft_strlen(board[i]), run->rules.size.width);
 			return (0);
-		}
 		j = 0;
 		while (board[i][j])
 		{
 			if (!is_in_charset(board[i][j++], charset))
-			{
-				printf("=> CHARSET KO |%c|%s|\n", board[i][j], charset);
 				return (0);
-			}
 		}
 		i++;
 	}
-	printf("check_board still OK\n");
-	printf("=> i = |%d| height = |%d|\n", i, run->rules.size.height);
 	if (i != run->rules.size.height)
 		return (0);
 	return (1);
@@ -128,12 +120,9 @@ t_run	*parse(t_run *run)
 	run = get_rules(lines[0], run);
 	if (run->status == ERROR)
 	{
-		printf("run->status == ERROR\n");
 		ft_free_str_list(&lines, -1);
 		return (run);
 	}
-	printf("Before check_board\n");
-	// INFINITE LOOP HERE MOTHER FUCKER
 	if (!check_board(lines + 1, run))
 	{
 		ft_free_str_list(&lines, -1);
