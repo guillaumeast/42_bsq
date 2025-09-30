@@ -3,7 +3,13 @@
 
 typedef	char*	t_filepath;
 typedef char*	t_file_content;
-typedef char**  t_board;
+
+typedef char**  t_board_c;
+typedef char*	t_board_c_row;
+typedef	char	t_board_c_cell;
+typedef int**	t_board_i;
+typedef int*	t_board_i_row;
+typedef int		t_board_i_cell;
 
 typedef struct rules
 {
@@ -29,15 +35,15 @@ typedef	struct cell
 
 typedef	struct solution
 {
-	t_board	table;
-	t_cell	last_best;
+	t_board_i	table;
+	t_cell		last_best;
 }	t_solution;
 
 typedef struct run
 {
 	t_file_content	content;
 	t_rules			rules;
-	t_board			map;
+	t_board_c		map;
 	t_solution		solution;
 	t_status		status;
 }	t_run;
