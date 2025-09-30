@@ -18,7 +18,6 @@ char	check_rules(char *str)
 	int	j;
 	int	len;
 
-	printf("START - Check rules |%s|\n", str);
 	len = ft_strlen(str);
 	if (len < 4)
 		return (0);
@@ -27,16 +26,18 @@ char	check_rules(char *str)
 	{
 		if (str[i] < 32 || str[i] > 126)
 			return (0);
-		j = 1;
-		while (str[i + j])
+		if (i >= len - 3) // Check doublons only for last 3 chars
 		{
-			if (str[i] == str[i + j])
-				return (0);
-			j++;
+			j = 1;
+			while (str[i + j])
+			{
+				if (str[i] == str[i + j])
+					return (0);
+				j++;
+			}
 		}
 		i++;
 	}
-	printf("END - Check rules |%s|\n", str);
 	return (1);
 }
 
@@ -45,26 +46,23 @@ t_run	*get_rules(char *str, t_run *run)
 	t_rules	rules;
 	char	*height_str;
 
-	printf("get_rules - START |%s|\n", str);
+	printf("-------------\nSTART OF GET RULES\n");
+	print_debug_run(run, 1);
 	if (!check_rules(str))
 		return (clean_run(run));
-	printf("get_rules - check_rules ended |%s|\n", str);
 	height_str = ft_strndup(str, ft_strlen(str) - 3);
-	printf("get_rules - ft_strndup ended |%s|\n", str);
 	if (!height_str)
 		return (clean_run(run));
 	rules.size.height = atoi(height_str);
-	printf("get_rules - atoi ended |%s|\n", str);
 	ft_free_str(&height_str);
-	printf("get_rules - ft_free_str ended |%s|\n", str);
 	if (rules.size.height == 0)
 		return (clean_run(run));
 	rules.empty = str[ft_strlen(str) - 3];
 	rules.obstacle = str[ft_strlen(str) - 2];
 	rules.filled = str[ft_strlen(str) - 1];
-	printf("get_rules - before set_rules |%s|\n", str);
 	set_rules(run, rules);
-	printf("get_rules - after set_rules |%s|\n", str);
+	printf("-------------\nEND OF GET RULES\n");
+	print_debug_run(run, 1);
 	return (run);
 }
 
@@ -122,9 +120,11 @@ t_run	*parse(t_run *run)
 	lines = ft_split(run->content, "\n");
 	if (!lines)
 		return (clean_run(run));
-	printf("Before get_rules");
+	printf("-------------\nBEFORE GET RULES\n");
+	print_debug_run(run, 1);
 	run = get_rules(lines[0], run);
-	printf("After get_rules");
+	printf("-------------\nAFTER GET RULES\n");
+	print_debug_run(run, 1);
 	if (run->status == ERROR)
 	{
 		ft_free_str_list(&lines, -1);
