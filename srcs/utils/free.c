@@ -6,17 +6,11 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 13:20:38 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/29 21:59:34 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/29 22:17:15 by gastesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-
-void	ft_free_rules(t_rules **rules)
-{
-	free(*rules);
-	*rules = NULL;
-}
+#include "../../includes/bsq.h"
 
 void	ft_free_str(char **str_addr)
 {
@@ -31,7 +25,7 @@ void	ft_free_str_list(char ***str_arr_addr, int n)
 	i = 0;
 	while ((n != -1 && i < n) || (n == -1 && (*str_arr_addr)[i] != NULL))
 	{
-		free((*str_arr__addr)[i]);
+		free((*str_arr_addr)[i]);
 		(*str_arr_addr)[i] = NULL;
 		++i;
 	}

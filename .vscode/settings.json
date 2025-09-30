@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "unistd.h": "c",
+        "stat.h": "c",
+        "utils.h": "c",
+        "bsq.h": "c"
+    }
+}
