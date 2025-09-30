@@ -81,14 +81,19 @@ char	check_board(t_board_c board, t_run *run)
 	charset[2] = '\0';
 	while(board[i])
 	{
+		printf("=> CHECK WIDTH |%d|%d|\n", ft_strlen(board[i]), run->rules.size.width);
 		if (ft_strlen(board[i]) != run->rules.size.width)
 			return (0);
+		printf("=> CHECK WIDTH = OK\n");
 		j = 0;
 		while (board[i][j])
 		{
+			printf("=> CHECK CHARSET |%c|%s|\n", board[i][j], charset);
 			if (!is_in_charset(board[i][j++], charset))
 				return (0);
-		}	
+			printf("=> CHECK CHARSET = OK\n");
+		}
+		i++;
 	}
 	if (i + 1 != run->rules.size.height)
 		return (0);
@@ -127,17 +132,20 @@ t_run	*parse(t_run *run)
 	print_debug_run(run, 1);
 	if (run->status == ERROR)
 	{
+		printf("run->status == ERROR\n");
 		ft_free_str_list(&lines, -1);
 		return (run);
 	}
-	printf("Before check_board");
+	printf("Before check_board\n");
+	// INFINITE LOOP HERE MOTHER FUCKER
 	if (!check_board(lines + 1, run))
 	{
 		ft_free_str_list(&lines, -1);
 		return (clean_run(run));
 	}
-	printf("After check_board");
+	// INFINITE LOOP HERE MOTHER FUCKER
+	printf("After check_board\n");
 	create_map(run, lines);
-	printf("After create_map");
+	printf("After create_map\n");
 	return (run);
 }

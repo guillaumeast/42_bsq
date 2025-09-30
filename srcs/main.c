@@ -221,7 +221,9 @@ int	main(int argc, char **argv)
 		runs = from_files_to_runs(argv + 1, size);
 	}
 	run_to_run_map(runs, size, parse);
+	printf("After parse\n");
 	run_to_run_map(runs, size, init_solution_table);
+	printf("After init_solution_table\n");
 	print_debug_run(runs, size);
-	printf("After print_debug_run");
+	printf("After print_debug_run\n");
 }
