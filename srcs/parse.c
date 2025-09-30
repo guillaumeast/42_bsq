@@ -46,8 +46,6 @@ t_run	*get_rules(char *str, t_run *run)
 	t_rules	rules;
 	char	*height_str;
 
-	printf("-------------\nSTART OF GET RULES\n");
-	print_debug_run(run, 1);
 	if (!check_rules(str))
 		return (clean_run(run));
 	height_str = ft_strndup(str, ft_strlen(str) - 3);
@@ -61,8 +59,6 @@ t_run	*get_rules(char *str, t_run *run)
 	rules.obstacle = str[ft_strlen(str) - 2];
 	rules.filled = str[ft_strlen(str) - 1];
 	set_rules(run, rules);
-	printf("-------------\nEND OF GET RULES\n");
-	print_debug_run(run, 1);
 	return (run);
 }
 
@@ -81,21 +77,25 @@ char	check_board(t_board_c board, t_run *run)
 	charset[2] = '\0';
 	while(board[i])
 	{
-		printf("=> CHECK WIDTH |%d|%d|\n", ft_strlen(board[i]), run->rules.size.width);
 		if (ft_strlen(board[i]) != run->rules.size.width)
+		{
+			printf("=> WIDTH KO |%d|%d|\n", ft_strlen(board[i]), run->rules.size.width);
 			return (0);
-		printf("=> CHECK WIDTH = OK\n");
+		}
 		j = 0;
 		while (board[i][j])
 		{
-			printf("=> CHECK CHARSET |%c|%s|\n", board[i][j], charset);
 			if (!is_in_charset(board[i][j++], charset))
+			{
+				printf("=> CHARSET KO |%c|%s|\n", board[i][j], charset);
 				return (0);
-			printf("=> CHECK CHARSET = OK\n");
+			}
 		}
 		i++;
 	}
-	if (i + 1 != run->rules.size.height)
+	printf("check_board still OK\n");
+	printf("=> i = |%d| height = |%d|\n", i, run->rules.size.height);
+	if (i != run->rules.size.height)
 		return (0);
 	return (1);
 }
@@ -125,11 +125,7 @@ t_run	*parse(t_run *run)
 	lines = ft_split(run->content, "\n");
 	if (!lines)
 		return (clean_run(run));
-	printf("-------------\nBEFORE GET RULES\n");
-	print_debug_run(run, 1);
 	run = get_rules(lines[0], run);
-	printf("-------------\nAFTER GET RULES\n");
-	print_debug_run(run, 1);
 	if (run->status == ERROR)
 	{
 		printf("run->status == ERROR\n");
@@ -143,9 +139,6 @@ t_run	*parse(t_run *run)
 		ft_free_str_list(&lines, -1);
 		return (clean_run(run));
 	}
-	// INFINITE LOOP HERE MOTHER FUCKER
-	printf("After check_board\n");
 	create_map(run, lines);
-	printf("After create_map\n");
 	return (run);
 }
