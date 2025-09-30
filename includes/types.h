@@ -8,7 +8,7 @@ typedef char**  t_board;
 typedef struct rules
 {
 	int		width;
-	int		heigth;
+	int		height;
 	char	empty;
 	char	obstacle;
 	char	filled;
