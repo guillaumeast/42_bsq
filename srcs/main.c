@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 14:42:29 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/30 14:49:03 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 t_run	*init_size(t_run *run_addr)
 {
-	run_addr->rules.width = 0;
-	run_addr->rules.height = 0;
+	run_addr->rules.size.width = 0;
+	run_addr->rules.size.height = 0;
 	return (run_addr);
 }
 t_run   *clean_size(t_run *run_addr)
@@ -25,8 +25,8 @@ t_run   *clean_size(t_run *run_addr)
 }
 t_run	*set_size(t_run *run_addr, t_size size)
 {
-	run_addr->rules.width = width;
-	run_addr->rules.height = height;
+	run_addr->rules.size.width = width;
+	run_addr->rules.size.height = height;
 	return (run_addr);
 }
 
