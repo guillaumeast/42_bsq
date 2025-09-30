@@ -222,5 +222,7 @@ int	main(int argc, char **argv)
 	}
 	run_to_run_map(runs, size, parse);
 	run_to_run_map(runs, size, init_solution_table);
+	run_to_run_map(runs, size, resolve);
 	print_debug_run(runs, size);
+	run_to_run_map(runs, size, print_board);
 }
