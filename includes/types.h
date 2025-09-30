@@ -11,10 +11,15 @@ typedef int**	t_board_i;
 typedef int*	t_board_i_row;
 typedef int		t_board_i_cell;
 
+typedef struct size
+{
+	int	width;
+	int	height;
+}	t_size;
+
 typedef struct rules
 {
-	int		width;
-	int		height;
+	t_size	size;
 	char	empty;
 	char	obstacle;
 	char	filled;
