@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/bsq.h"
+#include <stdio.h>
 
 t_run   *file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath))
 {
@@ -21,6 +22,7 @@ t_run   *file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath))
 	runs = malloc(sizeof(t_run) * size);
 	while (i < size)
 	{
+		printf("run action to create run from file %d with path %s\n", i, paths[i]);
 		runs[i] = act(paths[i]);
 		++i;
 	}

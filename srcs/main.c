@@ -185,19 +185,24 @@ t_run	*clean_run(t_run *run_addr)
 
 t_run	from_file_to_run(t_filepath path)
 {
+	printf("from_file_to_run\n");
 	return (init_run(ft_read_file(path)));	 
 }
 t_run	*from_files_to_runs(t_filepath *paths, int size)
 {
-	return (file_to_run_map(paths, size, init_run));
+	return (file_to_run_map(paths, size, from_file_to_run));
 }
 
-t_run	*from_stdin_to_run()
+t_run	from_stdin_to_run(t_filepath path)
+{
+	return (init_run(ft_read_stdin(path)));	 
+}
+t_run	*from_stdin_to_runs()
 {
 	char *_;
 
 	_ = "";
-	return (file_to_run_map(&_, 1, from_file_to_run));
+	return (file_to_run_map(&_, 1, from_stdin_to_run));
 }
 
 int	main(int argc, char **argv)
@@ -208,7 +213,7 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 	{
 		size = 1;
-		runs = from_stdin_to_run();
+		runs = from_stdin_to_runs();
 	}
 	else
 	{
