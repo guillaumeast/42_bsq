@@ -25,8 +25,8 @@ t_run   *clean_size(t_run *run_addr)
 }
 t_run	*set_size(t_run *run_addr, t_size size)
 {
-	run_addr->rules.size.width = width;
-	run_addr->rules.size.height = height;
+	run_addr->rules.size.width = size.width;
+	run_addr->rules.size.height = size.height;
 	return (run_addr);
 }
 
@@ -72,8 +72,6 @@ t_run	*set_cell(t_run *run_addr, t_cell cell)
 
 t_run	*init_solution(t_run *run_addr)
 {
-	t_solution	solution;
-
 	run_addr->solution.table = NULL;
 	init_cell(run_addr);
 	return (run_addr);
@@ -92,7 +90,7 @@ t_run	*set_last_best(t_run *run_addr, t_cell cell)
 t_run	*set_solution_table(t_run *run_addr, t_cell cell)
 {
 	if (run_addr->solution.table != NULL)
-		run_addr->solution.table[cell.y][cell.x] = cell.value
+		run_addr->solution.table[cell.y][cell.x] = cell.value;
 	return (run_addr);
 }
 t_run   *init_solution_table(t_run *run_addr)
@@ -210,7 +208,7 @@ int	main(int argc, char **argv)
 		size = argc - 1;
 		runs = from_files_to_runs(argv + 1, size);
 	}
-	
-	run_to_run_map(runs, size, init_solution_table);
 	run_to_run_map(runs, size, parse);
+	run_to_run_map(runs, size, init_solution_table);
+	print_debug_run(runs, size);
 }
