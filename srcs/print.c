@@ -78,7 +78,7 @@ void	print_debug_map(t_run run)
 	while (run.map[y] != NULL)
 	{
 		printf("	%s\n", run.map[y]);
-		++y
+		++y;
 	}
 }
 
@@ -86,7 +86,7 @@ void	print_debug_solution(t_run run)
 {
 	int	x;
 	int y;
-	printf("solution\n")
+	printf("solution\n");
 	printf("	table\n");
 	y = 0;
 	while (y < run.rules.size.height)
@@ -122,15 +122,15 @@ void	print_debug_run(t_run *runs, int size)
 	while (i < size)
 	{
 		printf("DEBUG RUN %d\n", i);
-		print_debug_content(run[i]);
+		print_debug_content(runs[i]);
 		printf("\n--------\n");
-		print_debug_rules(run[i]);
+		print_debug_rules(runs[i]);
 		printf("\n--------\n");
-		print_debug_map(run[i]);
+		print_debug_map(runs[i]);
 		printf("\n--------\n");
-		print_debug_solution(run[i]);
+		print_debug_solution(runs[i]);
 		printf("\n--------\n");
-		print_debug_status(run[i]);
+		print_debug_status(runs[i]);
 		printf("\n================================\n");
 	}
 }
