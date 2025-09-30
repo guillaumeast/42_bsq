@@ -30,9 +30,15 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 		read_bytes_count = read(content->fd, read_buffer, BUFFER_SIZE);
 		printf("Read %d bytes from files\n", read_bytes_count);
 		if (read_bytes_count == -1)
+		{
+			printf("Free and leave\n");
 			return (ft_free_str(&(content->content)));
+		}
 		else if (read_bytes_count == 0)
+		{
+			printf("Leave because end of file\n");
 			return ;
+		}
 		if (content->size == 0)
 		{
 			content->size = (BUFFER_SIZE + 1);
@@ -49,11 +55,16 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 			content->content = malloc(sizeof(char) * content->size);
 			printf("New allocation content returned pointer %p\n", content->content);
 		}
+		printf("copy\n");
 		ft_strncpy(content->content, temp, content->byte_count);
+		printf("cat\n");
 		ft_strncat(content->content, read_buffer, read_bytes_count);
+		printf("free temp\n");
 		ft_free_str(&temp);
+		printf("update byte count\n");
 		content->byte_count += read_bytes_count;
 	}
+	printf("ENDED\n");
 }
 
 void	ft_read_stdin(const t_filepath _, t_read_content *content)

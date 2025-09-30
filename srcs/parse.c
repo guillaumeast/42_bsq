@@ -14,6 +14,7 @@
 
 char	check_rules(char *str)
 {
+	printf("check_rules |%s|\n", str);
 	int	i;
 	int	j;
 	int	len;
@@ -43,21 +44,33 @@ char	check_rules(char *str)
 
 t_run	*get_rules(char *str, t_run *run)
 {
+	printf("In get rules\n");
+
 	t_rules	rules;
 	char	*height_str;
 
+	print_debug_status(*run);
 	if (!check_rules(str))
+	{
+		printf("checked rules failed\n");
 		return (clean_run(run));
+	}
+	print_debug_status(*run);
 	height_str = ft_strndup(str, ft_strlen(str) - 3);
+	print_debug_status(*run);
 	if (!height_str)
 		return (clean_run(run));
+	print_debug_status(*run);
 	rules.size.height = atoi(height_str);
 	ft_free_str(&height_str);
+	print_debug_status(*run);
 	if (rules.size.height == 0)
 		return (clean_run(run));
+	print_debug_status(*run);
 	rules.empty = str[ft_strlen(str) - 3];
 	rules.obstacle = str[ft_strlen(str) - 2];
 	rules.filled = str[ft_strlen(str) - 1];
+	print_debug_status(*run);
 	set_rules(run, rules);
 	return (run);
 }
@@ -112,12 +125,19 @@ t_run	*parse(t_run *run)
 {
 	char	**lines;
 
+	print_debug_status(*run);
 	if (run->status == ERROR)
 		return (run);
+	print_debug_status(*run);
+	printf("printf split\n");
 	lines = ft_split(run->content, "\n");
+	print_board_1(lines);
+	print_debug_status(*run);
 	if (!lines)
 		return (clean_run(run));
 	run = get_rules(lines[0], run);
+	// this one is set to ERROR
+	print_debug_status(*run);
 	if (run->status == ERROR)
 	{
 		ft_free_str_list(&lines, -1);
@@ -128,6 +148,7 @@ t_run	*parse(t_run *run)
 		ft_free_str_list(&lines, -1);
 		return (clean_run(run));
 	}
+	print_debug_status(*run);
 	create_map(run, lines);
 	return (run);
 }

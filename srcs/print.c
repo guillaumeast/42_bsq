@@ -37,6 +37,8 @@ t_run	*print_board(t_run *run)
 	int				y;
 	t_boundary_box	box;
 
+	if (run->status == ERROR)
+        return (run);
 	set_boundaries(run, &box);
 	y = 0;
 	while (run->map[y] != NULL)
@@ -87,6 +89,18 @@ void	print_debug_map(t_run run)
 			printf("	%s\n", run.map[y]);
 			++y;
 		}
+	}
+}
+
+void	print_board_1(char **board)
+{
+	int y;
+
+	y = 0;
+	while (board[y] != NULL)
+	{
+		printf("	%s\n", board[y]);
+		++y;
 	}
 }
 

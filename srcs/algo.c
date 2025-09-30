@@ -37,6 +37,8 @@ t_run   *resolve(t_run *run)
     int x;
     int y;
 
+    if (run->status == ERROR)
+        return (run);
     y = 0;
     while (run->map[y])
     {
