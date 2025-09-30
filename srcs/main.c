@@ -147,7 +147,7 @@ t_run	*init_map(t_run *run_addr)
 t_run   *clean_map(t_run *run_addr)
 {
     if (run_addr->map != NULL)
-        ft_free_str_arr(&(run_addr->map));
+        ft_free_str_list(&(run_addr->map), -1);
     return (run_addr);
 }
 t_run	*set_map(t_run *run_addr, t_board_c map)
@@ -183,7 +183,7 @@ t_run	*clean_run(t_run *run_addr)
     return (run_addr);
 }	
 
-t_run	from_file_to_run(t_filepath *path)
+t_run	from_file_to_run(t_filepath path)
 {
 	return (init_run(ft_read_file(path)));	 
 }
@@ -194,7 +194,10 @@ t_run	*from_files_to_runs(t_filepath *paths, int size)
 
 t_run	*from_stdin_to_run()
 {
-	return (file_to_run_map("", 1, from_file_to_run));
+	char *_;
+
+	_ = "";
+	return (file_to_run_map(&_, 1, from_file_to_run));
 }
 
 int	main(int argc, char **argv)
@@ -205,7 +208,7 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 	{
 		size = 1;
-		runs = from_stdin_to_runs();
+		runs = from_stdin_to_run();
 	}
 	else
 	{

@@ -42,7 +42,7 @@ t_run   *clean_map(t_run *run_addr);
 t_run   *set_map(t_run *run_addr, t_board_c map);
 t_run   init_run(t_file_content content);
 t_run   *clean_run(t_run *run_addr);
-t_run   from_file_to_run(t_filepath *path);
+t_run	from_file_to_run(t_filepath path);
 t_run   *from_files_to_runs(t_filepath *paths, int size);
 t_run   *from_stdin_to_run();
 

@@ -105,7 +105,6 @@ t_run	*create_map(t_run *run, char **lines)
 t_run	*parse(t_run *run)
 {
 	char	**lines;
-	t_rules	rules;
 
 	if (run->status == ERROR)
 		return (run);
@@ -118,7 +117,7 @@ t_run	*parse(t_run *run)
 		ft_free_str_list(&lines, -1);
 		return (run);
 	}
-	if (!check_board(lines + 1, &run))
+	if (!check_board(lines + 1, run))
 	{
 		ft_free_str_list(&lines, -1);
 		return (clean_run(run));

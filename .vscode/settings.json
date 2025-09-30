@@ -5,6 +5,8 @@
         "utils.h": "c",
         "bsq.h": "c",
         "print.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "read.h": "c",
+        "types.h": "c"
     }
 }

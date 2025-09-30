@@ -22,11 +22,14 @@ t_boundary_box *set_boundaries(t_run *run, t_boundary_box *box)
 	box->x_max = run->solution.last_best.x;
 	box->y_min = run->solution.last_best.y - run->solution.last_best.value;
 	box->y_max = run->solution.last_best.y;
+	return (box);
 }
 
 char	is_in_bound(int x, int y, t_boundary_box box)
 {
-	if (x >= box.x_min && x <= box.x_max && y >= box.y_min && y <= box.y_max);
+	if (x >= box.x_min && x <= box.x_max && y >= box.y_min && y <= box.y_max)
+		return (1);
+	return (0);
 }
 
 void	print_board(t_run *run)
@@ -43,9 +46,9 @@ void	print_board(t_run *run)
 		while (run->map[y][x] != '\0')
 		{
 			if (is_in_bound(x, y, box))
-				write(1, &run->rules.filled, 1);
+				write(1, &(run->rules.filled), 1);
 			else
-				write(1, run->map[y][x],1);
+				write(1, &(run->map[y][x]),1);
 			x++;
 		}
 		y++;
@@ -70,7 +73,6 @@ void	print_debug_rules(t_run run)
 
 void	print_debug_map(t_run run)
 {
-	int	x;
 	int	y;
 
 	printf("map\n");
@@ -91,6 +93,7 @@ void	print_debug_solution(t_run run)
 	y = 0;
 	while (y < run.rules.size.height)
 	{
+		x = 0;
 		printf("		");
 		while (x < run.rules.size.width)
 		{
