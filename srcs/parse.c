@@ -12,7 +12,7 @@
 
 #include "../includes/bsq.h"
 
-t_run	*make_error(t_run *run)
+t_run	*on_parse_fail(t_run *run)
 {
 	ft_free_str(run->content);
 	run->content = NULL;
@@ -60,20 +60,20 @@ t_run	*get_rules(char *str, t_run *run)
 
 	if (!check_rules(str))
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	height_str = ft_strndup(str, ft_strlen(str) - 3);
 	if (!height_str)
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	run->rules.height = atoi(height_str);
 	ft_free_str(&height_str);
 	if (run->rules.height == 0)
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	run->rules.empty = str[ft_strlen(str) - 3];
@@ -136,7 +136,7 @@ t_run	*parse(t_run *run)
 	lines = ft_split(run->content, "\n");
 	if (!lines)
 	{
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	run = get_rules(lines[0], run);
@@ -148,7 +148,7 @@ t_run	*parse(t_run *run)
 	if (!check_board(lines + 1, &run))
 	{
 		ft_free_str_list(&lines, -1);
-		make_error(run);
+		on_parse_fail(run);
 		return (run);
 	}
 	create_map(run, lines);
