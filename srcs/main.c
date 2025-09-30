@@ -6,7 +6,7 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 14:29:02 by adouieb          ###   ########.fr       */
+/*   Updated: 2025/09/30 14:42:29 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ t_run	*from_stdin_to_run()
 }
 
 // TEST
-int	main(void)
+/*int	main(void)
 {
 	t_file_content content;
 
@@ -207,10 +207,10 @@ int	main(void)
 	printf("END OF CONTENT");
 	ft_free_str(&content);
 	return (0);
-}
+}*/
 // END TEST
 
-/*
+
 int	main(int argc, char **argv)
 {
 	t_run	*runs;
@@ -221,4 +221,3 @@ int	main(int argc, char **argv)
 		runs = from_files_to_runs(argv + 1, argc - 1);
 	
 }
-*/
