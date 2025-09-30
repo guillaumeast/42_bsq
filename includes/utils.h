@@ -20,7 +20,7 @@
 char	is_whitespace(char c);
 int		ft_atoi(char *str);
 
-void	ft_free_str(char **str_addr);
+void    ft_free_str(char **str_addr);
 void	ft_free_str_list(char ***str_arr_addr, int n);
 void	ft_free_int_list(int ***str_arr_addr, int n);
 
@@ -33,8 +33,6 @@ char	is_in_charset(char c, char *charset);
 int		word_count(char *str, char *charset);
 void	ft_multistrdup(char **result, char* str, char *charset);
 char	**ft_split(char *str, char *charset);
-
-char	*ft_strcpycat(char *prev, char *new, int size);
 
 int		ft_strlen(char *str);
 

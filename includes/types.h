@@ -11,6 +11,15 @@ typedef int**	t_board_i;
 typedef int*	t_board_i_row;
 typedef int		t_board_i_cell;
 
+typedef struct read_content
+{
+	t_file_content	content;
+	int				fd;
+	int				size;
+	int				byte_count;
+}	t_read_content;
+
+
 typedef struct boundary_box
 {
 	int	x_min;

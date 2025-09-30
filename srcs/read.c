@@ -12,59 +12,65 @@
 
 #include "../includes/bsq.h"
 
-t_file_content	ft_read_file(const t_filepath pathname)
+void	ft_read_file(const t_filepath p, t_read_content *content)
 {
-	t_file_content	content;
-	int				file_descriptor;
-	int				read_bytes_c;
-	char			buffer[BUFFER_SIZE];
+	int				read_bytes_count;
+	char			read_buffer[BUFFER_SIZE];
+	t_file_content	*temp;
 
-	(1 && (content = NULL), (read_bytes_c = -1));
-	file_descriptor = open(pathname, O_RDONLY);
-	if (file_descriptor == -1)
-		return (NULL);
-	while (read_bytes_c != 0)
+	(1 && (read_bytes_count = -1), (temp = NULL));
+	content->fd = open(p, O_RDONLY);
+	if (content->fd == -1)
+		return ;
+	while (read_bytes_count != 0)
 	{
-		read_bytes_c = read(file_descriptor, buffer, BUFFER_SIZE);
-		if (read_bytes_c == -1 && content != NULL)
+		read_bytes_count = read(content->fd, read_buffer, BUFFER_SIZE);
+		if (read_bytes_count == -1)
+			return (ft_free_str(&(content->content)));
+		if (content->size == 0)
 		{
-			ft_free_str(&content);
-			return (NULL);
+			content->size = (BUFFER_SIZE + 1);
+			content->content = malloc(sizeof(char) * content->size);
 		}
-		else if (read_bytes_c != 0)
+		else if (content->byte_count + read_bytes_count >= content->size)
 		{
-			content = ft_strcpycat(content, buffer, read_bytes_c);
-			if (content == NULL)
-				return (NULL);
+			content->size *= 2;
+			temp = content->content;
+			content->content = malloc(sizeof(char) * content->size);
 		}
+		ft_strncpy(content->content, temp, content->byte_count);
+		ft_strncat(content->content, read_buffer, read_bytes_count);
+		ft_free_str(&temp);
+		content->byte_count += read_bytes_count;
 	}
-	return (content);
 }
 
-t_file_content	ft_read_stdin(const t_filepath _)
+void	ft_read_stdin(const t_filepath _, t_read_content *content)
 {
-	t_file_content  content;
-	int				read_bytes_c;
-    char            buffer[BUFFER_SIZE];
+	int				read_bytes_count;
+	char			read_buffer[BUFFER_SIZE];
+	t_file_content	*temp;
 
-	content = NULL;
-	read_bytes_c = -1;
-	if (_[0] != '\0')
-		return (NULL);
-	while (read_bytes_c != 0)
+	(1 && (read_bytes_count = -1), (temp = NULL));
+	while (read_bytes_count != 0)
 	{
-		read_bytes_c = read(STDIN_FILENO, buffer, BUFFER_SIZE);
-        if (read_bytes_c == -1 && content != NULL)
-        {
-            ft_free_str(&content);
-            return (NULL);
-        }
-        else if (read_bytes_c != 0)
-        {
-            content = ft_strcpycat(content, buffer, read_bytes_c);
-            if (content == NULL)
-                return (NULL);
-        }
+		read_bytes_count = read(STDIN_FILENO, read_buffer, BUFFER_SIZE);
+		if (read_bytes_count == -1)
+			return (ft_free_str(&(content->content)));
+		if (content->size == 0)
+		{
+			content->size = (BUFFER_SIZE + 1);
+			content->content = malloc(sizeof(char) * content->size);
+		}
+		else if (content->byte_count + read_bytes_count >= content->size)
+		{
+			content->size *= 2;
+			temp = content->content;
+			content->content = malloc(sizeof(char) * content->size);
+		}
+		ft_strncpy(content->content, temp, content->byte_count);
+		ft_strncat(content->content, read_buffer, read_bytes_count);
+		ft_free_str(&temp);
+		content->byte_count += read_bytes_count;
 	}
-	return (content);
 }

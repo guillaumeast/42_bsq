@@ -20,7 +20,7 @@
 
 # define BUFFER_SIZE 1024
 
-t_file_content	ft_read_file(const t_filepath	pathname);
-t_file_content	ft_read_stdin();
+void	ft_read_file(const t_filepath p, t_read_content *content);
+void	ft_read_stdin(const t_filepath _, t_read_content *content);
 
 #endif

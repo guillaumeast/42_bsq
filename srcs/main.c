@@ -186,7 +186,14 @@ t_run	*clean_run(t_run *run_addr)
 
 t_run	from_file_to_run(t_filepath path)
 {
-	return (init_run(ft_read_file(path)));	 
+	t_read_content	content;
+
+	content.content = NULL;
+	content.fd = 0;
+	content.size = 0;
+	content.byte_count = 0;
+	ft_read_file(path, &content);
+	return (init_run(content.content));	 
 }
 t_run	*from_files_to_runs(t_filepath *paths, int size)
 {
@@ -195,7 +202,14 @@ t_run	*from_files_to_runs(t_filepath *paths, int size)
 
 t_run	from_stdin_to_run(t_filepath path)
 {
-	return (init_run(ft_read_stdin(path)));	 
+	t_read_content	content;
+
+	content.content = NULL;
+	content.fd = 0;
+	content.size = 0;
+	content.byte_count = 0;
+	ft_read_stdin(path, &content);
+	return (init_run(content.content));	 
 }
 t_run	*from_stdin_to_runs()
 {
