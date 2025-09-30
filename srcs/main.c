@@ -106,13 +106,13 @@ t_run   *init_solution_table(t_run *run_addr)
 	if (run_addr->solution.table == NULL)
 		return (clean_run(run_addr));
 	y = 0;
-	while (y < run_addr->rules.height)
+	while (y < run_addr->rules.size.height)
 	{
 		run_addr->solution.table[y] = malloc(sizeof(t_board_i_cell) * width);
 		if (run_addr->solution.table[y] == NULL)
 			return (clean_run(run_addr));
 		x = 0;
-		while (x < run_addr->rules.width)
+		while (x < run_addr->rules.size.width)
 			run_addr->solution.table[y][x++] = 0;
 		++y;
     }
@@ -183,7 +183,7 @@ t_run	*clean_run(t_run *run_addr)
 
 t_run	from_file_to_run(t_filepath *path)
 {
-	return (init_run(ft_read_file(path));	 
+	return (init_run(ft_read_file(path)));	 
 }
 t_run	*from_files_to_runs(t_filepath *paths, int size)
 {
@@ -192,7 +192,7 @@ t_run	*from_files_to_runs(t_filepath *paths, int size)
 
 t_run	*from_stdin_to_run()
 {
-	return (file_to_run_map("", 1, from_file_to_run);
+	return (file_to_run_map("", 1, from_file_to_run));
 }
 
 // TEST
