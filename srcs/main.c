@@ -97,20 +97,24 @@ t_run   *init_solution_table(t_run *run_addr)
 {
 	int	x;
     int	y;
+	int width;
+	int	height;
 
+	width = run_addr->rules.size.width;
+	height = run_addr->rules.size.height;
 	if (run_addr->status == ERROR)
 		return (run_addr);
 	run_addr->solution.table = malloc(sizeof(t_board_i_row) * (height + 1));
 	if (run_addr->solution.table == NULL)
 		return (clean_run(run_addr));
 	y = 0;
-	while (y < run_addr->rules.size.height)
+	while (y < height)
 	{
 		run_addr->solution.table[y] = malloc(sizeof(t_board_i_cell) * width);
 		if (run_addr->solution.table[y] == NULL)
 			return (clean_run(run_addr));
 		x = 0;
-		while (x < run_addr->rules.size.width)
+		while (x < width)
 			run_addr->solution.table[y][x++] = 0;
 		++y;
     }
@@ -120,7 +124,7 @@ t_run   *init_solution_table(t_run *run_addr)
 
 t_run	*init_file_content(t_run *run_addr)
 {
-	run_addr->file_content = NULL;
+	run_addr->content = NULL;
 	return (run_addr);
 }
 t_run	*clean_file_content(t_run *run_addr)
@@ -131,7 +135,7 @@ t_run	*clean_file_content(t_run *run_addr)
 }
 t_run	*set_file_content(t_run *run_addr, t_file_content content)
 {
-	run_addr->file_content = content;
+	run_addr->content = content;
 	return (run_addr);
 }
 
@@ -152,7 +156,7 @@ t_run	*set_map(t_run *run_addr, t_board_c map)
     return (run_addr);
 }
 
-t_run	init_run(t_filepath path, t_file_content content)
+t_run	init_run(t_file_content content)
 {
 	t_run	instance;
 
@@ -171,11 +175,11 @@ t_run	init_run(t_filepath path, t_file_content content)
 }
 t_run	*clean_run(t_run *run_addr)
 {
-	clean_file_content(&instance);
-	clean_rules(&instance);
-	clean_map(&instance);
-	clean_solution(&instance);
-	run_adrr->status = ERROR;
+	clean_file_content(run_addr);
+	clean_rules(run_addr);
+	clean_map(run_addr);
+	clean_solution(run_addr);
+	run_addr->status = ERROR;
     return (run_addr);
 }	
 
