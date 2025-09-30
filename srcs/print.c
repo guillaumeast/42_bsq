@@ -75,11 +75,16 @@ void	print_debug_map(t_run run)
 	int	y;
 
 	printf("map\n");
-	y = 0;
-	while (run.map[y] != NULL)
+	if (run.map == NULL)
+		printf("%p\n", run.map);
+	else
 	{
-		printf("	%s\n", run.map[y]);
-		++y;
+		y = 0;
+		while (run.map[y] != NULL)
+		{
+			printf("	%s\n", run.map[y]);
+			++y;
+		}
 	}
 }
 
