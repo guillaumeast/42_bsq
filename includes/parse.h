@@ -15,4 +15,6 @@
 
 #include <stdlib.h>
 
+t_run	*parse(t_run *run);
+
 #endif

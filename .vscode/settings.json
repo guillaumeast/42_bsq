@@ -4,6 +4,7 @@
         "stat.h": "c",
         "utils.h": "c",
         "bsq.h": "c",
-        "print.h": "c"
+        "print.h": "c",
+        "stdlib.h": "c"
     }
 }
