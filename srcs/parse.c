@@ -82,7 +82,7 @@ t_run	*get_rules(char *str, t_run *run)
 	return (run);
 }
 
-char	check_board(char **board, t_run *run)
+char	check_board(t_board_c board, t_run *run)
 {
 	int		i;
 	int		j;
@@ -155,6 +155,8 @@ t_run	*parse(t_run *run)
 	ft_free_str_list(&lines, -1);
 	return (run);
 }
+
+/*
 #include <stdio.h>
 // ccc srcs/parse.c srcs/utils/free.c srcs/utils/strlen.c srcs/utils/split.c srcs/utils/strndup.c
 int	main(void)
@@ -176,3 +178,4 @@ int	main(void)
 	}
 	return (0);
 }
+*/

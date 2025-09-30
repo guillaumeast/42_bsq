@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "bsq.h"
+#include "../includes/bsq.h"
 
 t_rules	init_rules()
 {
@@ -65,7 +65,7 @@ t_solution	init_solution()
 t_run	*clean_solution(t_run *run_addr)
 {
 	if (run_addr->solution.table != NULL)
-		ft_free_str_arr(&(run_addr->solution.table), -1);
+		ft_free_int_list(&(run_addr->solution.table), -1);
     return (run_addr);
 }
 
@@ -77,17 +77,17 @@ t_run   *init_solution_table(t_run *run_addr)
 
 	if (run_addr->status == ERROR)
 		return (run_addr);
-	table = malloc(sizeof(t_board_i_row) * (height + 1));
+	table = malloc(sizeof(t_board_i_row) * (run_addr->rules.height + 1));
 	if (table == NULL)
 		return (on_solution_table_failed(run_addr, NULL));
 	y = 0;
-	while (y < run->rules.height)
+	while (y < run_addr->rules.height)
 	{
-		table[y] = malloc(sizeof(t_board_i_cell) * width);
+		table[y] = malloc(sizeof(t_board_i_cell) * run_addr->rules.width);
 		if (table[y] == NULL)
 			return (on_solution_table_failed(run_addr, &table));
 		x = 0;
-		while (x < run->rules.width)
+		while (x < run_addr->rules.width)
 			table[y][x++] = 0;
 		++y;
     }
@@ -95,8 +95,6 @@ t_run   *init_solution_table(t_run *run_addr)
     run_addr->solution.table = table;
     return (run_addr);
 }
-
-
 
 t_run	init_run(t_filepath path)
 {
@@ -122,31 +120,41 @@ t_run	init_run(t_filepath path)
 
 t_run	*from_files_to_runs(t_filepath *paths, int size)
 {
-	return (file_to_run_map(paths, size, from_file_to_run);
+	return (file_to_run_map(paths, size, init_run));
 }
 
 t_run	*from_stdin_to_runs()
 {
-	t_filepath	_[1];
+	t_filepath	_;
 
-	_ = '\0';
-	return (file_to_run_map(paths, 1, from_file_to_run);
+	_ = "";
+	return (file_to_run_map(&_, 1, init_run));
 }
 
-t_run	*clean_rules(t_run *run_addr)
+t_run	*on_solution_table_failed(t_run *run_addr, t_board_i *table)
 {
-	run_addr->rules.width = 0;
-	run_addr->rules.height = 0;
-	run_addr->rules.empty = '\0';
-	run_addr->rules.obstacle = '\0';
-	run_addr->rules.filled = '\0';
+	// Tmp (pour debloquer le compilateur)
+	(void)run_addr;
+	(void)table;
+	return (run_addr);
 }
 
-t_run	*on_solution_table_failed(t_run *run_addr, t_board *table)
+// TEST
+int	main(void)
 {
-	
-}
+	t_file_content content;
 
+	content = ft_read_stdin("");
+	printf("--------");
+	printf("CONTENT:");
+	printf("%s\n", content);
+	printf("END OF CONTENT");
+	ft_free_str(&content);
+	return (0);
+}
+// END TEST
+
+/*
 int	main(int argc, char **argv)
 {
 	t_run	*runs;
@@ -156,3 +164,4 @@ int	main(int argc, char **argv)
 	else
 		runs = from_files_to_runs(argv + 1, argc - 1);
 }
+*/
