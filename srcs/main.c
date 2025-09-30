@@ -212,10 +212,14 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
+		printf("create runs from files\n");
 		size = argc - 1;
 		runs = from_files_to_runs(argv + 1, size);
 	}
+	printf("parse files contents\n");
 	run_to_run_map(runs, size, parse);
+	printf("create solution tables\n");
 	run_to_run_map(runs, size, init_solution_table);
+	printf("print debug\n");
 	print_debug_run(runs, size);
 }
