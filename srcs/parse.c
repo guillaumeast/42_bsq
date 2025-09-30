@@ -15,30 +15,28 @@
 
 char	check_rules(char *str)
 {
-	printf("in check rules for |%s|\n", str);
-
 	int	i;
 	int	j;
+	int	len;
 
-	if (ft_strlen(str) < 4)
+	len = ft_strlen(str);
+	if (len < 4)
 		return (0);
-	printf("is bigger than size 4\n");
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] < 32 || str[i] > 126)
 			return (0);
-		j = 1;
-		printf("checked non printable on index %d\n", i);
-		// Check only last 3 chars doublons
-		while (str[i + j])
+		if (i >= len - 3) // Check doublons only for last 3 chars
 		{
-			printf("check duplicate between %d and %d\n", i, i + j);
-			if (str[i] == str[i + j])
-				return (0);
-			j++;
+			j = 1;
+			while (str[i + j])
+			{
+				if (str[i] == str[i + j])
+					return (0);
+				j++;
+			}
 		}
-		printf("found no duplicate for %d\n", i);
 		i++;
 	}
 	return (1);
@@ -46,8 +44,6 @@ char	check_rules(char *str)
 
 t_run	*get_rules(char *str, t_run *run)
 {
-	printf("get rules\n");
-
 	t_rules	rules;
 	char	*height_str;
 
@@ -69,8 +65,6 @@ t_run	*get_rules(char *str, t_run *run)
 
 char	check_board(t_board_c board, t_run *run)
 {
-	printf("check board\n");
-
 	int		i;
 	int		j;
 	char	charset[3];
@@ -100,7 +94,6 @@ char	check_board(t_board_c board, t_run *run)
 
 t_run	*create_map(t_run *run, char **lines)
 {
-	printf("create map\n");
 	int	i;
 
 	free(lines[0]);
@@ -117,8 +110,6 @@ t_run	*create_map(t_run *run, char **lines)
 
 t_run	*parse(t_run *run)
 {
-	printf("parse\n");
-
 	char	**lines;
 
 	if (run->status == ERROR)
