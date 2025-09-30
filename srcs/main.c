@@ -158,8 +158,6 @@ t_run	*set_map(t_run *run_addr, t_board_c map)
 
 t_run	init_run(t_file_content content)
 {
-	printf("init run with content = %s\n", content);
-
 	t_run	instance;
 
 	init_file_content(&instance);
@@ -168,12 +166,10 @@ t_run	init_run(t_file_content content)
 	init_solution(&instance);
 	if (content == NULL)
 	{
-		printf("set status to error\n");
 		instance.status = ERROR;
 	}
 	else
 	{
-		printf("set status to valid\n");
 		instance.content = content;
 		instance.status = VALID;
 	}
@@ -191,7 +187,6 @@ t_run	*clean_run(t_run *run_addr)
 
 t_run	from_file_to_run(t_filepath path)
 {
-	printf("from_file_to_run\n");
 	return (init_run(ft_read_file(path)));	 
 }
 t_run	*from_files_to_runs(t_filepath *paths, int size)
@@ -223,14 +218,10 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("create runs from files\n");
 		size = argc - 1;
 		runs = from_files_to_runs(argv + 1, size);
 	}
-	printf("parse files contents\n");
 	run_to_run_map(runs, size, parse);
-	printf("create solution tables\n");
 	run_to_run_map(runs, size, init_solution_table);
-	printf("print debug\n");
 	print_debug_run(runs, size);
 }
