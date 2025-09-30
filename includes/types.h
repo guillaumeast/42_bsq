@@ -11,6 +11,14 @@ typedef int**	t_board_i;
 typedef int*	t_board_i_row;
 typedef int		t_board_i_cell;
 
+typedef struct boundary_box
+{
+	int	x_min;
+	int	x_max;
+	int	y_min;
+	int	y_max;
+}	t_boundary_box;
+
 typedef struct size
 {
 	int	width;

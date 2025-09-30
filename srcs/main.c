@@ -212,4 +212,5 @@ int	main(int argc, char **argv)
 	}
 	
 	run_to_run_map(runs, size, init_solution_table);
+	run_to_run_map(runs, size, parse);
 }
