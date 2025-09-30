@@ -195,29 +195,21 @@ t_run	*from_stdin_to_run()
 	return (file_to_run_map("", 1, from_file_to_run));
 }
 
-// TEST
-/*int	main(void)
-{
-	t_file_content content;
-
-	content = ft_read_stdin("");
-	printf("--------");
-	printf("CONTENT:");
-	printf("%s\n", content);
-	printf("END OF CONTENT");
-	ft_free_str(&content);
-	return (0);
-}*/
-// END TEST
-
-
 int	main(int argc, char **argv)
 {
 	t_run	*runs;
+	int		size;
 
 	if (argc == 1)
+	{
+		size = 1;
 		runs = from_stdin_to_runs();
+	}
 	else
-		runs = from_files_to_runs(argv + 1, argc - 1);
+	{
+		size = argc - 1;
+		runs = from_files_to_runs(argv + 1, size);
+	}
 	
+	run_to_run_map(runs, size, init_solution_table);
 }

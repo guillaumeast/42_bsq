@@ -13,6 +13,7 @@
 #include "print.h"
 #include "utils.h"
 #include "parse.h"
+#include "types.h"
 
 void	print_board(t_board_c board)
 {
@@ -26,5 +27,17 @@ void	print_board(t_board_c board)
 		ft_putstr(board[y]);
 		ft_putstr("\n");
 		++y;
+	}
+}
+
+void	print_debug_run(t_run *runs, int size)
+{
+	int	i;
+
+	i = 0;
+	while ()
+	{
+
+
 	}
 }
