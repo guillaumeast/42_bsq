@@ -12,12 +12,6 @@
 
 #include "utils.h"
 
-void	ft_free_rules(t_rules **rules)
-{
-	free(*rules);
-	*rules = NULL;
-}
-
 void	ft_free_str(char **str_addr)
 {
     free(*str_addr);
@@ -31,7 +25,7 @@ void	ft_free_str_list(char ***str_arr_addr, int n)
 	i = 0;
 	while ((n != -1 && i < n) || (n == -1 && (*str_arr_addr)[i] != NULL))
 	{
-		free((*str_arr__addr)[i]);
+		free((*str_arr_addr)[i]);
 		(*str_arr_addr)[i] = NULL;
 		++i;
 	}

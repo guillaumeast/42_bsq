@@ -19,7 +19,6 @@
 char	is_whitespace(char c);
 int		ft_atoi(char *str);
 
-void	ft_free_rules(t_rules **rules);
 void	ft_free_str(char **str_addr);
 void	ft_free_str_list(char ***str_arr_addr, int n);
 

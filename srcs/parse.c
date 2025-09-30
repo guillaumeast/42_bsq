@@ -6,11 +6,29 @@
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:31:30 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 00:06:44 by gastesan         ###   ########.fr       */
+/*   Updated: 2025/09/30 00:29:57 by gastesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parse.h"
+#include "includes/bsq.h"
+
+t_run	make_error(t_run run)
+{
+	ft_free_str(&run.content);
+	run.content = NULL;
+	run.rules.heigth = 0;
+	run.rules.width = 0;
+	run.rules.empty = '\0';
+	run.rules.obstacle = '\0';
+	run.rules.filled = '\0';
+	if (run.map)
+	{
+		ft_free_str_list(&run.map, -1);
+		run.map = NULL;
+	}
+	run.status = ERROR;
+}
 
 char	check_rules(char *str)
 {
@@ -36,58 +54,51 @@ char	check_rules(char *str)
 	return (1);
 }
 
-// Caller must free t_rules
 t_run	get_rules(char *str, t_run run)
 {
-	int		size;
-	char	*number;
+	char	*heigth_str;
 
 	if (!check_rules)
 	{
-		// free + null + error
-		return (0);
+		make_error(run);
+		return (run);
 	}
-	size = ft_strlen(str);
-	number = strndup(str, size - 3);
-	if (!number)
+	heigth_str = strndup(str, ft_strlen(str) - 3);
+	if (!heigth_str)
 	{
-		// free + null + error
-		ft_free_rules(&rules);
-		return (0);
+		make_error(run);
+		return (run);
 	}
-	rules->size = atoi(number);
-	if (rules->size == 0)
+	run.rules.heigth = atoi(heigth_str);
+	ft_free_str(&heigth_str);
+	if (run.rules.heigth == 0)
 	{
-		ft_free_str(&number);
-		return (0);
+		make_error(run);
+		return (run);
 	}
-	ft_free_str(&number);
-	rules->empty = str[size - 3];
-	rules->obstacle = str[size - 2];
-	rules->filled = str[size - 1];
-	return (1);
+	run.rules.empty = str[ft_strlen(str) - 3];
+	run.rules.obstacle = str[ft_strlen(str) - 2];
+	run.rules.filled = str[ft_strlen(str) - 1];
+	return (run);
 }
 
-char	check_board(char **board, t_rules rules)
+char	check_board(char **board, t_run *run)
 {
 	int		i;
-	int		len;
+	int		j;
 	char	*charset;
 	
-	// Au moins une ligne d'au moins une case
 	if (!board[0] || !board[0][0])
-		return (0)
+		return (0);
 	i = 0;
-	len = ft_strlen(board[0]);
-	charset[0] = rules.empty;
-	charset[1] = rules.obstacle;
+	run->rules.width = ft_strlen(board[0]);
+	charset[0] = run->rules.empty;
+	charset[1] = run->rules.obstacle;
 	charset[2] = '\0';
 	while(board[i])
 	{
-		// Toutes les lignes ont la meme taille
-		if (ft_strlen(board[i] != len))
+		if (ft_strlen(board[i] != run->rules.width))
 			return (0);
-		// Contient uniquement les caracteres du charset
 		j = 0;
 		while (board[i][j])
 		{
@@ -98,28 +109,68 @@ char	check_board(char **board, t_rules rules)
 	}
 }
 
+t_run	create_map(t_run run, char **lines)
+{
+	int	i;
+
+	free(lines[0]);
+	i = 1;
+	while (lines[i])
+	{
+		lines[i - 1] = lines[i];
+		i++;
+	}
+	lines[i - 1] = NULL;
+	run.map = lines;
+	return (run);
+}
+
 t_run	parse(t_run run)
 {
 	char	**lines;
 
-	lines = ft_split(input, "\n");
+	if (run.status == ERROR)
+		return (run);
+	lines = ft_split(run.content, "\n");
 	if (!lines)
 	{
-		// Set run to NULL/ERR
+		make_error(run);
 		return (run);
 	}
-	if (!get_rules(lines[0], rune->&rules))
+	run = get_rules(lines[0], run);
+	if (run.status == ERROR)
 	{
-		ft_free_str_list(&lines, -1)
-		// Set run to NULL/ERR
+		ft_free_str_list(&lines, -1);
 		return (run);
 	}
-	if (!check_board(lines + 1))
+	if (!check_board(lines + 1, &run))
 	{
-		// Set run to NULL/ERR
+		ft_free_str_list(&lines, -1);
+		make_error(run);
 		return (run);
 	}
-	// check each line validity
-	// create board (copy pointers)
-	// return 0 + struct NULL if fail || 1 + struct if success
+	create_map(run, lines);
+	ft_free_str_list(&lines, -1);
+	return (run);
+}
+#include <stdio.h>
+
+int	main(void)
+{
+	t_run 	run;
+	int		i;
+
+	run.content = "3.ox\n.....\n..o..\nooooo";
+	run = parse(run);
+	printf("Content = %s\n", run.content);
+	printf("Heigth = %d | width = %d | empty = %c | obstacle = %c | filled = %c\n", run.rules.heigth, run.rules.width, run.rules.empty, run.rules.obstacle, run.rules.filled);
+	printf("Status = %s\n", run.status);
+	printf("Map:\n");
+	i = 0;
+	while (run.map[i])
+	{
+		printf("%s\n", run.map[i]);
+		i++;
+	}
+	return (0);
 }
