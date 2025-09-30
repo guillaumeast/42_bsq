@@ -16,8 +16,8 @@ t_run	*on_parse_fail(t_run *run)
 {
 	ft_free_str(run->content);
 	run->content = NULL;
-	run->rules.height = 0;
-	run->rules.width = 0;
+	run->rules.size.height = 0;
+	run->rules.size.width = 0;
 	run->rules.empty = '\0';
 	run->rules.obstacle = '\0';
 	run->rules.filled = '\0';
@@ -69,9 +69,9 @@ t_run	*get_rules(char *str, t_run *run)
 		on_parse_fail(run);
 		return (run);
 	}
-	run->rules.height = atoi(height_str);
+	run->rules.size.height = atoi(height_str);
 	ft_free_str(&height_str);
-	if (run->rules.height == 0)
+	if (run->rules.size.height == 0)
 	{
 		on_parse_fail(run);
 		return (run);
@@ -91,13 +91,13 @@ char	check_board(t_board_c board, t_run *run)
 	if (!board[0] || !board[0][0])
 		return (0);
 	i = 0;
-	run->rules.width = ft_strlen(board[0]);
+	run->rules.size.width = ft_strlen(board[0]);
 	charset[0] = run->rules.empty;
 	charset[1] = run->rules.obstacle;
 	charset[2] = '\0';
 	while(board[i])
 	{
-		if (ft_strlen(board[i]) != run->rules.width)
+		if (ft_strlen(board[i]) != run->rules.size.width)
 			return (0);
 		j = 0;
 		while (board[i][j])
@@ -106,7 +106,7 @@ char	check_board(t_board_c board, t_run *run)
 				return (0);
 		}	
 	}
-	if (i + 1 != run->rules.height)
+	if (i + 1 != run->rules.size.height)
 		return (0);
 	return (1);
 }
@@ -155,27 +155,3 @@ t_run	*parse(t_run *run)
 	ft_free_str_list(&lines, -1);
 	return (run);
 }
-
-/*
-#include <stdio.h>
-// ccc srcs/parse.c srcs/utils/free.c srcs/utils/strlen.c srcs/utils/split.c srcs/utils/strndup.c
-int	main(void)
-{
-	t_run 	*run;
-	int		i;
-
-	run->content = "3.ox\n.....\n..o..\nooooo";
-	run = parse(&run);
-	printf("Content = %s\n", run->content);
-	printf("height = %d | width = %d | empty = %c | obstacle = %c | filled = %c\n", run->rules.height, run->rules.width, run->rules.empty, run->rules.obstacle, run->rules.filled);
-	printf("Status = %u\n", run->status);
-	printf("Map:\n");
-	i = 0;
-	while (run->map[i])
-	{
-		printf("%s\n", run->map[i]);
-		i++;
-	}
-	return (0);
-}
-*/
