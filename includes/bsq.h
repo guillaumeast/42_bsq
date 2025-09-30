@@ -13,6 +13,7 @@
 #ifndef BSQ_H
 # define BSQ_H
 
+#include <stdio.h>
 #include "types.h"
 #include "parse.h"
 #include "algo.h"
