@@ -158,6 +158,8 @@ t_run	*set_map(t_run *run_addr, t_board_c map)
 
 t_run	init_run(t_file_content content)
 {
+	printf("init run with content = %s\n", content);
+
 	t_run	instance;
 
 	init_file_content(&instance);
@@ -165,9 +167,13 @@ t_run	init_run(t_file_content content)
 	init_map(&instance);
 	init_solution(&instance);
 	if (content == NULL)
+	{
+		printf("set status to error\n");
 		instance.status = ERROR;
+	}
 	else
 	{
+		printf("set status to valid\n");
 		instance.content = content;
 		instance.status = VALID;
 	}
