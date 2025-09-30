@@ -12,8 +12,6 @@
 
 #include "../includes/bsq.h"
 
-#include <stdio.h>
-
 t_file_content	ft_read_file(const t_filepath pathname)
 {
 	t_file_content	content;

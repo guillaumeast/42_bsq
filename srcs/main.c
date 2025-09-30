@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/bsq.h"
 
 t_run	*init_size(t_run *run_addr)

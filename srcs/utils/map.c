@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/bsq.h"
-#include <stdio.h>
 
 t_run   *file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath))
 {

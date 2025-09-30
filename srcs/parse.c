@@ -11,26 +11,30 @@
 /* ************************************************************************** */
 
 #include "../includes/bsq.h"
-#include <stdio.h>
 
 char	check_rules(char *str)
 {
 	int	i;
 	int	j;
+	int	len;
 
-	if (ft_strlen(str) < 4)
+	len = ft_strlen(str);
+	if (len < 4)
 		return (0);
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] < 32 || str[i] > 126)
 			return (0);
-		j = 1;
-		while (str[i + j])
+		if (i >= len - 3) // Check doublons only for last 3 chars
 		{
-			if (str[i] == str[i + j])
-				return (0);
-			j++;
+			j = 1;
+			while (str[i + j])
+			{
+				if (str[i] == str[i + j])
+					return (0);
+				j++;
+			}
 		}
 		i++;
 	}
@@ -80,9 +84,10 @@ char	check_board(t_board_c board, t_run *run)
 		{
 			if (!is_in_charset(board[i][j++], charset))
 				return (0);
-		}	
+		}
+		i++;
 	}
-	if (i + 1 != run->rules.size.height)
+	if (i != run->rules.size.height)
 		return (0);
 	return (1);
 }
