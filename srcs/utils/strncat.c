@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bsq.h"
+#include "bsq.h"
 
 char	*ft_strncat(char *dest, char *src, int size)
 {

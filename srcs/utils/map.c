@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bsq.h"
+#include "bsq.h"
 
-t_run   *file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath))
+t_run	*file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath))
 {
-	t_run   *runs;
+	t_run	*runs;
 	int		i;
 
 	i = 0;
@@ -39,5 +39,3 @@ t_run	*run_to_run_map(t_run *instance, int size, t_run *(*act)(t_run *))
 	}
 	return (instance);
 }
-
-

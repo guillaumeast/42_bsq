@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bsq.h"
+#include "bsq.h"
 
 void	ft_free_str(char **str_addr)
 {
-    free(*str_addr);
-    *str_addr = NULL;
+	free(*str_addr);
+	*str_addr = NULL;
 }
 
 void	ft_free_str_list(char ***str_arr_addr, int n)

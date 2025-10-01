@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bsq.h"
+#include "bsq.h"
 
 char	is_in_charset(char c, char *charset)
 {
@@ -59,10 +59,10 @@ void	ft_multistrdup(char **result, char* str, char *charset)
 	i = 0;
 	result_i = 0;
 	in_word = 0;
-    while (result != NULL && str[i] != '\0')
-    {
-        if (is_in_charset(str[i], charset) == 0 && in_word == 0)
-        {
+	while (result != NULL && str[i] != '\0')
+	{
+		if (is_in_charset(str[i], charset) == 0 && in_word == 0)
+		{
 			start = i;
 			while (is_in_charset(str[i], charset) == 0 && str[i] != '\0')
 				++i;
@@ -70,11 +70,11 @@ void	ft_multistrdup(char **result, char* str, char *charset)
 			if (result[result_i] == NULL)
 				ft_free_str_list(&result, result_i);
 			++result_i;
-        }
-        else if (is_in_charset(str[i], charset) == 1 && in_word == 1)
-            in_word = 0;
-        ++i;
-    }
+		}
+		else if (is_in_charset(str[i], charset) == 1 && in_word == 1)
+			in_word = 0;
+		++i;
+	}
 	result[result_i] = NULL;
 }
 
@@ -87,7 +87,6 @@ char	**ft_split(char *str, char *charset)
 	i = 0;
 	word_c = word_count(str, charset);
 	result = malloc(sizeof(char *) * (word_c + 1));
-	//printf("word_count %d\n", word_c);
 	if (result == NULL)
 		return (NULL);
 	ft_multistrdup(result, str, charset);

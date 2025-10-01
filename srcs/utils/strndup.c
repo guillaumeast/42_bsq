@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bsq.h"
+#include "bsq.h"
 
 char	*ft_strndup(char *str, int size)
 {
