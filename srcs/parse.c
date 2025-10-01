@@ -111,6 +111,7 @@ t_run	*parse(t_run *run)
 
 	if (run->status == ERROR)
 		return (run);
+	// Check run->content[last] == '\n'
 	lines = ft_split(run->content, "\n");
 	if (!lines)
 		return (clean_run(run));
