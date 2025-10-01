@@ -87,7 +87,7 @@ char	**ft_split(char *str, char *charset)
 	i = 0;
 	word_c = word_count(str, charset);
 	result = malloc(sizeof(char *) * (word_c + 1));
-	printf("word_count %d\n", word_c);
+	//printf("word_count %d\n", word_c);
 	if (result == NULL)
 		return (NULL);
 	ft_multistrdup(result, str, charset);
