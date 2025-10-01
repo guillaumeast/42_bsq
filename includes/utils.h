@@ -16,6 +16,8 @@
 int		ft_atoi(char *str);
 char	is_whitespace(char c);
 
+void	ft_fill_buffer(char *buffer, int size);
+
 void	ft_free_str(char **str_addr);
 void	ft_close(int file_descriptor);
 void	ft_free_int_list(int ***str_arr_addr, int n);
