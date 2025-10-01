@@ -28,6 +28,15 @@ char	is_in_bound(int x, int y, t_boundary_box box)
 	return (0);
 }
 
+t_run	*print_result(t_run *run)
+{
+	if (run->status == ERROR)
+		write(1, "map error\n", 10);
+	else
+		print_board(run);
+	return (run);
+}
+
 t_run	*print_board(t_run *run)
 {
 	int				x;
