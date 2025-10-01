@@ -19,9 +19,6 @@ char	*ft_strncat(char *dest, char *src, int size)
 
 	i = 0;
 	dest_len = ft_strlen(dest);
-	printf("size = %d\n", size);
-	printf("dest_len = %d\n", dest_len);
-	printf("src[i] = %c\n", src[i]);
 	while (src[i] != '\0' && i < size)
 	{
 		dest[dest_len + i] = src[i];
