@@ -13,14 +13,10 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <stdlib.h>
-#include <unistd.h>
-#include "types.h"
-
 char	is_whitespace(char c);
 int		ft_atoi(char *str);
 
-void    ft_free_str(char **str_addr);
+void	ft_free_str(char **str_addr);
 void	ft_free_str_list(char ***str_arr_addr, int n);
 void	ft_free_int_list(int ***str_arr_addr, int n);
 
@@ -31,7 +27,7 @@ void	ft_putstr(char *str);
 
 char	is_in_charset(char c, char *charset);
 int		word_count(char *str, char *charset);
-void	ft_multistrdup(char **result, char* str, char *charset);
+void	ft_multistrdup(char **result, char *str, char *charset);
 char	**ft_split(char *str, char *charset);
 
 int		ft_strlen(char *str);
