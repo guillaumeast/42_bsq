@@ -22,12 +22,6 @@ t_run   *clean_size(t_run *run_addr)
 {
 	return (init_size(run_addr));
 }
-t_run	*set_size(t_run *run_addr, t_size size)
-{
-	run_addr->rules.size.width = size.width;
-	run_addr->rules.size.height = size.height;
-	return (run_addr);
-}
 
 t_run	*init_rules(t_run *run_addr)
 {
@@ -41,14 +35,6 @@ t_run	*clean_rules(t_run *run_addr)
 {
 	return (init_rules(run_addr));
 }
-t_run	*set_rules(t_run *run_addr, t_rules rules)
-{
-    set_size(run_addr, rules.size);
-    run_addr->rules.empty = rules.empty;
-    run_addr->rules.obstacle = rules.obstacle;
-    run_addr->rules.filled = rules.filled;
-    return (run_addr);
-}
 
 t_run	*init_cell(t_run *run_addr)
 {
@@ -60,13 +46,6 @@ t_run	*init_cell(t_run *run_addr)
 t_run	*clean_cell(t_run *run_addr)
 {
 	return (init_cell(run_addr));
-}
-t_run	*set_cell(t_run *run_addr, t_cell cell)
-{
-    run_addr->solution.last_best.x = cell.x;
-    run_addr->solution.last_best.y = cell.y;
-    run_addr->solution.last_best.value = cell.value;
-    return (run_addr);
 }
 
 t_run	*init_solution(t_run *run_addr)
@@ -82,16 +61,7 @@ t_run	*clean_solution(t_run *run_addr)
 	clean_cell(run_addr);
     return (run_addr);
 }
-t_run	*set_last_best(t_run *run_addr, t_cell cell)
-{
-	return (set_cell(run_addr, cell));
-}
-t_run	*set_solution_table(t_run *run_addr, t_cell cell)
-{
-	if (run_addr->solution.table != NULL)
-		run_addr->solution.table[cell.y][cell.x] = cell.value;
-	return (run_addr);
-}
+
 t_run   *init_solution_table(t_run *run_addr)
 {
 	int	x;
@@ -120,69 +90,6 @@ t_run   *init_solution_table(t_run *run_addr)
 	run_addr->solution.table[y] = NULL;
     return (run_addr);
 }
-
-t_run	*init_file_content(t_run *run_addr)
-{
-	run_addr->content = NULL;
-	return (run_addr);
-}
-t_run	*clean_file_content(t_run *run_addr)
-{
-	if (run_addr->content != NULL)
-		ft_free_str(&(run_addr->content));
-	return (run_addr);
-}
-t_run	*set_file_content(t_run *run_addr, t_file_content content)
-{
-	run_addr->content = content;
-	return (run_addr);
-}
-
-t_run	*init_map(t_run *run_addr)
-{
-    run_addr->map = NULL;
-    return (run_addr);
-}
-t_run   *clean_map(t_run *run_addr)
-{
-    if (run_addr->map != NULL)
-        ft_free_str_list(&(run_addr->map), -1);
-    return (run_addr);
-}
-t_run	*set_map(t_run *run_addr, t_board_c map)
-{
-    run_addr->map = map;
-    return (run_addr);
-}
-
-t_run	init_run(t_file_content content)
-{
-	t_run	instance;
-
-	init_file_content(&instance);
-	init_rules(&instance);
-	init_map(&instance);
-	init_solution(&instance);
-	if (content == NULL)
-	{
-		instance.status = ERROR;
-	}
-	else
-	{
-		instance.content = content;
-		instance.status = VALID;
-	}
-	return (instance);
-}
-t_run	*clean_run(t_run *run_addr)
-{
-	clean_file_content(run_addr);
-	clean_rules(run_addr);
-	clean_map(run_addr);
-	clean_solution(run_addr);
-	run_addr->status = ERROR;
-    return (run_addr);
-}	
 
 t_run	from_file_to_run(t_filepath path)
 {
@@ -236,8 +143,6 @@ int	main(int argc, char **argv)
 	}
 	run_to_run_map(runs, size, parse);
 	run_to_run_map(runs, size, init_solution_table);
-	//print_debug_run(runs, size);
 	run_to_run_map(runs, size, resolve);
-	//print_debug_run(runs, size);
 	run_to_run_map(runs, size, print_board);
 }

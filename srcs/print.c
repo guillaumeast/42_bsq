@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
-#include "utils.h"
-#include "parse.h"
-#include "types.h"
+#include "bsq.h"
 
-t_boundary_box *set_boundaries(t_run *run, t_boundary_box *box)
+t_boundary_box	*set_boundaries(t_run *run, t_boundary_box *box)
 {
 	box->x_min = run->solution.last_best.x - run->solution.last_best.value + 1;
 	box->x_max = run->solution.last_best.x;
@@ -38,7 +35,7 @@ t_run	*print_board(t_run *run)
 	t_boundary_box	box;
 
 	if (run->status == ERROR)
-        return (run);
+		return (run);
 	set_boundaries(run, &box);
 	y = 0;
 	while (run->map[y] != NULL)
@@ -49,7 +46,7 @@ t_run	*print_board(t_run *run)
 			if (is_in_bound(x, y, box))
 				write(1, &(run->rules.filled), 1);
 			else
-				write(1, &(run->map[y][x]),1);
+				write(1, &(run->map[y][x]), 1);
 			x++;
 		}
 		write(1, "\n", 1);
@@ -62,7 +59,6 @@ void	print_debug_content(t_run run)
 {
 	printf("content = \n%s\n", run.content);
 }
-
 void	print_debug_rules(t_run run)
 {
 	printf("rules\n");
@@ -73,7 +69,6 @@ void	print_debug_rules(t_run run)
 	printf("	obstacle = %c\n", run.rules.obstacle);
 	printf("	filled = %c\n", run.rules.filled);
 }
-
 void	print_debug_map(t_run run)
 {
 	int	y;
@@ -91,7 +86,6 @@ void	print_debug_map(t_run run)
 		}
 	}
 }
-
 void	print_board_1(char **board)
 {
 	int y;
@@ -103,7 +97,6 @@ void	print_board_1(char **board)
 		++y;
 	}
 }
-
 void	print_debug_solution(t_run run)
 {
 	int	x;
@@ -128,7 +121,6 @@ void	print_debug_solution(t_run run)
 	printf("		y = %d\n", run.solution.last_best.y);
 	printf("		value = %d\n", run.solution.last_best.value);
 }
-
 void	print_debug_status(t_run run)
 {
 	if (run.status == ERROR)
@@ -136,7 +128,6 @@ void	print_debug_status(t_run run)
 	else
 		printf("status = VALID\n");
 }
-
 void	print_debug_run(t_run *runs, int size)
 {
 	int	i;

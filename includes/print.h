@@ -15,14 +15,8 @@
 
 #include "bsq.h"
 
-t_run	*print_board(t_run *run);
-void	print_debug_content(t_run run);
-void	print_debug_rules(t_run run);
-void	print_debug_map(t_run run);
-void	print_debug_solution(t_run run);
-void	print_debug_status(t_run run);
-void	print_debug_run(t_run *runs, int size);
-
-void	print_board_1(char **board);
+t_boundary_box	*set_boundaries(t_run *run, t_boundary_box *box);
+char			is_in_bound(int x, int y, t_boundary_box box);
+t_run			*print_board(t_run *run);
 
 #endif

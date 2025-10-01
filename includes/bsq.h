@@ -16,11 +16,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "types.h"
-#include "parse.h"
 #include "algo.h"
+#include "parse.h"
 #include "print.h"
 #include "read.h"
+#include "types.h"
 #include "utils.h"
 
 # define BUFFER_SIZE 1024
