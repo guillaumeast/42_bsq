@@ -1,5 +1,6 @@
 bsq
 a.out
+tests/
 .vscode/
 result.txt
 results.txt
