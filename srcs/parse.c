@@ -93,7 +93,7 @@ char	check_board(t_board_c board, t_run *run)
 			if (!is_in_charset(board[i][j++], charset))
 			{
 				j--;
-				printf("---> |X| Wrong char (%c vs %d)\n", board[i][j], run->rules.size.width);
+				printf("---> |X| Wrong char (%c vs %s)\n", board[i][j], charset);
 				j++;
 				return (0);
 			}
@@ -127,10 +127,13 @@ t_run	*parse(t_run *run)
 
 	if (run->status == ERROR)
 		return (run);
-	// Check run->content[last] == '\n'
-	lines = ft_split(run->content, "\n");
-	if (!lines)
+	printf("|=> Start parsing\n");
+	if (run->content[ft_strlen(run->content) - 1] != '\n')
 		return (clean_run(run));
+	lines = ft_split(run->content, "\n");
+	if (!lines || !lines[0] || !lines[1])
+		return (clean_run(run));
+	printf("|=> Start parsing\n");
 	run = get_rules(lines[0], run);
 	if (run->status == ERROR)
 	{
