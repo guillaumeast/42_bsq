@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/bsq.h"
+#include "bsq.h"
 
 void	first_read(t_read_content *content, char *buffer, int read_count)
 {
