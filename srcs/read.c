@@ -25,7 +25,7 @@ void	first_read(t_read_content *content, char *buffer, int read_count)
 {
 	content->size = (BUFFER_SIZE + 1);
 	content->content = malloc(sizeof(char) * content->size);
-	ft_strncpy(content->content, NULL, content->byte_count);
+	ft_strncpy(content->content, NULL, content->byte_c);
 	ft_strncat(content->content, buffer, read_count);
 }
 
@@ -36,7 +36,7 @@ void	read_realloc(t_read_content *content, char *buffer, int read_count)
 	content->size *= 2;
 	temp = content->content;
 	content->content = malloc(sizeof(char) * content->size);
-	ft_strncpy(content->content, temp, content->byte_count);
+	ft_strncpy(content->content, temp, content->byte_c);
 	ft_strncat(content->content, buffer, read_count);
 	ft_free_str(&temp);
 }
@@ -46,9 +46,8 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 	int		read_bytes_count;
 	char	read_buffer[BUFFER_SIZE];
 
+	(1 & (read_bytes_count = -1), (content->fd = open(p, O_RDONLY)));
 	ft_fill_buffer(read_buffer, BUFFER_SIZE);
-	read_bytes_count = -1;
-	content->fd = open(p, O_RDONLY);
 	if (content->fd == -1)
 		return ;
 	while (read_bytes_count != 0)
@@ -79,8 +78,6 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 	(1 && (read_bytes_count = -1), (temp = NULL));
 	while (read_bytes_count != 0)
 	{
-		if (content->byte_count >= TIMEOUT)
-			exit(1);
 		read_bytes_count = read(STDIN_FILENO, read_buffer, BUFFER_SIZE);
 		if (read_bytes_count == -1)
 			return (ft_free_str(&(content->content)));
@@ -93,5 +90,7 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 		else
 			ft_strncat(content->content, read_buffer, read_bytes_count);
 		content->byte_count += read_bytes_count;
+		if (content->byte_count >= TIMEOUT || !is_valid(content, read_buffer))
+			exit(1);
 	}
 }
