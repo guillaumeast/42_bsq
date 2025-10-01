@@ -12,6 +12,15 @@
 
 #include "bsq.h"
 
+void	ft_fill_buffer(char *buffer, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+		buffer[i++] = 0;
+}
+
 void	first_read(t_read_content *content, char *buffer, int read_count)
 {
 	content->size = (BUFFER_SIZE + 1);
@@ -32,19 +41,12 @@ void	read_realloc(t_read_content *content, char *buffer, int read_count)
 	ft_free_str(&temp);
 }
 
-void	ft_fill_buffer(char *buffer)
-{
-	int i = 0;
-	while (i < BUFFER_SIZE)
-		buffer[i++] = '\0';
-}
-
 void	ft_read_file(const t_filepath p, t_read_content *content)
 {
 	int		read_bytes_count;
 	char	read_buffer[BUFFER_SIZE];
 
-	ft_fill_buffer(read_buffer);
+	ft_fill_buffer(read_buffer, BUFFER_SIZE);
 	read_bytes_count = -1;
 	content->fd = open(p, O_RDONLY);
 	if (content->fd == -1)
@@ -73,7 +75,7 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 	t_file_content	temp;
 
 	(void)_;
-	ft_fill_buffer(read_buffer);
+	ft_fill_buffer(read_buffer, BUFFER_SIZE);
 	(1 && (read_bytes_count = -1), (temp = NULL));
 	while (read_bytes_count != 0)
 	{
