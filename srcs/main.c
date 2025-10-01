@@ -49,8 +49,6 @@ t_run	*from_stdin_to_runs(void)
 	return (file_to_run_map(&_, 1, from_stdin_to_run));
 }
 
-// valgrind --leak-check=full --track-origins=yes ./a.out tests/invalid/charset_atoi_all_minus tests/invalid/charset_atoi_all_plus tests/invalid/charset_atoi_break tests/invalid/charset_atoi_minus tests/invalid/charset_atoi_plus tests/invalid/charset_atoi_spaces tests/invalid/charset_dup tests/invalid/charset_miss tests/invalid/charset_non_printable tests/invalid/diff_len_empty tests/invalid/diff_len_min tests/invalid/diff_len_plus tests/invalid/map_charset_out tests/invalid/map_charset_wrong tests/invalid/map_empty tests/invalid/map_empty_lines tests/invalid/map_empty_lines_w_rules tests/invalid/map_empty_w_rules tests/invalid/map_no_new_line tests/invalid/wrong_len_max tests/invalid/wrong_len_min
-
 int	main(int argc, char **argv)
 {
 	t_run	*runs;
