@@ -68,4 +68,8 @@ int	main(int argc, char **argv)
 	run_to_run_map(runs, size, init_solution_table);
 	run_to_run_map(runs, size, resolve);
 	run_to_run_map(runs, size, print_board);
+	run_to_run_map(runs, size, clean_run);
+	free(runs);
+	runs = NULL;
+	return (0);
 }

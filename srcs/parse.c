@@ -47,6 +47,7 @@ t_run	*get_rules(char *str, t_run *run)
 
 	if (!check_rules(str))
 		return (clean_run(run));
+	len = ft_strlen(str);
 	height_str = ft_strndup(str, len - RULES_CHARSET_LEN);
 	if (!height_str)
 		return (clean_run(run));
