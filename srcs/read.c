@@ -17,6 +17,7 @@ void	first_read(t_read_content *content, char *buffer, int read_count)
 	content->size = (BUFFER_SIZE + 1);
 	content->content = malloc(sizeof(char) * content->size);
 	ft_strncpy(content->content, NULL, content->byte_count);
+	printf("size = %d\n", read_count);
 	ft_strncat(content->content, buffer, read_count);
 }
 
@@ -37,6 +38,9 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 	int		read_bytes_count;
 	char	read_buffer[BUFFER_SIZE];
 
+	int i = 0;
+	while (i < BUFFER_SIZE)
+		read_buffer[i++] = '\0';
 	read_bytes_count = -1;
 	content->fd = open(p, O_RDONLY);
 	if (content->fd == -1)
@@ -44,6 +48,7 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 	while (read_bytes_count != 0)
 	{
 		read_bytes_count = read(content->fd, read_buffer, BUFFER_SIZE);
+		printf("size = %d\n", read_bytes_count);
 		if (read_bytes_count == -1)
 			return (ft_free_str(&(content->content)));
 		else if (read_bytes_count == 0)

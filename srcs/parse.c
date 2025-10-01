@@ -48,7 +48,14 @@ t_run	*get_rules(char *str, t_run *run)
 	if (!check_rules(str))
 		return (clean_run(run));
 	len = ft_strlen(str);
+	printf("str = %s\n", str);
+	printf("len = %d\n", len);
+	printf("macro = %d\n", RULES_CHARSET_LEN);
 	height_str = ft_strndup(str, len - RULES_CHARSET_LEN);
+	printf("str = %s\n", str);
+	printf("len = %d\n", len);
+	printf("macro = %d\n", RULES_CHARSET_LEN);
+	printf("height_str = %s\n", height_str);
 	if (!height_str)
 		return (clean_run(run));
 	run->rules.size.height = atoi(height_str);
@@ -56,8 +63,8 @@ t_run	*get_rules(char *str, t_run *run)
 	if (run->rules.size.height == 0)
 		return (clean_run(run));
 	run->rules.empty = str[len - RULES_CHARSET_LEN];
-	run->rules.obstacle = str[len - (RULES_CHARSET_LEN + 1)];
-	run->rules.filled = str[len - (RULES_CHARSET_LEN + 2)];
+	run->rules.obstacle = str[len - (RULES_CHARSET_LEN - 1)];
+	run->rules.filled = str[len - (RULES_CHARSET_LEN - 2)];
 	return (run);
 }
 
