@@ -12,6 +12,17 @@
 
 #include "bsq.h"
 
+void	ft_close(int file_descriptor)
+{
+	close(file_descriptor);
+}
+
+void	ft_free_and_close(int file_descriptor, t_read_content *content)
+{
+	ft_free_str(&(content->content));
+	close(file_descriptor);
+}
+
 void	ft_free_str(char **str_addr)
 {
 	free(*str_addr);

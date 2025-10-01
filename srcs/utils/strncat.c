@@ -19,7 +19,7 @@ char	*ft_strncat(char *dest, char *src, int size)
 
 	i = 0;
 	dest_len = ft_strlen(dest);
-	while (src[i] != '\0' && i < size)
+	while (i < size)
 	{
 		dest[dest_len + i] = src[i];
 		++i;
