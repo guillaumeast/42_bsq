@@ -57,7 +57,7 @@ t_run	*print_board(t_run *run)
 	}
 	return (run);
 }
-
+/*
 void	print_debug_content(t_run run)
 {
 	printf("content = \n%s\n", run.content);
@@ -162,4 +162,4 @@ void	print_debug_run(t_run *runs, int size)
 			printf("ERROR\n");
 		++i;
 	}
-}
+}*/

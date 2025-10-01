@@ -15,12 +15,15 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include "types.h"
 #include "parse.h"
 #include "algo.h"
 #include "print.h"
 #include "read.h"
 #include "utils.h"
+
+# define BUFFER_SIZE 1024
 
 t_run   *init_size(t_run *run_addr);
 t_run   *clean_size(t_run *run_addr);

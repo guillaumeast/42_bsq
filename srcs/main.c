@@ -172,7 +172,6 @@ t_run	init_run(t_file_content content)
 		instance.content = content;
 		instance.status = VALID;
 	}
-	printf("end init run\n");
 	return (instance);
 }
 t_run	*clean_run(t_run *run_addr)
@@ -235,15 +234,10 @@ int	main(int argc, char **argv)
 		size = argc - 1;
 		runs = from_files_to_runs(argv + 1, size);
 	}
-	printf("before parse\n");
 	run_to_run_map(runs, size, parse);
-	printf("before init solution\n");
 	run_to_run_map(runs, size, init_solution_table);
-	print_debug_run(runs, size);
-	printf("before start run\n");
+	//print_debug_run(runs, size);
 	run_to_run_map(runs, size, resolve);
-	printf("before debug run\n");
-	print_debug_run(runs, size);
-	printf("before print board\n");
+	//print_debug_run(runs, size);
 	run_to_run_map(runs, size, print_board);
 }
