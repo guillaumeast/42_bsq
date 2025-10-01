@@ -12,13 +12,27 @@
 
 #include "bsq.h"
 
-void	ft_fill_buffer(char *buffer, int size)
+char	is_valid(t_read_content *content)
 {
-	int	i;
+	int		i;
+	char	*str;
+	char	is_valid;
 
 	i = 0;
-	while (i < size)
-		buffer[i++] = 0;
+	str = NULL;
+	is_valid = 1;
+	while (i < content->byte_count)
+	{
+		if (content->content[i] == '\n')
+		{
+			str = ft_strndup(content->content, i);
+			is_valid = check_rules(str);
+			ft_free_str(&str);
+			return (is_valid);
+		}
+		++i;
+	}
+	return (is_valid);
 }
 
 void	first_read(t_read_content *content, char *buffer, int read_count)
@@ -46,18 +60,18 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 	int		read_bytes_count;
 	char	read_buffer[BUFFER_SIZE];
 
-	ft_fill_buffer(read_buffer, BUFFER_SIZE);
 	read_bytes_count = -1;
 	content->fd = open(p, O_RDONLY);
+	ft_fill_buffer(read_buffer, BUFFER_SIZE);
 	if (content->fd == -1)
-		return ;
+		return (ft_close(content->fd));
 	while (read_bytes_count != 0)
 	{
 		read_bytes_count = read(content->fd, read_buffer, BUFFER_SIZE);
 		if (read_bytes_count == -1)
-			return (ft_free_str(&(content->content)));
+			return (ft_free_and_close(content->fd, content));
 		else if (read_bytes_count == 0)
-			return ;
+			return (ft_close(content->fd));
 		if (content->size == 0)
 			first_read(content, read_buffer, read_bytes_count);
 		else if (content->byte_count + read_bytes_count >= content->size)
@@ -66,6 +80,7 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 			ft_strncat(content->content, read_buffer, read_bytes_count);
 		content->byte_count += read_bytes_count;
 	}
+	ft_close(content->fd);
 }
 
 void	ft_read_stdin(const t_filepath _, t_read_content *content)
@@ -79,8 +94,6 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 	(1 && (read_bytes_count = -1), (temp = NULL));
 	while (read_bytes_count != 0)
 	{
-		if (content->byte_count >= 63569920)
-			exit(1);
 		read_bytes_count = read(STDIN_FILENO, read_buffer, BUFFER_SIZE);
 		if (read_bytes_count == -1)
 			return (ft_free_str(&(content->content)));
@@ -93,5 +106,7 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 		else
 			ft_strncat(content->content, read_buffer, read_bytes_count);
 		content->byte_count += read_bytes_count;
+		if (content->byte_count >= TIMEOUT || !is_valid(content))
+			exit(1);
 	}
 }

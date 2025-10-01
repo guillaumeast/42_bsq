@@ -16,9 +16,13 @@
 int		ft_atoi(char *str);
 char	is_whitespace(char c);
 
+void	ft_fill_buffer(char *buffer, int size);
+
 void	ft_free_str(char **str_addr);
-void	ft_free_str_list(char ***str_arr_addr, int n);
+void	ft_close(int file_descriptor);
 void	ft_free_int_list(int ***str_arr_addr, int n);
+void	ft_free_str_list(char ***str_arr_addr, int n);
+void	ft_free_and_close(int file_descriptor, t_read_content *content);
 
 t_run	*run_to_run_map(t_run *instance, int size, t_run *(*act)(t_run *));
 t_run	*file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath));

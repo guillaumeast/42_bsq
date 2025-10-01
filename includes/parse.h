@@ -14,5 +14,6 @@
 # define PARSE_H
 
 t_run	*parse(t_run *run);
+char	check_rules(char *str);
 
 #endif
