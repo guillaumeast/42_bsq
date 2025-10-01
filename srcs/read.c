@@ -27,6 +27,8 @@ char	is_valid(t_read_content *content)
 		{
 			str = ft_strndup(content->content, i);
 			is_valid = check_rules(str);
+			if (is_valid == 0)
+				ft_free_str(&(content->content));
 			ft_free_str(&str);
 			return (is_valid);
 		}
