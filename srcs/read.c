@@ -79,7 +79,7 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 	(1 && (read_bytes_count = -1), (temp = NULL));
 	while (read_bytes_count != 0)
 	{
-		if (content->byte_count >= 63569920)
+		if (content->byte_count >= TIMEOUT)
 			exit(1);
 		read_bytes_count = read(STDIN_FILENO, read_buffer, BUFFER_SIZE);
 		if (read_bytes_count == -1)
