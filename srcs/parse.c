@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/bsq.h"
+#include "bsq.h"
 
 char	check_rules(char *str)
 {
@@ -27,14 +27,13 @@ char	check_rules(char *str)
 	{
 		if (str[i] < 32 || str[i] > 126)
 			return (0);
-		if (i >= len - 3) // Check doublons only for last 3 chars
+		if (i >= len - 3)
 		{
 			j = 1;
 			while (str[i + j])
 			{
-				if (str[i] == str[i + j])
+				if (str[i] == str[i + j++])
 					return (0);
-				j++;
 			}
 		}
 		i++;
@@ -48,6 +47,7 @@ t_run	*get_rules(char *str, t_run *run)
 
 	t_rules	rules;
 	char	*height_str;
+	int		len;
 
 	print_debug_status(*run);
 	if (!check_rules(str))
@@ -56,7 +56,7 @@ t_run	*get_rules(char *str, t_run *run)
 		return (clean_run(run));
 	}
 	print_debug_status(*run);
-	height_str = ft_strndup(str, ft_strlen(str) - 3);
+	height_str = ft_strndup(str, len - 3);
 	print_debug_status(*run);
 	if (!height_str)
 		return (clean_run(run));
@@ -67,9 +67,9 @@ t_run	*get_rules(char *str, t_run *run)
 	if (rules.size.height == 0)
 		return (clean_run(run));
 	print_debug_status(*run);
-	rules.empty = str[ft_strlen(str) - 3];
-	rules.obstacle = str[ft_strlen(str) - 2];
-	rules.filled = str[ft_strlen(str) - 1];
+	rules.empty = str[len - 3];
+	rules.obstacle = str[len - 2];
+	rules.filled = str[len - 1];
 	print_debug_status(*run);
 	set_rules(run, rules);
 	return (run);

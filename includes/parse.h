@@ -13,8 +13,6 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-#include <stdlib.h>
-
 t_run	*parse(t_run *run);
 
 #endif
