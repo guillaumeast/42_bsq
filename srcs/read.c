@@ -12,20 +12,34 @@
 
 #include "bsq.h"
 
-void	ft_fill_buffer(char *buffer, int size)
+char	is_valid(t_read_content *content)
 {
-	int	i;
+	int		i;
+	char	*str;
+	char	is_valid;
 
 	i = 0;
-	while (i < size)
-		buffer[i++] = 0;
+	str = NULL;
+	is_valid = 1;
+	while (i < content->byte_count)
+	{
+		if (content->content[i] == '\n')
+		{
+			str = ft_strndup(content->content, i);
+			is_valid = check_rules(str);
+			ft_free_str(&str);
+			return (is_valid);
+		}
+		++i;
+	}
+	return (is_valid);
 }
 
 void	first_read(t_read_content *content, char *buffer, int read_count)
 {
 	content->size = (BUFFER_SIZE + 1);
 	content->content = malloc(sizeof(char) * content->size);
-	ft_strncpy(content->content, NULL, content->byte_c);
+	ft_strncpy(content->content, NULL, content->byte_count);
 	ft_strncat(content->content, buffer, read_count);
 }
 
@@ -36,7 +50,7 @@ void	read_realloc(t_read_content *content, char *buffer, int read_count)
 	content->size *= 2;
 	temp = content->content;
 	content->content = malloc(sizeof(char) * content->size);
-	ft_strncpy(content->content, temp, content->byte_c);
+	ft_strncpy(content->content, temp, content->byte_count);
 	ft_strncat(content->content, buffer, read_count);
 	ft_free_str(&temp);
 }
@@ -90,7 +104,7 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 		else
 			ft_strncat(content->content, read_buffer, read_bytes_count);
 		content->byte_count += read_bytes_count;
-		if (content->byte_count >= TIMEOUT || !is_valid(content, read_buffer))
+		if (content->byte_count >= TIMEOUT || !is_valid(content))
 			exit(1);
 	}
 }

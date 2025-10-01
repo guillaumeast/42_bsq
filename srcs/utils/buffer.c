@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   buffer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 11:47:18 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 00:06:16 by adouieb          ###   ########.fr       */
+/*   Created: 2025/10/01 22:59:15 by adouieb           #+#    #+#             */
+/*   Updated: 2025/10/01 22:59:44 by adouieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#include "bsq.h"
 
-t_run	*parse(t_run *run);
-char	check_rules(char *str);
+void	ft_fill_buffer(char *buffer, int size)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (i < size)
+		buffer[i++] = 0;
+}
