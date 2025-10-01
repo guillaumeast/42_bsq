@@ -13,8 +13,6 @@
 #ifndef PRINT_H
 # define PRINT_H
 
-#include "bsq.h"
-
 t_boundary_box	*set_boundaries(t_run *run, t_boundary_box *box);
 char			is_in_bound(int x, int y, t_boundary_box box);
 t_run			*print_board(t_run *run);

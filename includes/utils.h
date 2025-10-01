@@ -13,10 +13,6 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <stdlib.h>
-#include <unistd.h>
-#include "types.h"
-
 int		ft_atoi(char *str);
 char	is_whitespace(char c);
 

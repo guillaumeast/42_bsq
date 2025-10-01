@@ -21,7 +21,7 @@ t_run	from_file_to_run(t_filepath path)
 	content.size = 0;
 	content.byte_count = 0;
 	ft_read_file(path, &content);
-	return (init_run(content.content));	 
+	return (init_run(content.content));
 }
 
 t_run	*from_files_to_runs(t_filepath *paths, int size)
@@ -38,12 +38,12 @@ t_run	from_stdin_to_run(t_filepath path)
 	content.size = 0;
 	content.byte_count = 0;
 	ft_read_stdin(path, &content);
-	return (init_run(content.content));	 
+	return (init_run(content.content));
 }
 
-t_run	*from_stdin_to_runs()
+t_run	*from_stdin_to_runs(void)
 {
-	char *_;
+	char	*_;
 
 	_ = "";
 	return (file_to_run_map(&_, 1, from_stdin_to_run));

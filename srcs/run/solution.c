@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solution.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gastesan <gastesan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/01 13:04:19 by gastesan          #+#    #+#             */
+/*   Updated: 2025/10/01 13:04:21 by gastesan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "bsq.h"
 
 t_run	*init_cell(t_run *run_addr)
@@ -32,7 +44,7 @@ t_run	*init_solution_table(t_run *run_addr)
 {
 	int	x;
 	int	y;
-	int width;
+	int	width;
 	int	height;
 
 	width = run_addr->rules.size.width;
