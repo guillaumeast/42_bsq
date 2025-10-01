@@ -13,9 +13,9 @@
 #ifndef READ_H
 # define READ_H
 
-void	first_read(t_read_content *content, char *buffer, int read_count);
-void	read_realloc(t_read_content *content, char *buffer, int read_count);
 void	ft_read_file(const t_filepath p, t_read_content *content);
 void	ft_read_stdin(const t_filepath _, t_read_content *content);
+void	first_read(t_read_content *content, char *buffer, int read_count);
+void	read_realloc(t_read_content *content, char *buffer, int read_count);
 
 #endif
