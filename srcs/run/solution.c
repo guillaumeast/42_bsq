@@ -47,10 +47,10 @@ t_run	*init_solution_table(t_run *run_addr)
 	int	width;
 	int	height;
 
-	width = run_addr->rules.size.width;
-	height = run_addr->rules.size.height;
 	if (run_addr->status == ERROR)
 		return (run_addr);
+	width = run_addr->rules.size.width;
+	height = run_addr->rules.size.height;
 	run_addr->solution.table = malloc(sizeof(t_board_i_row) * (height + 1));
 	if (run_addr->solution.table == NULL)
 		return (clean_run(run_addr));
