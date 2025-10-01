@@ -60,7 +60,8 @@ void	ft_read_file(const t_filepath p, t_read_content *content)
 	int		read_bytes_count;
 	char	read_buffer[BUFFER_SIZE];
 
-	(1 & (read_bytes_count = -1), (content->fd = open(p, O_RDONLY)));
+	read_bytes_count = -1;
+	content->fd = open(p, O_RDONLY);
 	ft_fill_buffer(read_buffer, BUFFER_SIZE);
 	if (content->fd == -1)
 		return (ft_close(content->fd));
