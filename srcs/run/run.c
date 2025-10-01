@@ -17,6 +17,7 @@ t_run	init_run(t_file_content content)
 	}
 	return (instance);
 }
+
 t_run	*clean_run(t_run *run_addr)
 {
 	clean_file_content(run_addr);

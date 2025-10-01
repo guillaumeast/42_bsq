@@ -5,6 +5,7 @@ t_run	*init_map(t_run *run_addr)
 	run_addr->map = NULL;
 	return (run_addr);
 }
+
 t_run	*clean_map(t_run *run_addr)
 {
 	if (run_addr->map != NULL)

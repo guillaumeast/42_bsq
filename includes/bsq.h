@@ -16,12 +16,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "types.h"
+# include "utils.h"
 # include "algo.h"
 # include "parse.h"
 # include "print.h"
 # include "read.h"
-# include "types.h"
-# include "utils.h"
+# include "run.h"
 
 # define BUFFER_SIZE 1024
 # define RULES_MIN_LEN 4
