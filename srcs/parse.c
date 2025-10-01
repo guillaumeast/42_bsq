@@ -19,14 +19,14 @@ char	check_rules(char *str)
 	int	len;
 
 	len = ft_strlen(str);
-	if (len < 4)
+	if (len < RULES_MIN_LEN)
 		return (0);
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] < 32 || str[i] > 126)
 			return (0);
-		if (i >= len - 3)
+		if (i >= len - RULES_CHARSET_LEN)
 		{
 			j = 1;
 			while (str[i + j])
@@ -42,23 +42,21 @@ char	check_rules(char *str)
 
 t_run	*get_rules(char *str, t_run *run)
 {
-	t_rules	rules;
 	char	*height_str;
 	int		len;
 
 	if (!check_rules(str))
 		return (clean_run(run));
-	height_str = ft_strndup(str, len - 3);
+	height_str = ft_strndup(str, len - RULES_CHARSET_LEN);
 	if (!height_str)
 		return (clean_run(run));
-	rules.size.height = atoi(height_str);
+	run->rules.size.height = atoi(height_str);
 	ft_free_str(&height_str);
-	if (rules.size.height == 0)
+	if (run->rules.size.height == 0)
 		return (clean_run(run));
-	rules.empty = str[len - 3];
-	rules.obstacle = str[len - 2];
-	rules.filled = str[len - 1];
-	set_rules(run, rules);
+	run->rules.empty = str[len - RULES_CHARSET_LEN];
+	run->rules.obstacle = str[len - (RULES_CHARSET_LEN + 1)];
+	run->rules.filled = str[len - (RULES_CHARSET_LEN + 2)];
 	return (run);
 }
 
@@ -67,7 +65,7 @@ char	check_board(t_board_c board, t_run *run)
 	int		i;
 	int		j;
 	char	charset[3];
-	
+
 	if (!board[0] || !board[0][0])
 		return (0);
 	i = 0;
@@ -75,7 +73,7 @@ char	check_board(t_board_c board, t_run *run)
 	charset[0] = run->rules.empty;
 	charset[1] = run->rules.obstacle;
 	charset[2] = '\0';
-	while(board[i])
+	while (board[i])
 	{
 		if (ft_strlen(board[i]) != run->rules.size.width)
 			return (0);
@@ -87,9 +85,7 @@ char	check_board(t_board_c board, t_run *run)
 		}
 		i++;
 	}
-	if (i != run->rules.size.height)
-		return (0);
-	return (1);
+	return (i = run->rules.size.height);
 }
 
 t_run	*create_map(t_run *run, char **lines)
@@ -118,7 +114,6 @@ t_run	*parse(t_run *run)
 	if (!lines)
 		return (clean_run(run));
 	run = get_rules(lines[0], run);
-	// this one is set to ERROR
 	if (run->status == ERROR)
 	{
 		ft_free_str_list(&lines, -1);
