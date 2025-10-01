@@ -24,6 +24,8 @@
 #include "utils.h"
 
 # define BUFFER_SIZE 1024
+# define RULES_MIN_LEN 4
+# define RULES_CHARSET_LEN 3
 
 t_run   *init_size(t_run *run_addr);
 t_run   *clean_size(t_run *run_addr);
