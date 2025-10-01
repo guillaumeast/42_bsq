@@ -64,11 +64,11 @@ int	main(int argc, char **argv)
 		size = argc - 1;
 		runs = from_files_to_runs(argv + 1, size);
 	}
-	run_to_run_map(runs, size, parse);
-	run_to_run_map(runs, size, init_solution_table);
-	run_to_run_map(runs, size, resolve);
-	run_to_run_map(runs, size, print_result);
-	run_to_run_map(runs, size, clean_run);
+	run_to_run_map(runs, size, 0, parse);
+	run_to_run_map(runs, size, 0, init_solution_table);
+	run_to_run_map(runs, size, 0, resolve);
+	run_to_run_map(runs, size, 1, print_result);
+	run_to_run_map(runs, size, 0, clean_run);
 	free(runs);
 	runs = NULL;
 	return (0);

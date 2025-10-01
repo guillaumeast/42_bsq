@@ -109,6 +109,6 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 			ft_strncat(content->content, read_buffer, read_bytes_count);
 		content->byte_count += read_bytes_count;
 		if (content->byte_count >= TIMEOUT || !is_valid(content))
-			exit(1);
+			return ;
 	}
 }

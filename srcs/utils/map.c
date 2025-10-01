@@ -27,15 +27,17 @@ t_run	*file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath))
 	return (runs);
 }
 
-t_run	*run_to_run_map(t_run *instance, int size, t_run *(*act)(t_run *))
+t_run	*run_to_run_map(t_run *inst, int size, char pr, t_run *(*act)(t_run *))
 {
 	int	i;
 
 	i = 0;
 	while (i < size)
 	{
-		act(instance + i);
+		act(inst + i);
+		if (pr == 1 && size != 1)
+			write(1, "\n", 1);
 		++i;
 	}
-	return (instance);
+	return (inst);
 }

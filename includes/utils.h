@@ -24,7 +24,7 @@ void	ft_free_int_list(int ***str_arr_addr, int n);
 void	ft_free_str_list(char ***str_arr_addr, int n);
 void	ft_free_and_close(int file_descriptor, t_read_content *content);
 
-t_run	*run_to_run_map(t_run *instance, int size, t_run *(*act)(t_run *));
+t_run	*run_to_run_map(t_run *inst, int size, char pr, t_run *(*act)(t_run *));
 t_run	*file_to_run_map(t_filepath *paths, int size, t_run (*act)(t_filepath));
 
 void	ft_putstr(char *str);
