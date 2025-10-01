@@ -16,6 +16,7 @@ t_run	from_file_to_run(t_filepath path)
 {
 	t_read_content	content;
 
+	printf("||===> %s\n", path);
 	content.content = NULL;
 	content.fd = 0;
 	content.size = 0;
