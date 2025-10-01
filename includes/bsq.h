@@ -24,7 +24,7 @@
 # include "read.h"
 # include "run.h"
 
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 8000000
 # define RULES_MIN_LEN 4
 # define RULES_CHARSET_LEN 3
 
