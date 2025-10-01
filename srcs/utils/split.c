@@ -49,7 +49,7 @@ int	word_count(char *str, char *charset)
 	return (word_count);
 }
 
-void	ft_multistrdup(char **result, char* str, char *charset)
+void	ft_multistrdup(char **result, char *str, char *charset)
 {
 	int		i;
 	int		start;

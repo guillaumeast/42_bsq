@@ -28,7 +28,7 @@ void	ft_putstr(char *str);
 char	is_in_charset(char c, char *charset);
 int		word_count(char *str, char *charset);
 char	**ft_split(char *str, char *charset);
-void	ft_multistrdup(char **result, char* str, char *charset);
+void	ft_multistrdup(char **result, char *str, char *charset);
 
 int		ft_strlen(char *str);
 
