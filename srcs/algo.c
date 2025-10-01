@@ -45,7 +45,7 @@ t_run	*resolve(t_run *run)
 		x = 0;
 		while (run->map[y][x])
 		{
-			if (x == 0 || y == 0)
+			if (run->map[y][x] != run->rules.obstacle && (x == 0 || y == 0))
 				run->solution.table[y][x] = 1;
 			else if (run->map[y][x] == run->rules.obstacle)
 				run->solution.table[y][x] = 0;

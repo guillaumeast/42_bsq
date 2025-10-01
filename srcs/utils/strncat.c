@@ -16,6 +16,7 @@ char	*ft_strncat(char *dest, char *src, int size)
 {
 	int	i;
 	int	dest_len;
+
 	i = 0;
 	dest_len = ft_strlen(dest);
 	while (src[i] != '\0' && i < size)
