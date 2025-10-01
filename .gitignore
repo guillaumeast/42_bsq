@@ -1,4 +1,6 @@
+bsq
 a.out
 .vscode/
 result.txt
+results.txt
 valgrind_cmd.sh
