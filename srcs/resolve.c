@@ -24,12 +24,11 @@ int	ft_min_3(t_run *run, int y, int x)
 	return (min);
 }
 
-t_run	*set_best(t_run *run, int y, int x)
+void	set_best(t_run *run, int y, int x)
 {
 	run->solution.last_best.x = x;
 	run->solution.last_best.y = y;
 	run->solution.last_best.value = run->solution.table[y][x];
-	return (run);
 }
 
 t_run	*resolve(t_run *run)
@@ -45,10 +44,10 @@ t_run	*resolve(t_run *run)
 		x = 0;
 		while (run->map[y][x])
 		{
-			if (run->map[y][x] != run->rules.obstacle && (x == 0 || y == 0))
-				run->solution.table[y][x] = 1;
-			else if (run->map[y][x] == run->rules.obstacle)
+			if (run->map[y][x] == run->rules.obstacle)
 				run->solution.table[y][x] = 0;
+			else if (x == 0 || y == 0)
+				run->solution.table[y][x] = 1;
 			else
 				run->solution.table[y][x] = ft_min_3(run, y, x) + 1;
 			if (run->solution.table[y][x] > run->solution.last_best.value)
