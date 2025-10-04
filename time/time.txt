@@ -1,4 +1,5 @@
 /usr/bin/time -l ./bsq tests/test_10000
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./bsq tests/test_2000
 
 ------------------------------------------------
 ---------------------->V1<----------------------
@@ -67,6 +68,8 @@
 
 ------------------------------------------------
 ---------------------->V2<----------------------
+Added run.solution.output (char **)
+------------------------------------------------
 ------------------------------------------------
 
 5,77 real         3,82 user         0,40 sys
@@ -129,3 +132,86 @@
     95921007241  instructions retired
     18231203921  cycles elapsed
     848643224  peak memory footprint
+
+------------------------------------------------
+---------------------->V3<----------------------
+Converted output from (char **) to (char *)
+------------------------------------------------
+------------------------------------------------
+
+5,79 real         3,60 user         0,39 sys
+    924368896  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        56618  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+        97675  voluntary context switches
+            50  involuntary context switches
+    94150191167  instructions retired
+    17359165806  cycles elapsed
+    845710464  peak memory footprint
+
+------------------------------------------------
+
+5,60 real         3,61 user         0,40 sys
+    924319744  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        56615  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+        97675  voluntary context switches
+            63  involuntary context switches
+    94359115289  instructions retired
+    17418508198  cycles elapsed
+    845644904  peak memory footprint
+
+------------------------------------------------
+
+5,68 real         3,60 user         0,39 sys
+    921911296  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        56468  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+        97675  voluntary context switches
+            77  involuntary context switches
+    94248409600  instructions retired
+    17346703799  cycles elapsed
+    843269272  peak memory footprint
+
+------------------------------------------------
+---------------------->V4<----------------------
+Removed initialisation of map, table and output
+------------------------------------------------
+------------------------------------------------
+
+x
+
+------------------------------------------------
+
+x
+
+------------------------------------------------
+
+x

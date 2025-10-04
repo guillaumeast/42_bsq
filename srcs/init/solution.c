@@ -39,7 +39,7 @@ t_run	*clean_solution(t_run *run_addr)
 		ft_free_int_list(&(run_addr->solution.table), -1);
 	clean_cell(run_addr);
 	if (run_addr->solution.output != NULL)
-		ft_free_str_list(&(run_addr->solution.output), -1);
+		ft_free_str(&(run_addr->solution.output));
 	return (run_addr);
 }
 
@@ -74,29 +74,24 @@ t_run	*init_solution_table(t_run *run_addr)
 
 t_run	*init_solution_output(t_run *run_addr)
 {
-	int	x;
-	int	y;
+	int	i;
 	int	width;
 	int	height;
+	int	out_len;
 
 	if (run_addr->status == ERROR)
 		return (run_addr);
 	width = run_addr->rules.size.width;
 	height = run_addr->rules.size.height;
-	run_addr->solution.output = malloc(sizeof(t_board_c_row) * (height + 1));
+	out_len = height * (width + 1) + 1;
+	run_addr->solution.output = malloc(sizeof(char) * out_len);
 	if (run_addr->solution.output == NULL)
 		return (clean_run(run_addr));
-	y = 0;
-	while (y < height)
+	i = 0;
+	while (i < width)
 	{
-		run_addr->solution.output[y] = malloc(sizeof(t_board_c_cell) * width);
-		if (run_addr->solution.output[y] == NULL)
-			return (clean_run(run_addr));
-		x = 0;
-		while (x < width)
-			run_addr->solution.output[y][x++] = '\0';
-		++y;
+		run_addr->solution.output[i] = '\0';
+		i++;
 	}
-	run_addr->solution.output[y] = NULL;
 	return (run_addr);
 }

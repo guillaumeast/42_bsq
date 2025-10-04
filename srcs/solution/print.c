@@ -31,9 +31,11 @@ void	set_output(t_run *run)
 {
 	int				x;
 	int				y;
+	int				i;
 	t_boundary_box	box;
 
 	set_boundaries(run, &box);
+	i = 0;
 	y = 0;
 	while (run->map[y] != NULL)
 	{
@@ -41,32 +43,32 @@ void	set_output(t_run *run)
 		while (run->map[y][x] != '\0')
 		{
 			if (is_in_bound(x, y, box))
-				run->solution.output[y][x] = run->rules.filled;
+				run->solution.output[i] = run->rules.filled;
 			else
-				run->solution.output[y][x] = run->map[y][x];
+				run->solution.output[i] = run->map[y][x];
 			x++;
+			i++;
 		}
-		run->solution.output[y][x] = '\0';
+		run->solution.output[i] = '\n';
+		i++;
 		y++;
 	}
+	run->solution.output[i] = '\0';
 }
 
 t_run	*print_result(t_run *run)
 {
-	int	y;
+	int	height;
+	int	width;
 
 	if (run->status == ERROR)
 		write(1, "map error\n", 10);
 	else
 	{
+		height = run->rules.size.height;
+		width = run->rules.size.width;
 		set_output(run);
-		y = 0;
-		while (run->solution.output[y] != NULL)
-		{
-			write(1, run->solution.output[y], run->rules.size.width);
-			write(1, "\n", 1);
-			y++;
-		}
+		write(1, run->solution.output, height * (width + 1) + 1);
 	}
 	return (run);
 }
