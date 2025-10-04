@@ -2,6 +2,7 @@ bsq
 a.out
 tests/
 .vscode/
+.DS_Store
 result.txt
 results.txt
 valgrind_cmd.sh

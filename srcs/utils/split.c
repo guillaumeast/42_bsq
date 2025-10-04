@@ -80,11 +80,9 @@ void	ft_multistrdup(char **result, char *str, char *charset)
 
 char	**ft_split(char *str, char *charset)
 {
-	int		i;
 	int		word_c;
 	char	**result;
 
-	i = 0;
 	word_c = word_count(str, charset);
 	result = malloc(sizeof(char *) * (word_c + 1));
 	if (result == NULL)
