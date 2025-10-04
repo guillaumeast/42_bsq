@@ -202,16 +202,67 @@ Converted output from (char **) to (char *)
 
 ------------------------------------------------
 ---------------------->V4<----------------------
-Removed initialisation of map, table and output
+Removed initialisation of table and output
 ------------------------------------------------
 ------------------------------------------------
 
-x
+5,71 real         3,40 user         0,38 sys
+    924418048  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        56621  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+        97675  voluntary context switches
+            76  involuntary context switches
+    92504543648  instructions retired
+    16339189147  cycles elapsed
+    845743208  peak memory footprint
 
 ------------------------------------------------
 
-x
+5,52 real         3,38 user         0,38 sys
+    924286976  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        56613  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+        97675  voluntary context switches
+            51  involuntary context switches
+    92503959853  instructions retired
+    16339870501  cycles elapsed
+    845612136  peak memory footprint
 
 ------------------------------------------------
 
-x
+5,56 real         3,44 user         0,39 sys
+    924336128  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        56616  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+        97675  voluntary context switches
+            328  involuntary context switches
+    92504582097  instructions retired
+    16345719539  cycles elapsed
+    845677696  peak memory footprint

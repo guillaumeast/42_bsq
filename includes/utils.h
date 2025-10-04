@@ -42,6 +42,4 @@ char	*ft_strncpy(char *dest, char *src, int size);
 
 char	*ft_strndup(char *str, int size);
 
-char	*ft_strjoin(char **strs, int size, char *sep);
-
 #endif
