@@ -37,10 +37,10 @@ void	set_output(t_run *run)
 	set_boundaries(run, &box);
 	i = 0;
 	y = 0;
-	while (run->map[y] != NULL)
+	while (y < run->rules.size.height)
 	{
 		x = 0;
-		while (run->map[y][x] != '\0')
+		while (x < run->rules.size.width)
 		{
 			if (is_in_bound(x, y, box))
 				run->solution.output[i] = run->rules.filled;
@@ -68,7 +68,7 @@ t_run	*print_result(t_run *run)
 		height = run->rules.size.height;
 		width = run->rules.size.width;
 		set_output(run);
-		write(1, run->solution.output, height * (width + 1) + 1);
+		write(1, run->solution.output, height * (width + 1));
 	}
 	return (run);
 }

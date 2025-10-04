@@ -57,6 +57,7 @@ t_run	*init_solution_table(t_run *run_addr)
 	if (run_addr->solution.table == NULL)
 		return (clean_run(run_addr));
 	y = 0;
+	run_addr->solution.table[y] = NULL;
 	while (y < height)
 	{
 		run_addr->solution.table[y] = malloc(sizeof(t_board_i_cell) * width);
@@ -64,7 +65,6 @@ t_run	*init_solution_table(t_run *run_addr)
 			return (clean_run(run_addr));
 		++y;
 	}
-	run_addr->solution.table[y] = NULL;
 	return (run_addr);
 }
 

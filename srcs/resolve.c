@@ -39,10 +39,10 @@ t_run	*resolve(t_run *run)
 	if (run->status == ERROR)
 		return (run);
 	y = 0;
-	while (run->map[y])
+	while (y < run->rules.size.height)
 	{
 		x = 0;
-		while (run->map[y][x])
+		while (x < run->rules.size.width)
 		{
 			if (run->map[y][x] == run->rules.obstacle)
 				run->solution.table[y][x] = 0;

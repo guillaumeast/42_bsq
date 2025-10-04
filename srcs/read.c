@@ -89,11 +89,10 @@ void	ft_read_stdin(const t_filepath _, t_read_content *content)
 {
 	int				read_bytes_count;
 	char			read_buffer[BUFFER_SIZE];
-	t_file_content	temp;
 
 	(void)_;
 	ft_fill_buffer(read_buffer, BUFFER_SIZE);
-	(1 && (read_bytes_count = -1), (temp = NULL));
+	read_bytes_count = -1;
 	while (read_bytes_count != 0)
 	{
 		read_bytes_count = read(STDIN_FILENO, read_buffer, BUFFER_SIZE);

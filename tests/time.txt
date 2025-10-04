@@ -203,15 +203,17 @@ Converted output from (char **) to (char *)
 ------------------------------------------------
 ---------------------->V4<----------------------
 Removed initialisation of table and output
+Used height instead of checking map[y] != NULL
+Used width instead of checking map[y][x] != '\0'
 ------------------------------------------------
 ------------------------------------------------
 
-5,59 real         3,37 user         0,38 sys
-    924368896  maximum resident set size
+5,16 real         3,26 user         0,38 sys
+    924106752  maximum resident set size
             0  average shared memory size
             0  average unshared data size
             0  average unshared stack size
-        56618  page reclaims
+        56602  page reclaims
             1  page faults
             0  swaps
             0  block input operations
@@ -220,19 +222,19 @@ Removed initialisation of table and output
             0  messages received
             0  signals received
         97675  voluntary context switches
-            48  involuntary context switches
-    91393873018  instructions retired
-    16091097295  cycles elapsed
-    845694056  peak memory footprint
+            52  involuntary context switches
+    90906660114  instructions retired
+    15859070660  cycles elapsed
+    845431912  peak memory footprint
 
 ------------------------------------------------
 
-5,40 real         3,35 user         0,39 sys
-    924319744  maximum resident set size
+5,30 real         3,29 user         0,38 sys
+    924270592  maximum resident set size
             0  average shared memory size
             0  average unshared data size
             0  average unshared stack size
-        56615  page reclaims
+        56612  page reclaims
             1  page faults
             0  swaps
             0  block input operations
@@ -241,14 +243,14 @@ Removed initialisation of table and output
             0  messages received
             0  signals received
         97675  voluntary context switches
-            253  involuntary context switches
-    91408277747  instructions retired
-    16140667381  cycles elapsed
-    845628496  peak memory footprint
+            43  involuntary context switches
+    90891314042  instructions retired
+    15847645709  cycles elapsed
+    845612160  peak memory footprint
 
 ------------------------------------------------
 
-5,48 real         3,36 user         0,37 sys
+5,30 real         3,30 user         0,38 sys
     924303360  maximum resident set size
             0  average shared memory size
             0  average unshared data size
@@ -262,7 +264,7 @@ Removed initialisation of table and output
             0  messages received
             0  signals received
         97675  voluntary context switches
-            58  involuntary context switches
-    91392435355  instructions retired
-    16091294164  cycles elapsed
+            88  involuntary context switches
+    90900834908  instructions retired
+    15850756323  cycles elapsed
     845644928  peak memory footprint
