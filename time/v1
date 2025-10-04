@@ -1,0 +1,60 @@
+36,84 real        11,14 user        25,67 sys
+    818905088  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        50181  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+            2  voluntary context switches
+            856  involuntary context switches
+532470569323  instructions retired
+150200209451  cycles elapsed
+    740181024  peak memory footprint
+
+------------------------------------------------
+
+36,71 real        11,14 user        25,56 sys
+    824147968  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        50506  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+            2  voluntary context switches
+            673  involuntary context switches
+532328045696  instructions retired
+150420815061  cycles elapsed
+    745440312  peak memory footprint
+
+------------------------------------------------
+
+36,91 real        11,21 user        25,68 sys
+    824328192  maximum resident set size
+            0  average shared memory size
+            0  average unshared data size
+            0  average unshared stack size
+        50512  page reclaims
+            1  page faults
+            0  swaps
+            0  block input operations
+            0  block output operations
+            0  messages sent
+            0  messages received
+            0  signals received
+            2  voluntary context switches
+            726  involuntary context switches
+532261990762  instructions retired
+149699295301  cycles elapsed
+    745636944  peak memory footprint
