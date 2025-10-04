@@ -70,6 +70,7 @@ typedef struct solution
 {
 	t_board_i	table;
 	t_cell		last_best;
+	t_board_c	output;
 }	t_solution;
 
 typedef struct run

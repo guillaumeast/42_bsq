@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGO_H
-# define ALGO_H
+#ifndef RESOLVE_H
+# define RESOLVE_H
 
 t_run	*resolve(t_run *run);
 

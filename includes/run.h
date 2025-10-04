@@ -29,6 +29,7 @@ t_run	*clean_cell(t_run *run_addr);
 t_run	*init_solution(t_run *run_addr);
 t_run	*clean_solution(t_run *run_addr);
 t_run	*init_solution_table(t_run *run_addr);
+t_run	*init_solution_output(t_run *run_addr);
 
 t_run	*init_size(t_run *run_addr);
 t_run	*clean_size(t_run *run_addr);

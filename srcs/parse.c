@@ -51,7 +51,7 @@ t_run	*get_rules(char *str, t_run *run)
 	height_str = ft_strndup(str, len - RULES_CHARSET_LEN);
 	if (!height_str)
 		return (clean_run(run));
-	run->rules.size.height = atoi(height_str);
+	run->rules.size.height = ft_atoi(height_str);
 	ft_free_str(&height_str);
 	if (run->rules.size.height == 0)
 		return (clean_run(run));

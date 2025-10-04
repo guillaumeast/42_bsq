@@ -13,16 +13,17 @@
 #ifndef BSQ_H
 # define BSQ_H
 
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include "types.h"
 # include "utils.h"
-# include "algo.h"
-# include "parse.h"
-# include "print.h"
-# include "read.h"
 # include "run.h"
+# include "read.h"
+# include "parse.h"
+# include "resolve.h"
+# include "print.h"
 
 # define BUFFER_SIZE 1000000
 # define TIMEOUT 63569920
