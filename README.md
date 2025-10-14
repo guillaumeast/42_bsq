@@ -5,7 +5,7 @@
 [![Language: C](https://img.shields.io/badge/language-C-lightgrey)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![Type: CLI](https://img.shields.io/badge/type-CLI-8b949e)]()
 [![Platform: macOS/Linux](https://img.shields.io/badge/platform-macOS%20%26%20Linux-blue)](https://en.wikipedia.org/wiki/Unix-like)
-[![Status: Optimized after Piscine](https://img.shields.io/badge/status-To%20be%20graded-f36d00)]()
+[![Status: Optimized after Piscine](https://img.shields.io/badge/status-Optimized%20after%20Piscine-darkgreen)]()
 
 ---
 
@@ -55,19 +55,6 @@ This implementation uses:
 
 ```
 bsq/
-├── bsq.subject.en.pdf
-├── Makefile
-├── includes/
-├── srcs/
-│   ├── init/
-│   ├── utils/
-│   ├── main.c
-│   ├── read.c
-│   ├── parse.c
-│   ├── resolve.c
-│   └── print.c
-└── tests/
-bsq/
 ├── bsq.subject.en.pdf     # Official 42 subject (English)
 ├── Makefile               # Build rules and compiler settings (Norm-compliant)
 ├── includes/              # Header files with type definitions and prototypes
@@ -115,9 +102,9 @@ make fclean
 
 ## 🧪 **Performance**
 
-| Version | Description | Real Time (10000×10000 map) | Peak Memory |
+| Version | Description | Real Time (10k×10k map) | Peak Memory |
 |----------|-------------|------------------------------|--------------|
-| **V1** | Baseline (string join, naïve I/O) | ~37 s | ~820 MB |
+| **V1 (Piscine)** | Baseline (string join, naïve I/O) | ~37 s | ~820 MB |
 | **V2** | Added output buffer (`char **`) | ~5.8 s | ~920 MB |
 | **V3** | Switched output to flat buffer (`char *`) | ~5.6 s | ~845 MB |
 | **V4** | Removed initialization loops | ~5.4 s | ~845 MB |
@@ -133,7 +120,7 @@ make fclean
 
 ---
 
-## 🧱 **Compliance**
+## 📋 **Compliance**
 
 All code follows the official **42 Norm**:
 
