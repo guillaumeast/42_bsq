@@ -2,5 +2,5 @@ bsq
 a.out
 .vscode/
 .DS_Store
-result.txt
-results.txt
+result*.txt
+*codebase.md
