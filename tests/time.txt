@@ -1,270 +1,51 @@
-/usr/bin/time -l ./bsq tests/test_10000
-valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./bsq tests/test_2000
+macOS / Apple M4 / /usr/bin/time -l ./bsq tests/test_10000
+┌---------------------------------┐
+| Previous v1.x.0 - 10k x 10k map |
+├---------------------------------|
+| Version |  User | Sys   | Real  |
+├---------------------------------┤
+| v1.1.0  |  11 s |  26 s |  37 s |
+| v1.2.0  | 3.8 s | 0.4 s | 5.8 s | Added run.solution.output (char **)
+| v1.3.0  | 3.6 s | 0.4 s | 5.6 s | Converted output from (char **) to (char *)
+| v1.4.0  | 3.3 s | 0.4 s | 5.3 s | Removed table/output initialisations & Used height/width instead of checking map
+└---------------------------------┘
 
-------------------------------------------------
----------------------->V1<----------------------
-------------------------------------------------
+macOS / Apple M4 / <time.h> clock_gettime()
+┌---------------------------------┐
+| C - v2.0.0 - 10k x 10k map      |
+├---------------------------------|
+|  Read |  Parse | Write | Total  |
+├---------------------------------┤
+| 46 ms | 188 ms | 74 ms | 309 ms |
+| 45 ms | 199 ms | 78 ms | 321 ms |
+| 59 ms | 195 ms | 76 ms | 330 ms |
+| 61 ms | 187 ms | 75 ms | 322 ms |
+| 58 ms | 185 ms | 74 ms | 317 ms |
+| 57 ms | 185 ms | 75 ms | 317 ms |
+| 59 ms | 186 ms | 73 ms | 319 ms |
+| 59 ms | 184 ms | 74 ms | 316 ms |
+| 62 ms | 184 ms | 74 ms | 320 ms |
+| 58 ms | 180 ms | 73 ms | 312 ms |
+├---------------------------------┤
+| Average total time: 	   318 ms |
+└---------------------------------┘
 
-36,93 real        11,04 user        25,88 sys
-    818954240  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        50184  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-            4  voluntary context switches
-            774  involuntary context switches
-538729899120  instructions retired
-152575883625  cycles elapsed
-    740213768  peak memory footprint
-
-------------------------------------------------
-
-37,35 real        11,20 user        26,13 sys
-    824229888  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        50506  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-            2  voluntary context switches
-            718  involuntary context switches
-536009064045  instructions retired
-151617411016  cycles elapsed
-    745522232  peak memory footprint
-
-------------------------------------------------
-
-37,47 real        11,29 user        26,16 sys
-    818937856  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        50183  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-            2  voluntary context switches
-        1006  involuntary context switches
-535926603910  instructions retired
-150843964606  cycles elapsed
-    740213792  peak memory footprint
-
-------------------------------------------------
----------------------->V2<----------------------
-Added run.solution.output (char **)
-------------------------------------------------
-------------------------------------------------
-
-5,77 real         3,82 user         0,40 sys
-    927350784  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56802  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97573  voluntary context switches
-            44  involuntary context switches
-    95841010821  instructions retired
-    18111712023  cycles elapsed
-    848692352  peak memory footprint
-
-------------------------------------------------
-
-5,85 real         3,85 user         0,38 sys
-    927219712  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56792  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97576  voluntary context switches
-            53  involuntary context switches
-    95672614102  instructions retired
-    18161324539  cycles elapsed
-    848561280  peak memory footprint
-
-------------------------------------------------
-
-5,89 real         3,83 user         0,41 sys
-    927285248  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56796  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97576  voluntary context switches
-            45  involuntary context switches
-    95921007241  instructions retired
-    18231203921  cycles elapsed
-    848643224  peak memory footprint
-
-------------------------------------------------
----------------------->V3<----------------------
-Converted output from (char **) to (char *)
-------------------------------------------------
-------------------------------------------------
-
-5,79 real         3,60 user         0,39 sys
-    924368896  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56618  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97675  voluntary context switches
-            50  involuntary context switches
-    94150191167  instructions retired
-    17359165806  cycles elapsed
-    845710464  peak memory footprint
-
-------------------------------------------------
-
-5,60 real         3,61 user         0,40 sys
-    924319744  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56615  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97675  voluntary context switches
-            63  involuntary context switches
-    94359115289  instructions retired
-    17418508198  cycles elapsed
-    845644904  peak memory footprint
-
-------------------------------------------------
-
-5,68 real         3,60 user         0,39 sys
-    921911296  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56468  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97675  voluntary context switches
-            77  involuntary context switches
-    94248409600  instructions retired
-    17346703799  cycles elapsed
-    843269272  peak memory footprint
-
-------------------------------------------------
----------------------->V4<----------------------
-Removed initialisation of table and output
-Used height instead of checking map[y] != NULL
-Used width instead of checking map[y][x] != '\0'
-------------------------------------------------
-------------------------------------------------
-
-5,16 real         3,26 user         0,38 sys
-    924106752  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56602  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97675  voluntary context switches
-            52  involuntary context switches
-    90906660114  instructions retired
-    15859070660  cycles elapsed
-    845431912  peak memory footprint
-
-------------------------------------------------
-
-5,30 real         3,29 user         0,38 sys
-    924270592  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56612  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97675  voluntary context switches
-            43  involuntary context switches
-    90891314042  instructions retired
-    15847645709  cycles elapsed
-    845612160  peak memory footprint
-
-------------------------------------------------
-
-5,30 real         3,30 user         0,38 sys
-    924303360  maximum resident set size
-            0  average shared memory size
-            0  average unshared data size
-            0  average unshared stack size
-        56614  page reclaims
-            1  page faults
-            0  swaps
-            0  block input operations
-            0  block output operations
-            0  messages sent
-            0  messages received
-            0  signals received
-        97675  voluntary context switches
-            88  involuntary context switches
-    90900834908  instructions retired
-    15850756323  cycles elapsed
-    845644928  peak memory footprint
+macOS / Apple M4 / ???
+┌------------------------------┐
+| JAVA  - 10k x 10k map 	   |
+├------------------------------┤
+| Parsing | Recherche | Total  |
+├------------------------------┤
+|  446 ms |      0 ms | 446 ms |
+|  355 ms |      0 ms | 355 ms |
+|  347 ms |      0 ms | 347 ms |
+|  313 ms |      0 ms | 313 ms |
+|  317 ms |      0 ms | 317 ms |
+|  394 ms |      0 ms | 394 ms |
+|  384 ms |      0 ms | 384 ms |
+|  378 ms |      0 ms | 378 ms |
+|  305 ms |      0 ms | 305 ms |
+|  319 ms |      0 ms | 319 ms |
+├------------------------------┤
+| Average total time:   346 ms |
+└------------------------------┘

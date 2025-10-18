@@ -3,6 +3,7 @@
 
 # include "bsq.h"
 
-int	ft_fast_atoi_n(t_str *str, size_t n);
+t_bool	is_print(char c);
+int		ft_fast_atoi_n(t_str *str, size_t n);
 
 #endif

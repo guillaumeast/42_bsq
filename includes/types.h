@@ -6,21 +6,40 @@
 # define RULES_CHARSET_LEN 3
 
 typedef char	t_bool;
-# define FALSE = 0
-# define TRUE = 1
+# define FALSE 0
+# define TRUE 1
 
-typedef struct size
+typedef struct s_str
 {
-	int	width;
-	int	height;
-}	t_size;
+	char	*str;
+	size_t	len;
+	size_t	cap;
+}	t_str;
 
-typedef struct rules
+typedef struct s_rules
 {
-	t_size	size;
-	char	empty;
-	char	obstacle;
-	char	filled;
+	size_t	len;
+	size_t	height;
+	size_t	width;
+	char	emp;
+	char	obs;
+	char	fil;
 }	t_rules;
+
+typedef struct s_bsq
+{
+	size_t	size;
+	size_t	index;
+}	t_bsq;
+
+typedef struct s_run
+{
+	t_str	*input;
+	t_rules	rules;
+	t_str	*map;
+	size_t	line_count;
+	int		*dp;
+	t_bsq	bsq;
+}	t_run;
 
 #endif

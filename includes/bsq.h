@@ -11,5 +11,8 @@
 # include "string.h"
 # include "utils.h"
 # include "read.h"
+# include "run.h"
+# include "parse.h"
+# include "result.h"
 
 #endif

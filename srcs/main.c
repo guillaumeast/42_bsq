@@ -5,9 +5,10 @@ static inline long long ns_since(const struct timespec a, const struct timespec 
 
 int	main(int argc, char **argv)
 {
-	struct timespec start, start_read, end_read, start_write, end_write, end;
+	struct timespec start, start_read, end_read, end_parse, end_write;
 	int		i;
 	t_str	*input;
+	t_run	run;
 
 	clock_gettime(CLOCK_MONOTONIC, &start);
 	if (argc == 1)
@@ -22,19 +23,30 @@ int	main(int argc, char **argv)
 			clock_gettime(CLOCK_MONOTONIC, &start_read);
 			input = read_file(argv[i]);
 			clock_gettime(CLOCK_MONOTONIC, &end_read);
-			if (!input)
-				return (1); // TODO: print error
-			clock_gettime(CLOCK_MONOTONIC, &start_write);
-			write(1, input->content, input->len);
+			if (!parse(&run, input))
+			{
+				write(2, "map error\n", 10);
+				return (1);
+			}
+			clock_gettime(CLOCK_MONOTONIC, &end_parse);
+			print_result(&run);
 			clock_gettime(CLOCK_MONOTONIC, &end_write);
-			printf("read:  %.3f ms\n", ns_since(start_read, end_read)  / 1e6);
-			printf("write: %.3f ms\n", ns_since(start_write, end_write) / 1e6);
-			free(input);
+			printf("┌---------------------------------┐\n");
+			printf("| v2.0.0                          |\n");
+			printf("|  Read |  Parse | Write | Total  |\n");
+			printf("├---------------------------------┤\n");
+			printf("| %.0f ms | %.0f ms | %.0f ms | %.0f ms |\n", \
+				ns_since(start_read, end_read) /1e6, \
+				ns_since(end_read, end_parse) /1e6, \
+				ns_since(end_parse, end_write) /1e6, \
+				ns_since(start, end_write) /1e6);
+			printf("└---------------------------------┘\n");
+			if (i < argc - 1)
+				write(1, "\n", 1);
+			run_free(&run);
 			i++;
 		}
 	}
-	clock_gettime(CLOCK_MONOTONIC, &end);
-	printf("total: %.3f ms\n", ns_since(start, end) / 1e6);
 	return (0);
 }
 
