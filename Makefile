@@ -2,6 +2,7 @@ NAME := bsq
 
 CC     	:= cc
 CFLAGS 	:= -Wall -Wextra -Werror
+LDFLAGS	:=
 
 SRC_DIR	:= srcs
 INC_DIR	:= includes
@@ -14,7 +15,7 @@ DEPS 	:= $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -25,12 +26,23 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 debug: CFLAGS += -g3
 debug: re
 
+profile: CFLAGS += -O3 -g -fno-omit-frame-pointer -march=native
+profile: re
+
+fast: CFLAGS += -O3 -DNDEBUG -march=native -flto
+fast: LDFLAGS += -flto
+fast: re
+
+sfast: CFLAGS += -O3 -ffast-math -DNDEBUG -march=native -flto
+sfast: LDFLAGS += -flto
+sfast: re
+
 clean:
-	rm -r $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm $(NAME)
+	rm -f $(NAME)
 
 re:		fclean all
 
-.PHONY: all debug clean fclean re
+.PHONY: all debug profile fast sfast clean fclean re

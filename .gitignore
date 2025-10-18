@@ -2,5 +2,6 @@ bsq
 a.out
 .vscode/
 .DS_Store
+time.txt
 result*.txt
 *codebase.md

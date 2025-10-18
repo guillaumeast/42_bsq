@@ -1,76 +1,44 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adouieb <adouieb@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 11:31:04 by adouieb           #+#    #+#             */
-/*   Updated: 2025/09/30 14:49:03 by adouieb          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "bsq.h"
 
-t_run	from_file_to_run(t_filepath path)
-{
-	t_read_content	content;
-
-	content.content = NULL;
-	content.fd = 0;
-	content.size = 0;
-	content.byte_count = 0;
-	ft_read_file(path, &content);
-	return (init_run(content.content));
-}
-
-t_run	*from_files_to_runs(t_filepath *paths, int size)
-{
-	return (file_to_run_map(paths, size, from_file_to_run));
-}
-
-t_run	from_stdin_to_run(t_filepath path)
-{
-	t_read_content	content;
-
-	content.content = NULL;
-	content.fd = 0;
-	content.size = 0;
-	content.byte_count = 0;
-	ft_read_stdin(path, &content);
-	return (init_run(content.content));
-}
-
-t_run	*from_stdin_to_runs(void)
-{
-	char	*_;
-
-	_ = "";
-	return (file_to_run_map(&_, 1, from_stdin_to_run));
-}
+void	ft_putstr(char *str);
+static inline long long ns_since(const struct timespec a, const struct timespec b);
 
 int	main(int argc, char **argv)
 {
-	t_run	*runs;
-	int		size;
+	struct timespec start, start_read, end_read, start_write, end_write, end;
+	int		i;
+	t_str	*input;
 
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	if (argc == 1)
 	{
-		size = 1;
-		runs = from_stdin_to_runs();
+		// TODO: read from stdin
 	}
 	else
 	{
-		size = argc - 1;
-		runs = from_files_to_runs(argv + 1, size);
+		i = 1;
+		while (i < argc)
+		{
+			clock_gettime(CLOCK_MONOTONIC, &start_read);
+			input = read_file(argv[i]);
+			clock_gettime(CLOCK_MONOTONIC, &end_read);
+			if (!input)
+				return (1); // TODO: print error
+			clock_gettime(CLOCK_MONOTONIC, &start_write);
+			write(1, input->content, input->len);
+			clock_gettime(CLOCK_MONOTONIC, &end_write);
+			printf("read:  %.3f ms\n", ns_since(start_read, end_read)  / 1e6);
+			printf("write: %.3f ms\n", ns_since(start_write, end_write) / 1e6);
+			free(input);
+			i++;
+		}
 	}
-	run_to_run_map(runs, size, 0, parse);
-	run_to_run_map(runs, size, 0, init_solution_table);
-	run_to_run_map(runs, size, 0, resolve);
-	run_to_run_map(runs, size, 0, init_solution_output);
-	run_to_run_map(runs, size, 1, print_result);
-	run_to_run_map(runs, size, 0, clean_run);
-	free(runs);
-	runs = NULL;
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	printf("total: %.3f ms\n", ns_since(start, end) / 1e6);
 	return (0);
+}
+
+static inline long long ns_since(const struct timespec a, const struct timespec b)
+{
+    return (b.tv_sec - a.tv_sec)*1000000000LL + (b.tv_nsec - a.tv_nsec);
 }
