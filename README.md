@@ -9,6 +9,30 @@
 
 ---
 
+## 🪄 v2.0.0 Highlights
+
+- Unified parsing and solving logic (**single-pass dynamic programming**)
+- Fully rewritten buffered I/O using raw `read()` with **dynamic growth**
+- New `t_str` structure for efficient string concatenation without `strlen()` or other expensive functions
+- Simplified **data structures**
+- Added ASCII **runtime stats** box with per-phase timing
+
+---
+
+## 🚀 v2.0.0 Performance
+- 10 000×10 000 map processed in **~300 ms** (vs ~5 400 ms in v1.4.0)
+- **~30 % lower memory usage** thanks to flattened arrays
+
+| Version | Description | Real Time (10k×10k map) |
+|----------|-------------|------------------------------|
+| **v1.1.0 (Piscine)** | Baseline (string join, naïve I/O) | ~37 s |
+| **v1.2.0** | Added output buffer (`char **`) | ~5.8 s |
+| **v1.3.0** | Switched output to flat buffer (`char *`) | ~5.6 s |
+| **v1.4.0** | Removed initialization loops | ~5.4 s |
+| **v2.0.0** | Simplified data structures, unified parsing and solving, optimized flat I/O buffers, flattened map and DP arrays | 🚀 **~300 ms** |
+
+---
+
 ## 🎓 **Context**
 
 The **BSQ (Biggest Square)** is the final algorithmic project of the **42 Paris Piscine**.  
@@ -107,18 +131,6 @@ make clean
 # Clean objects and binary
 make fclean
 ```
-
----
-
-## 🧪 **Performance**
-
-| Version | Description | Real Time (10k×10k map) |
-|----------|-------------|------------------------------|
-| **v1.1.0 (Piscine)** | Baseline (string join, naïve I/O) | ~37 s |
-| **v1.2.0** | Added output buffer (`char **`) | ~5.8 s |
-| **v1.3.0** | Switched output to flat buffer (`char *`) | ~5.6 s |
-| **v1.4.0** | Removed initialization loops | ~5.4 s |
-| **v2.0.0** | Simplified data structures, unified parsing and solving, optimized flat I/O buffers, flattened map and DP arrays | 🚀 **~300 ms** |
 
 ---
 
