@@ -25,6 +25,7 @@
 - A 10 000×10 000 map is processed in **~200 ms**
 
 > _Measured on macOS / Apple M4 / `<time.h>` / `clock_gettime()`_
+> 
 > _`stdout` redirected to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
 
 | Version | Description | Real Time (10k×10k map) |
@@ -127,7 +128,9 @@ cat tests/basic_test | ./bsq
 ### Run automatic benchmark
 - Automatically runs 10 iterations with the file given as the second argument
 - Displays (on `stderr`) the timings of each run and their average
-> _Bench output is printed to `stderr`; redirect `stdout` to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
+> _Bench output is printed to `stderr`_
+> 
+> _Redirect `stdout` to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
 ```bash
 ./bsq --bench file_path > /dev/null
 ```
