@@ -1,45 +1,43 @@
 #include "bsq.h"
 
-// TODO: 25 lines max
-// TODO: create struct to store variables
+static void	compute_bounds(t_bounds *b, const size_t rowlen, const t_bsq *bsq);
+static void fill_map(t_str *map, const t_rules *rules, const t_bounds *bounds);
+
 void	print_result(t_run *run)
 {
-	size_t	i;
-	size_t	map_len;
-	size_t	line_len;
-	size_t	rowmin;
-	size_t	rowmax;
-	size_t	colmin;
-	size_t	colmax;
-	size_t	row;
-	size_t	col;
-	t_str	*res;
+	t_bounds	bounds;
 
-	line_len = run->rules.width + 1;
-	map_len = run->map->len;
-	res = str_new(map_len + 1);
-	rowmin = run->bsq.index / line_len - (run->bsq.size - 1);
-	rowmax = run->bsq.index / line_len;
-	colmin = run->bsq.index % line_len - (run->bsq.size - 1);
-	colmax = run->bsq.index % line_len;
-	i = 0;
-	while (i < map_len)
+	compute_bounds(&bounds, run->rules.width + 1, &(run->bsq));
+	fill_map(run->map, &(run->rules), &bounds);
+	write(1, run->map->str, run->map->len);
+}
+
+static void	compute_bounds(t_bounds *b, const size_t rowlen, const t_bsq *bsq)
+{
+	b->rowmin = bsq->index / rowlen - (bsq->size - 1);
+	b->rowmax = bsq->index / rowlen;
+	b->colmin = bsq->index % rowlen - (bsq->size - 1);
+	b->colmax = bsq->index % rowlen;
+}
+
+static void fill_map(t_str *map, const t_rules *rules, const t_bounds *bounds)
+{
+	size_t		row_len;
+	size_t		row;
+	size_t		col;
+	size_t		i;
+
+	row_len = rules->width + 1;
+	row = bounds->rowmin;
+	while (row <= bounds->rowmax)
 	{
-		row = i / line_len;
-		col = i % line_len;
-		if (run->map->str[i] == '\n')
+		col = bounds->colmin;
+		while (col <= bounds->colmax)
 		{
-			res->str[i] = '\n';
-			i++;
-			continue;
+			i = row * row_len + col;
+			map->str[i] = rules->fil;
+			col++;
 		}
-		if (row >= rowmin && row <= rowmax && col >= colmin && col <= colmax)
-			res->str[i] = run->rules.fil;
-		else
-			res->str[i] = run->map->str[i];
-		i++;
+		row++;
 	}
-	res->str[i] = '\0';
-	res->len = map_len;
-	write(1, res->str, res->len);
 }

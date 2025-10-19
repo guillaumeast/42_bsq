@@ -32,7 +32,8 @@ int	main(int argc, char **argv)
 			print_result(&run);
 			clock_gettime(CLOCK_MONOTONIC, &end_write);
 			printf("┌---------------------------------┐\n");
-			printf("| v2.0.0                          |\n");
+			printf("| C - v2.1.0 - %zuk x %zuk map      |\n", run.rules.width / 1000, run.rules.width / 1000);
+			printf("├---------------------------------┤\n");
 			printf("|  Read |  Parse | Write | Total  |\n");
 			printf("├---------------------------------┤\n");
 			printf("| %.0f ms | %.0f ms | %.0f ms | %.0f ms |\n", \

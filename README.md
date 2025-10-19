@@ -9,27 +9,29 @@
 
 ---
 
-## 🪄 v2.0.0 Highlights
+## 🪄 Highlights
 
-- Unified parsing and solving logic (**single-pass dynamic programming**)
-- Fully rewritten buffered I/O using raw `read()` with **dynamic growth**
-- New `t_str` structure for efficient string concatenation without `strlen()` or other expensive functions
-- Simplified **data structures**
-- Added ASCII **runtime stats** box with per-phase timing
+- **_Dynamic growth_ I/O buffer**: reduces the number of `read` system calls  
+- **Unified parsing and solving**: single-pass computation  
+- **Flat memory layouts**: reduces data access time, memory usage, and copy overhead  
+- **Flat _dynamic programming_ table**: reduces computation time  
+- **In-place editing of the original map**: avoids full map copies and checks  
+- **One-time output**: avoids multiple `write` system calls  
 
 ---
 
-## 🚀 v2.0.0 Performance
-- 10 000×10 000 map processed in **~300 ms** (vs ~5 400 ms in v1.4.0)
-- **~30 % lower memory usage** thanks to flattened arrays
+## 🚀 Performance
+- 10 000×10 000 map processed in **~250 ms**
 
+macOS / Apple M4 / <time.h> clock_gettime()
 | Version | Description | Real Time (10k×10k map) |
 |----------|-------------|------------------------------|
-| **v1.1.0 (Piscine)** | Baseline (string join, naïve I/O) | ~37 s |
-| **v1.2.0** | Added output buffer (`char **`) | ~5.8 s |
-| **v1.3.0** | Switched output to flat buffer (`char *`) | ~5.6 s |
-| **v1.4.0** | Removed initialization loops | ~5.4 s |
-| **v2.0.0** | Simplified data structures, unified parsing and solving, optimized flat I/O buffers, flattened map and DP arrays | 🚀 **~300 ms** |
+| **v1.1.0 (Piscine)** | Baseline (string join, naïve I/O) | ~37 000 ms |
+| **v1.2.0** | Added output buffer (`char **`) | ~5 800 ms |
+| **v1.3.0** | Switched output to flat buffer (`char *`) | ~5 600 ms |
+| **v1.4.0** | Removed initialization loops | ~5 400 ms |
+| **v2.0.0** | Simplified data structures, unified parsing and solving, optimized flat I/O buffers, flattened map and DP arrays | ~320 ms |
+| **v2.1.0** | Output optimization: Only updates the required characters directly in the original map | ~5 400 ms |
 
 ---
 
@@ -60,18 +62,12 @@ The program implements a **dynamic programming** approach:
 1. Each cell represents the size of the largest square ending at that point.  
 2. The recurrence relation:
 ```c
-if (map[y][x] == empty)
-	res[y][x] = 1 + min(res[y-1][x], res[y][x-1], res[y-1][x-1]);
+if (map[row][col] == empty)
+	dp[row][col] = 1 + min(dp[row-1][col], dp[row][col-1], dp[row-1][col-1]);
 else
-	res[y][x] = 0;
+	dp[row][col] = 0;
 ```
 3. The largest value found indicates the **size and position** of the biggest square.
-
-This implementation uses:
-- **O(n) Buffered I/O** to minimize system calls (`read`/`write`)  
-- **Flat memory layouts** for the map/dp/output buffers, reducing copy overhead  
-- **Dynamic programming table stored in a single contiguous memory block** (flat array)  
-- **High performance on large maps** (10k×10k processed in ~300 ms, single-threaded)
 
 ---
 
@@ -131,17 +127,6 @@ make clean
 # Clean objects and binary
 make fclean
 ```
-
----
-
-## 🧠 **Key Learnings**
-
-- Understanding **2D dynamic programming** and spatial recurrence  
-- Implementing **flat buffered I/O** and avoiding system call overhead  
-- Managing **large memory blocks** safely in C  
-- Optimizing **C data structures**
-- Taking advantage of **C compiler optimizations**
-- Writing clean, modular code under the **42 Norm**
 
 ---
 

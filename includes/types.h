@@ -32,6 +32,14 @@ typedef struct s_bsq
 	size_t	index;
 }	t_bsq;
 
+typedef struct	s_bounds
+{
+	size_t	rowmin;
+	size_t	rowmax;
+	size_t	colmin;
+	size_t	colmax;
+}	t_bounds;
+
 typedef struct s_run
 {
 	t_str	*input;
