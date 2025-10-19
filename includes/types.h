@@ -1,6 +1,8 @@
 #ifndef TYPES_H
 # define TYPES_H
 
+# define BENCH_ITERATIONS 10
+
 # define BUFFER_SIZE 1000000
 # define RULES_MIN_LEN 4
 # define RULES_CHARSET_LEN 3
@@ -49,5 +51,25 @@ typedef struct s_run
 	int		*dp;
 	t_bsq	bsq;
 }	t_run;
+
+typedef struct s_run_time
+{
+	struct timespec	read_start;
+	struct timespec parse_start;
+	struct timespec write_start;
+	struct timespec write_end;
+	struct timespec end;
+	int				read;
+	int				parse;
+	int				write;
+	int				total;
+}	t_run_time;
+
+typedef struct s_exec_time
+{
+	struct timespec	start;
+	t_run_time runs[BENCH_ITERATIONS];
+	struct timespec	end;
+}	t_exec_time;
 
 #endif

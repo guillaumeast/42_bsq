@@ -1,57 +1,69 @@
 #include "bsq.h"
 
-void	ft_putstr(char *str);
-static inline long long ns_since(const struct timespec a, const struct timespec b);
+static int	exec_from_files(int argc, char **argv);
+static int	exec_bench(char *file_path);
 
 int	main(int argc, char **argv)
 {
-	struct timespec start, start_read, end_read, end_parse, end_write;
+	if (argc == 1)
+		write(2, "stdin reading not yet implemented\n", 34);	// TODO
+	else if (argc == 3 && strcmp(argv[1], "--bench") == 0)
+		return (exec_bench(argv[2]));
+	else
+		return (exec_from_files(argc, argv));
+	return (0);
+}
+
+static int	exec_bench(char *file_path)
+{
+	t_exec_time	exec_time;
+	t_str	*input;
+	t_run	run;
+	size_t	i;
+
+	fprintf(stderr, "Benchmarking on %d iterations...\n", BENCH_ITERATIONS);
+	clock_gettime(CLOCK_MONOTONIC, &(exec_time.start));
+	i = 0;
+	while (i < BENCH_ITERATIONS)
+	{
+		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].read_start));
+		input = read_file(file_path);
+		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].parse_start));
+		if (!parse(&run, input))
+		{
+			write(2, "map error\n", 10);
+			return (1);
+		}
+		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_start));
+		print_result(&run);
+		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_end));
+		run_free(&run);
+		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i++].end));
+	}
+	print_exec_time(&exec_time);
+	return (0);
+}
+
+static int	exec_from_files(int argc, char **argv)
+{
 	int		i;
 	t_str	*input;
 	t_run	run;
 
-	clock_gettime(CLOCK_MONOTONIC, &start);
-	if (argc == 1)
+	i = 1;
+	while (i < argc)
 	{
-		// TODO: read from stdin
-	}
-	else
-	{
-		i = 1;
-		while (i < argc)
+		input = read_file(argv[i]);
+		if (!parse(&run, input))
 		{
-			clock_gettime(CLOCK_MONOTONIC, &start_read);
-			input = read_file(argv[i]);
-			clock_gettime(CLOCK_MONOTONIC, &end_read);
-			if (!parse(&run, input))
-			{
-				write(2, "map error\n", 10);
-				return (1);
-			}
-			clock_gettime(CLOCK_MONOTONIC, &end_parse);
-			print_result(&run);
-			clock_gettime(CLOCK_MONOTONIC, &end_write);
-			printf("┌---------------------------------┐\n");
-			printf("| C - v2.1.0 - %zuk x %zuk map      |\n", run.rules.width / 1000, run.rules.width / 1000);
-			printf("├---------------------------------┤\n");
-			printf("|  Read |  Parse | Write | Total  |\n");
-			printf("├---------------------------------┤\n");
-			printf("| %.0f ms | %.0f ms | %.0f ms | %.0f ms |\n", \
-				ns_since(start_read, end_read) /1e6, \
-				ns_since(end_read, end_parse) /1e6, \
-				ns_since(end_parse, end_write) /1e6, \
-				ns_since(start, end_write) /1e6);
-			printf("└---------------------------------┘\n");
-			if (i < argc - 1)
-				write(1, "\n", 1);
-			run_free(&run);
-			i++;
+			write(2, "map error\n", 10);
+			return (1);
 		}
+		print_result(&run);
+		if (i < argc - 1)
+			write(1, "\n", 1);
+		run_free(&run);
+		i++;
 	}
 	return (0);
-}
-
-static inline long long ns_since(const struct timespec a, const struct timespec b)
-{
-    return (b.tv_sec - a.tv_sec)*1000000000LL + (b.tv_nsec - a.tv_nsec);
 }

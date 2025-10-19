@@ -1,5 +1,5 @@
-#ifndef FT_STR
-# define FT_STR
+#ifndef BSQ_STR
+# define BSQ_STR
 
 # include "bsq.h"
 

@@ -5,7 +5,7 @@
 [![Language: C](https://img.shields.io/badge/language-C-lightgrey)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![Type: CLI](https://img.shields.io/badge/type-CLI-8b949e)]()
 [![Platform: macOS/Linux](https://img.shields.io/badge/platform-macOS%20%26%20Linux-blue)](https://en.wikipedia.org/wiki/Unix-like)
-[![Status: v2.0.0 - Optimized after Piscine](https://img.shields.io/badge/status-Optimized%20after%20Piscine-darkgreen)]()
+[![Status: Optimized after Piscine](https://img.shields.io/badge/status-Optimized%20after%20Piscine-darkgreen)]()
 
 ---
 
@@ -13,17 +13,20 @@
 
 - **_Dynamic growth_ I/O buffer**: reduces the number of `read` system calls  
 - **Unified parsing and solving**: single-pass computation  
-- **Flat memory layouts**: reduces data access time, memory usage, and copy overhead  
+- **Flat memory layouts**: reduce data access time, memory usage, and copy overhead  
 - **Flat _dynamic programming_ table**: reduces computation time  
 - **In-place editing of the original map**: avoids full map copies and checks  
 - **One-time output**: avoids multiple `write` system calls  
+- **Integrated benchmark** (10 iterations) with the `--bench` flag as the first argument
 
 ---
 
 ## 🚀 Performance
-- 10 000×10 000 map processed in **~250 ms**
+- A 10 000×10 000 map is processed in **~200 ms**
 
-macOS / Apple M4 / <time.h> clock_gettime()
+> _Measured on macOS / Apple M4 / `<time.h>` / `clock_gettime()`_
+> _`stdout` redirected to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
+
 | Version | Description | Real Time (10k×10k map) |
 |----------|-------------|------------------------------|
 | **v1.1.0 (Piscine)** | Baseline (string join, naïve I/O) | ~37 000 ms |
@@ -31,7 +34,8 @@ macOS / Apple M4 / <time.h> clock_gettime()
 | **v1.3.0** | Switched output to flat buffer (`char *`) | ~5 600 ms |
 | **v1.4.0** | Removed initialization loops | ~5 400 ms |
 | **v2.0.0** | Simplified data structures, unified parsing and solving, optimized flat I/O buffers, flattened map and DP arrays | ~320 ms |
-| **v2.1.0** | Output optimization: Only updates the required characters directly in the original map | ~5 400 ms |
+| **v2.1.0** | Output optimization: only updates the required characters directly in the original map | ~250 ms |
+| **v2.1.1** | Integrated benchmark mode (10 iterations) with the `--bench` flag as the first argument | ~200 ms |
 
 ---
 
@@ -87,6 +91,7 @@ bsq/
 │   ├── read.c				# Reads content from filepath
 │   ├── parse.c				# Parses rules then simultaneously parses and solves the map
 │   ├── result.c			# Prints result
+│   ├── time.c				# Utilities for benchmark mode
 │   └── utils.c				# Utility functions (is_printable and fast_atoi_n)
 └── tests/					# Sample maps and performance benchmarks
 ```
@@ -107,9 +112,9 @@ make fast
 make sfast
 ```
 
-### Run with a file
+### Run with one or more files
 ```bash
-./bsq tests/test_10000
+./bsq file_path_1 file_path_2 ... file_path_n
 ```
 
 ### Run with stdin
@@ -117,6 +122,14 @@ make sfast
 Coming back soon...
 ```bash
 cat tests/basic_test | ./bsq
+```
+
+### Run automatic benchmark
+- Automatically runs 10 iterations with the file given as the second argument
+- Displays (on `stderr`) the timings of each run and their average
+> _Bench output is printed to `stderr`; redirect `stdout` to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
+```bash
+./bsq --bench file_path > /dev/null
 ```
 
 ### Clean build files

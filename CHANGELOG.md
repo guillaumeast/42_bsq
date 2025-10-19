@@ -1,3 +1,11 @@
+## [2.1.1] - ~250 ms on 10 000 x 10 000 maps
+- Added **integrated benchmark mode**
+- Added **average** timings to the displayed performance metrics
+
+### Important benchmark modifications
+- The benchmark is now run with `stdout` redirected to `/dev/null` instead of a file to eliminate potential shell or terminal I/O bottlenecks  
+- This change alone results in a **~50 ms improvement**
+
 ## [2.1.0] - ~250 ms on 10 000 x 10 000 maps
 ### Changed
 - **Modifies the initial map** (`char *`) instead of creating a new one for output
