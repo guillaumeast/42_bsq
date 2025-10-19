@@ -1,4 +1,10 @@
-## [2.1.1] - ~250 ms on 10 000 x 10 000 maps
+## [2.2.0] - ~190 ms on 10 000 x 10 000 maps
+- Reworked `str_grow()` to dereference pointer **once** before loop instead of at each iteration  
+- Reduced redundant memory accesses during buffer reallocation  
+
+---
+
+## [2.1.1] - ~200 ms on 10 000 x 10 000 maps
 - Added **integrated benchmark mode**
 - Added **average** timings to the displayed performance metrics
 
@@ -6,10 +12,13 @@
 - The benchmark is now run with `stdout` redirected to `/dev/null` instead of a file to eliminate potential shell or terminal I/O bottlenecks  
 - This change alone results in a **~50 ms improvement**
 
+---
+
 ## [2.1.0] - ~250 ms on 10 000 x 10 000 maps
-### Changed
 - **Modifies the initial map** (`char *`) instead of creating a new one for output
 - Avoids full map copies — **only updates required characters**
+
+---
 
 ## [2.0.0] - ~320 ms on 10 000 x 10 000 maps
 - **Unified parsing and solving** logic (single-pass DP computation)

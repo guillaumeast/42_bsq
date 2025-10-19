@@ -22,7 +22,7 @@
 ---
 
 ## 🚀 Performance
-- A 10 000×10 000 map is processed in **~200 ms**
+- A 10 000×10 000 map is processed in **~190 ms**
 
 > _Measured on macOS / Apple M4 / `<time.h>` / `clock_gettime()`_
 > 
@@ -30,13 +30,14 @@
 
 | Version | Description | Real Time (10k×10k map) |
 |----------|-------------|------------------------------|
-| **v1.1.0 (Piscine)** | Baseline (string join, naïve I/O) | ~37 000 ms |
-| **v1.2.0** | Added output buffer (`char **`) | ~5 800 ms |
-| **v1.3.0** | Switched output to flat buffer (`char *`) | ~5 600 ms |
-| **v1.4.0** | Removed initialization loops | ~5 400 ms |
-| **v2.0.0** | Simplified data structures, unified parsing and solving, optimized flat I/O buffers, flattened map and DP arrays | ~320 ms |
-| **v2.1.0** | Output optimization: only updates the required characters directly in the original map | ~250 ms |
-| **v2.1.1** | Integrated benchmark mode (10 iterations) with the `--bench` flag as the first argument | ~200 ms |
+| **v1.1.0 (Piscine)** | **Baseline** | ~37 000 ms |
+| **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~5 800 ms |
+| **v1.3.0** | **Output optimization**<br>→ Switched output to flat buffer (`char *`) | ~5 600 ms |
+| **v1.4.0** | **General optimization**<br>→ Removed initialization loops | ~5 400 ms |
+| **v2.0.0** | **Major refactor**<br>→ Simplified data structures<br>→ Unified parsing and solving<br>→ Optimized flat I/O buffers<br>→ Flattened map and DP arrays | ~320 ms |
+| **v2.1.0** | **Output optimization**<br>→ In-place map editing (no full copy)<br>→ Only updates the required characters inside the map | ~250 ms |
+| **v2.1.1** | **QoL update**<br>→ Integrated benchmark mode (10 iterations) | ~200 ms |
+| **v2.2.0** | **Input optimization**<br>→ Reworked `str_grow()` to dereference pointer **once** before the loop<br>→ Reduced redundant memory accesses during buffer reallocation | ~190 ms |
 
 ---
 
