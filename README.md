@@ -22,7 +22,7 @@
 ---
 
 ## 🚀 Performance
-- A 10 000×10 000 map is processed in **~190 ms**
+- A 10 000×10 000 map is processed in **~100 ms**
 
 > _Measured on macOS / Apple M4 / `<time.h>` / `clock_gettime()`_
 > 
@@ -120,7 +120,7 @@ make sfast
 ```
 
 ### Run with stdin
-⚠️ This feature has been removed from v2.0.0.
+⚠️ This feature has been removed since v2.0.0.
 Coming back soon...
 ```bash
 cat tests/basic_test | ./bsq
