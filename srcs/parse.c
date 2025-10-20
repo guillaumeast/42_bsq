@@ -94,7 +94,7 @@ static void	solve_cell(t_run *run, size_t i, size_t row, size_t col)
 		run->dp[i] = 1;
 	else
 		set_min(run->dp, i, run->rules.width + 1);
-	if (run->dp[i] > run->bsq.size)
+	if ((size_t) run->dp[i] > run->bsq.size)
 	{
 		run->bsq.size = run->dp[i];
 		run->bsq.index = i;

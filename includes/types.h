@@ -3,28 +3,13 @@
 
 # define BENCH_ITERATIONS 100
 
-# define BUFFER_SIZE 4000000
+# define BUFFER_SIZE 1000000
 # define RULES_MIN_LEN 4
 # define RULES_CHARSET_LEN 3
 
 typedef char	t_bool;
 # define FALSE 0
 # define TRUE 1
-
-typedef struct s_chunk
-{
-	char	*data;
-	size_t	cap;
-	size_t	len;
-}	t_chunk;
-
-typedef struct s_chunk_arr
-{
-	t_chunk	**tab;
-	size_t	len;
-	size_t	count;
-	size_t	cap;
-}	t_chunk_arr;
 
 typedef struct s_str
 {
@@ -45,7 +30,7 @@ typedef struct s_rules
 
 typedef struct s_bsq
 {
-	int		size;
+	size_t	size;
 	size_t	index;
 }	t_bsq;
 

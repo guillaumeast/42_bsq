@@ -1,46 +1,62 @@
 #include "bsq.h"
 
-static t_str	*read_fd(int fd, t_chunk_arr **buffers);
+static t_str	*read_fd(int fd, char *buffer, size_t cap);
+static char	*grow_buffer(char *buffer, size_t content_len, size_t cap_need);
 
 t_str	*read_file(const char *file_path)
 {
-	int			fd;
-	t_chunk_arr	*buffers;
-	t_str		*res;
+	int		fd;
+	char	*buffer;
+	t_str	*res;
 
 	fd = open(file_path, O_RDONLY);
-	buffers = chunk_new_arr();
-	if (fd == -1 || !buffers)
+	buffer = malloc(BUFFER_SIZE);
+	if (fd == -1 || !buffer)
 		return (NULL);
-	res = read_fd(fd, &buffers);
+	res = read_fd(fd, buffer, BUFFER_SIZE);
 	close(fd);
 	return (res);
 }
 
-static t_str	*read_fd(int fd, t_chunk_arr **buffers)
+static t_str	*read_fd(int fd, char *buffer, size_t cap)
 {
+	size_t	len;
 	ssize_t	bytes_read;
-	t_chunk	*current;
+	ssize_t available;
 
-	current = chunk_new(buffers);
-	if (!current)
-		return (NULL);
-	while ((bytes_read = read(fd, current->data, current->cap)) == (ssize_t) current->cap)
+	len = 0;
+	available = BUFFER_SIZE - 1;
+	while ((bytes_read = read(fd, buffer + len, available)) == available)
 	{
-		fprintf(stderr, "Hey\n");
-		current->len += bytes_read;
-		(*buffers)->len += bytes_read;
-		current = chunk_new(buffers);
-		if (!current)
+		len += bytes_read;
+		cap *= 2;
+		buffer = grow_buffer(buffer, len, cap);
+		if (!buffer)
 			return (NULL);
-		fprintf(stderr, "New_cap = %zu\n", current->cap);
+		available = cap - len - 1;
 	}
-	if (bytes_read < 0)
+	len += bytes_read;
+	buffer[len] = '\0';
+	return (str_new(buffer, len, cap));
+}
+
+static char	*grow_buffer(char *buffer, size_t content_len, size_t new_cap)
+{
+	char	*new_buffer;
+	size_t	i;
+
+	new_buffer = malloc(new_cap);
+	if (!new_buffer)
 	{
-		chunk_free_all(buffers);
+		free(buffer);
 		return (NULL);
 	}
-	current->len += bytes_read;
-	(*buffers)->len += bytes_read;
-	return (chunk_to_str(buffers));
+	i = 0;
+	while (i < content_len)
+	{
+		new_buffer[i] = buffer[i];
+		i++;
+	}
+	free(buffer);
+	return (new_buffer);
 }
