@@ -40,6 +40,7 @@
 | **v2.2.0** | **Input optimization**<br>→ Reworked `str_grow()` to dereference pointer **once** before the loop<br>→ Reduced redundant memory accesses during buffer reallocation | ~190 ms |
 | **v2.2.1** | **Input optimization**<br>→ Switched to native C types during file read operations<br>→ Implemented in-place reading to remove buffer duplication and reduce latency | ~180 ms |
 | **v2.3.0** | **Parse optimization**<br>→ Optimized DP minimum computation to reduce branch-misses | ~140 ms |
+| **v2.4.0** | **Parse optimization**<br>→ Reordered parser condition checks to reduce branch mispredictions<br>→ Implemented precomputation of all possible values<br>→ Minimized dereferencing in hot loops<br>→ Increased integrated benchmark from 10 to 100 iterations | ~100 ms |
 
 ---
 

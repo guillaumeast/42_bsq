@@ -1,25 +1,33 @@
 #include "bsq.h"
 
-static t_bool	parse_line(t_run *r, size_t *i);
-static void		solve_cell(t_run *run, size_t i, size_t width);
+static t_bool	parse_row(t_run *r, char *map, size_t *i, size_t row);
+static void		solve_cell(t_run *run, size_t i, size_t row, size_t col);
 static void		set_min(int *dp, size_t i, size_t row_len);
 
 t_bool	parse(t_run *run, t_str *input)
 {
+	char	*map;
 	size_t	map_len;
 	size_t	i;
+	size_t	row;
+	size_t	height;
 
 	if (!input || !run_new(run, input))
 		return (FALSE);
+	map = run->map->str;
 	map_len = run->map->len;
 	i = 0;
+	row = 0;
+	height = run->rules.height;
 	while (i < map_len)
 	{
-		if (!parse_line(run, &i))
+		if (!parse_row(run, map, &i, row))
+			return (FALSE);
+		if (++row > height)
 			return (FALSE);
 		i++;
 	}
-	if (run->line_count == 0 || run->line_count < run->rules.height)
+	if (row == 0 || row < height)
 		return (FALSE);
 	return (TRUE);
 }
@@ -52,38 +60,40 @@ t_bool	parse_rules(t_str *input, t_rules *r)
 	return (TRUE);
 }
 
-static t_bool	parse_line(t_run *r, size_t *i)
+static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 {
-	size_t	j;
+	t_rules	rules;
 	size_t	map_len;
+	size_t	col;
+	size_t	i_tmp;
+	char	c;
 
-	if (++(r->line_count) > r->rules.height)
-		return (FALSE);
-	j = *i;
-	map_len = r->map->len;
-	while (j < map_len && r->map->str[j] != '\n')
+	rules = run->rules;
+	map_len = run->map->len;
+	col = 0;
+	i_tmp = *i;
+	while (i_tmp < map_len && (c = map[i_tmp]) != '\n')
 	{
-		if (r->map->str[j] != r->rules.emp && r->map->str[j] != r->rules.obs)
+		if (c != rules.emp && c != rules.obs)
 			return (FALSE);
-		solve_cell(r, j, r->rules.width + 1);
-		j++;
+		solve_cell(run, i_tmp++, row, col++);
 	}
-	if (r->line_count == 1)
-		r->rules.width = j - *i;
-	if (r->rules.width == 0 || j - *i != r->rules.width)
+	if (row == 0)
+		run->rules.width = i_tmp - *i;
+	else if (rules.width == 0 || i_tmp - *i != rules.width)
 		return (FALSE);
-	*i = j;
+	*i = i_tmp;
 	return (TRUE);
 }
 
-static void	solve_cell(t_run *run, size_t i, size_t row_len)
+static void	solve_cell(t_run *run, size_t i, size_t row, size_t col)
 {
 	if (run->map->str[i] == run->rules.obs)
 		run->dp[i] = 0;
-	else if (run->line_count == 1 || i % row_len == 0)
+	else if (row == 0 || col == 0)
 		run->dp[i] = 1;
 	else
-		set_min(run->dp, i, row_len);
+		set_min(run->dp, i, run->rules.width + 1);
 	if ((size_t) run->dp[i] > run->bsq.size)
 	{
 		run->bsq.size = run->dp[i];
@@ -100,9 +110,9 @@ static void	set_min(int *dp, size_t i, size_t row_len)
 	up = dp[i - row_len];
 	left = dp[i - 1];
 	up_left = dp[i - row_len - 1];
-	if (left < up)
-		up = left;
 	if (up_left < up)
 		up = up_left;
+	if (left < up)
+		up = left;
 	dp[i] = up + 1;	
 }

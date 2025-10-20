@@ -1,5 +1,13 @@
+## [2.4.0] - ~100 ms on 10,000 x 10,000 maps
+- Reordered parser condition checks to reduce branch mispredictions
+- Implemented precomputation of all possible values
+- Minimized dereferencing in hot loops
+- Increased integrated benchmark from 10 to 100 iterations
+
+---
+
 ## [2.3.0] - ~140 ms on 10 000 x 10 000 maps
-- Optimized **DP minimum computation** to reduce branching and improve predictability
+- Optimized **DP minimum computation** to reduce miss-branches
 
 ---
 

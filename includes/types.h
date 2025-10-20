@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 # define TYPES_H
 
-# define BENCH_ITERATIONS 10
+# define BENCH_ITERATIONS 100
 
 # define BUFFER_SIZE 1000000
 # define RULES_MIN_LEN 4
@@ -47,7 +47,7 @@ typedef struct s_run
 	t_str	*input;
 	t_rules	rules;
 	t_str	*map;
-	size_t	line_count;
+	size_t	row_count;
 	int		*dp;
 	t_bsq	bsq;
 }	t_run;

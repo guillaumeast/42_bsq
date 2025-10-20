@@ -11,7 +11,7 @@ t_bool	run_new(t_run *run, t_str *input)
 	map_p = input->str + run->rules.len + 1;
 	map_len = input->len - (run->rules.len + 1);
 	run->map = str_new(map_p, map_len, input->cap);
-	run->line_count = 0;
+	run->row_count = 0;
 	run->dp = malloc(run->map->len * sizeof(int));
 	if (!run->dp)
 	{	
