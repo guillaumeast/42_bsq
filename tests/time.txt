@@ -20,7 +20,7 @@
 
 macOS / Apple M4 / <time.h> / clock_gettime() with stdout redirected into a file
 ┌-----------------------------------┐
-| C - v2.2.0                        |
+| C - v2.3.0                        |
 ├-----------------------------------┤
 |  Read  |  Parse |  Write | Total  |
 ├-----------------------------------┤

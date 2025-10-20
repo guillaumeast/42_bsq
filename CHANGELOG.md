@@ -1,4 +1,4 @@
-## [2.2.2] - ~140 ms on 10 000 x 10 000 maps
+## [2.3.0] - ~140 ms on 10 000 x 10 000 maps
 - Optimized **DP minimum computation** to reduce branching and improve predictability
 
 ---
