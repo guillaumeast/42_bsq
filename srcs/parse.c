@@ -1,7 +1,8 @@
 #include "bsq.h"
 
 static t_bool	parse_line(t_run *r, size_t *i);
-static void		solve_cell(t_run *run, size_t i);
+static void		solve_cell(t_run *run, size_t i, size_t width);
+static void		set_min(int *dp, size_t i, size_t row_len);
 
 t_bool	parse(t_run *run, t_str *input)
 {
@@ -64,7 +65,7 @@ static t_bool	parse_line(t_run *r, size_t *i)
 	{
 		if (r->map->str[j] != r->rules.emp && r->map->str[j] != r->rules.obs)
 			return (FALSE);
-		solve_cell(r, j);
+		solve_cell(r, j, r->rules.width + 1);
 		j++;
 	}
 	if (r->line_count == 1)
@@ -75,31 +76,33 @@ static t_bool	parse_line(t_run *r, size_t *i)
 	return (TRUE);
 }
 
-static void	solve_cell(t_run *run, size_t i)
+static void	solve_cell(t_run *run, size_t i, size_t row_len)
 {
-	size_t	up;
-	size_t	left;
-	size_t	up_left;
-
 	if (run->map->str[i] == run->rules.obs)
 		run->dp[i] = 0;
-	else if (run->line_count == 1 || i % (run->rules.width + 1) == 0)
+	else if (run->line_count == 1 || i % row_len == 0)
 		run->dp[i] = 1;
 	else
-	{
-		up = run->dp[i - (run->rules.width + 1)];
-		left = run->dp[i - 1];
-		up_left = run->dp[i - (run->rules.width + 2)];
-		if (up < left && up < up_left)
-			run->dp[i] = up + 1;
-		else if (left < up && left < up_left)
-			run->dp[i] = left + 1;
-		else
-			run->dp[i] = up_left + 1;
-	}
+		set_min(run->dp, i, row_len);
 	if ((size_t) run->dp[i] > run->bsq.size)
 	{
 		run->bsq.size = run->dp[i];
 		run->bsq.index = i;
 	}
+}
+
+static void	set_min(int *dp, size_t i, size_t row_len)
+{
+	int	up;
+	int	left;
+	int	up_left;
+
+	up = dp[i - row_len];
+	left = dp[i - 1];
+	up_left = dp[i - row_len - 1];
+	if (left < up)
+		up = left;
+	if (up_left < up)
+		up = up_left;
+	dp[i] = up + 1;	
 }

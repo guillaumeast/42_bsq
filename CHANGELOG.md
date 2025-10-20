@@ -1,3 +1,8 @@
+## [2.2.2] - ~140 ms on 10 000 x 10 000 maps
+- Optimized **DP minimum computation** to reduce branching and improve predictability
+
+---
+
 ## [2.2.1] - ~180 ms on 10 000 x 10 000 maps
 - Switched to native C types during file read operations
 - Implemented in-place reading to remove buffer duplication and reduce latency

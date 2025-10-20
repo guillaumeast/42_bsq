@@ -39,6 +39,7 @@
 | **v2.1.1** | **QoL update**<br>→ Integrated benchmark mode (10 iterations) | ~200 ms |
 | **v2.2.0** | **Input optimization**<br>→ Reworked `str_grow()` to dereference pointer **once** before the loop<br>→ Reduced redundant memory accesses during buffer reallocation | ~190 ms |
 | **v2.2.1** | **Input optimization**<br>→ Switched to native C types during file read operations<br>→ Implemented in-place reading to remove buffer duplication and reduce latency | ~180 ms |
+| **v2.2.2** | **Parse optimization**<br>→ Optimized DP minimum computation to reduce branching and improve predictability | ~140 ms |
 
 ---
 
@@ -84,18 +85,15 @@ else
 bsq/
 ├── README.md				# This README file
 ├── bsq.subject.en.pdf		# Official 42 subject (English)
-├── Makefile				# Build rules and compiler settings (Norm-compliant)
+├── Makefile				# Build rules and compiler settings
 ├── includes/				# Header files with type definitions and prototypes
 ├── srcs/					# Source files (C code)
 │   ├── main.c				# Entry point
-│   ├── objects/
-│   │   ├── run.c			# Constructor and free function for run struct
-│   │   └── string.c		# String manipulation tools
-│   ├── read.c				# Reads content from filepath
+│   ├── objects/			# Constructor and free function for custom structs
+│   ├── utils/				# Utilities
+│   ├── read.c				# Reads content from filepath/stdin
 │   ├── parse.c				# Parses rules then simultaneously parses and solves the map
-│   ├── result.c			# Prints result
-│   ├── time.c				# Utilities for benchmark mode
-│   └── utils.c				# Utility functions (is_printable and fast_atoi_n)
+│   └── result.c			# Prints result
 └── tests/					# Sample maps and performance benchmarks
 ```
 

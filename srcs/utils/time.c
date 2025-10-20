@@ -9,7 +9,7 @@ void	print_exec_time(t_exec_time *exec_time)
 	size_t		i;
 
 	fprintf(stderr, "┌-----------------------------------┐\n");
-	fprintf(stderr, "| C - v2.2.0                        |\n");
+	fprintf(stderr, "| C - v2.2.2                        |\n");
 	fprintf(stderr, "├-----------------------------------┤\n");
 	fprintf(stderr, "|  Read  |  Parse |  Write | Total  |\n");
 	fprintf(stderr, "├-----------------------------------┤\n");
