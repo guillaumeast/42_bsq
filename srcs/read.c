@@ -1,45 +1,46 @@
 #include "bsq.h"
 
-static t_str	*read_fd(int fd, t_node **first_buffer, size_t cap);
+static t_str	*read_fd(int fd, t_chunk_arr **buffers);
 
 t_str	*read_file(const char *file_path)
 {
-	int		fd;
-	t_node	*first_buffer;
-	t_str	*res;
+	int			fd;
+	t_chunk_arr	*buffers;
+	t_str		*res;
 
 	fd = open(file_path, O_RDONLY);
-	first_buffer = node_new(BUFFER_SIZE);
-	if (fd == -1 || !first_buffer)
+	buffers = chunk_new_arr();
+	if (fd == -1 || !buffers)
 		return (NULL);
-	res = read_fd(fd, &first_buffer, BUFFER_SIZE);
+	res = read_fd(fd, &buffers);
 	close(fd);
 	return (res);
 }
 
-static t_str	*read_fd(int fd, t_node **first_buffer, size_t cap)
+static t_str	*read_fd(int fd, t_chunk_arr **buffers)
 {
-	size_t	sm_len;
 	ssize_t	bytes_read;
-	t_node	*current;
+	t_chunk	*current;
 
-	current = *first_buffer;
-	sm_len = 0;
-	while ((bytes_read = read(fd, current->data, cap)) == (ssize_t) cap)
+	current = chunk_new(buffers);
+	if (!current)
+		return (NULL);
+	while ((bytes_read = read(fd, current->data, current->cap)) == (ssize_t) current->cap)
 	{
+		fprintf(stderr, "Hey\n");
 		current->len += bytes_read;
-		sm_len += bytes_read;
-		cap *= 2;
-		current = node_add_new(first_buffer, current, cap);
+		(*buffers)->len += bytes_read;
+		current = chunk_new(buffers);
 		if (!current)
 			return (NULL);
+		fprintf(stderr, "New_cap = %zu\n", current->cap);
 	}
 	if (bytes_read < 0)
 	{
-		node_free(first_buffer);
+		chunk_free_all(buffers);
 		return (NULL);
 	}
 	current->len += bytes_read;
-	sm_len += bytes_read;
-	return (node_to_str(first_buffer, sm_len));
+	(*buffers)->len += bytes_read;
+	return (chunk_to_str(buffers));
 }

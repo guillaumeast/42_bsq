@@ -11,13 +11,20 @@ typedef char	t_bool;
 # define FALSE 0
 # define TRUE 1
 
-typedef struct s_node
+typedef struct s_chunk
 {
-	char			*data;
-	size_t			len;
-	size_t			cap;
-	struct s_node	*next;
-}	t_node;
+	char	*data;
+	size_t	cap;
+	size_t	len;
+}	t_chunk;
+
+typedef struct s_chunk_arr
+{
+	t_chunk	**tab;
+	size_t	len;
+	size_t	count;
+	size_t	cap;
+}	t_chunk_arr;
 
 typedef struct s_str
 {
