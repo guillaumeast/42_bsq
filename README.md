@@ -28,8 +28,8 @@
 > 
 > _`stdout` redirected to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
 
-| Version | Description | Real Time (10k×10k map) |
-|----------|-------------|------------------------------|
+| Version | Description | 10k×10k |
+|:----------|:-------------|------------------------------:|
 | **v1.1.0** | **Baseline** (42 Paris Piscine version) | ~37 000 ms |
 | **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~5 800 ms |
 | **v1.3.0** | **Output optimization**<br>→ Switched output to flat buffer (`char *`) | ~5 600 ms |
