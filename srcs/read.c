@@ -21,17 +21,21 @@ t_str	*read_file(const char *file_path)
 static t_str	*read_fd(int fd, char *buffer, size_t cap)
 {
 	size_t	len;
-	size_t	bytes_read;
+	ssize_t	bytes_read;
+	ssize_t available;
 
 	len = 0;
-	while ((bytes_read = read(fd, buffer + len, cap - len - 1)) > 0)
+	available = BUFFER_SIZE - 1;
+	while ((bytes_read = read(fd, buffer + len, available)) == available)
 	{
 		len += bytes_read;
 		cap *= 2;
 		buffer = grow_buffer(buffer, len, cap);
 		if (!buffer)
 			return (NULL);
+		available = cap - len - 1;
 	}
+	len += bytes_read;
 	buffer[len] = '\0';
 	return (str_new(buffer, len, cap));
 }

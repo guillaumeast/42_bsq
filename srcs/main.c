@@ -17,8 +17,7 @@ int	main(int argc, char **argv)
 static void	exec_bench(char *file_path)
 {
 	t_exec_time	exec_time;
-	t_str	*input;
-	t_run	run;
+	t_run	*run;
 	size_t	i;
 
 	fprintf(stderr, "Benchmarking on %d iterations...\n", BENCH_ITERATIONS);
@@ -27,17 +26,19 @@ static void	exec_bench(char *file_path)
 	while (i < BENCH_ITERATIONS)
 	{
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].read_start));
-		input = read_file(file_path);
+		run = run_new();
+		run = run_add_input(run, read_file(file_path));
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].parse_start));
-		if (!parse(&run, input))
-			write(2, "map error\n", 10);
-		else
+		run = run_add_rules(run, parse_rules(run->input, &(run->rules)));
+		run = parse_map(run);
+		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_start));
+		if (run)
 		{
-			clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_start));
-			print_result(&run);
-			clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_end));
+			print_result(run);
+			run_free(&run);
 		}
-		run_free(&run);
+		else
+			write(2, "map error\n", 10);
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i++].end));
 	}
 	print_exec_time(&exec_time);
@@ -45,21 +46,25 @@ static void	exec_bench(char *file_path)
 
 static void	exec_from_files(int argc, char **argv)
 {
+	t_run	*run;
 	int		i;
-	t_str	*input;
-	t_run	run;
 
 	i = 1;
 	while (i < argc)
 	{
-		input = read_file(argv[i]);
-		if (!parse(&run, input))
-			write(2, "map error\n", 10);
+		run = run_new();
+		run = run_add_input(run, read_file(argv[i++]));
+		run = run_add_rules(run, parse_rules(run->input, &(run->rules)));
+		run = parse_map(run);
+		if (run)
+		{
+			print_result(run);
+			run_free(&run);
+		}
 		else
-			print_result(&run);
-		if (i < argc - 1)
+			write(2, "map error\n", 10);
+		if (i < argc)
 			write(1, "\n", 1);
-		run_free(&run);
 		i++;
 	}
 }

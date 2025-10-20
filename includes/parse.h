@@ -3,7 +3,7 @@
 
 # include "bsq.h"
 
-t_bool	parse(t_run *run, t_str *input);
-t_bool	parse_rules(t_str *input, t_rules *r);
+t_rules	*parse_rules(t_str *input, t_rules *r);
+t_run	*parse_map(t_run *run);
 
 #endif

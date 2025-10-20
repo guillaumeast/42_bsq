@@ -9,7 +9,7 @@ void	print_exec_time(t_exec_time *exec_time)
 	size_t		i;
 
 	fprintf(stderr, "┌-----------------------------------┐\n");
-	fprintf(stderr, "| C - v2.4.0                        |\n");
+	fprintf(stderr, "| C - v2.4.1                        |\n");
 	fprintf(stderr, "├-----------------------------------┤\n");
 	fprintf(stderr, "|  Read  |  Parse |  Write | Total  |\n");
 	fprintf(stderr, "├-----------------------------------┤\n");
@@ -27,7 +27,7 @@ static void	print_run_time(t_run_time *time)
 {
 	time->read = (int) (ns_since(time->read_start, time->parse_start) / 1e6);
 	time->parse = (int) (ns_since(time->parse_start, time->write_start) / 1e6);
-	time->write = (int) (ns_since(time->write_start, time->write_end) / 1e3);
+	time->write = (int) (ns_since(time->write_start, time->end) / 1e3);
 	time->total = (int) (ns_since(time->read_start, time->end) / 1e6);
 	fprintf(stderr, "| %3d ms | %3d ms | %3d µs | %3d ms |\n", \
 		time->read, time->parse, time->write, time->total);

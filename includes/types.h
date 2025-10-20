@@ -47,7 +47,6 @@ typedef struct s_run
 	t_str	*input;
 	t_rules	rules;
 	t_str	*map;
-	size_t	row_count;
 	int		*dp;
 	t_bsq	bsq;
 }	t_run;
@@ -57,7 +56,6 @@ typedef struct s_run_time
 	struct timespec	read_start;
 	struct timespec parse_start;
 	struct timespec write_start;
-	struct timespec write_end;
 	struct timespec end;
 	int				read;
 	int				parse;

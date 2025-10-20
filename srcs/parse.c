@@ -4,7 +4,35 @@ static t_bool	parse_row(t_run *r, char *map, size_t *i, size_t row);
 static void		solve_cell(t_run *run, size_t i, size_t row, size_t col);
 static void		set_min(int *dp, size_t i, size_t row_len);
 
-t_bool	parse(t_run *run, t_str *input)
+t_rules	*parse_rules(t_str *input, t_rules *r)
+{
+	int		atoi_res;
+	size_t	rules_len;
+
+	if (!input || !r)
+		return (NULL);
+	rules_len = 0;
+	while (rules_len < input->len && input->str[rules_len] != '\n')
+		rules_len++;
+	if (rules_len < RULES_MIN_LEN)
+		return (NULL);
+	atoi_res = ft_fast_atoi_n(input, rules_len - RULES_CHARSET_LEN);
+	if (atoi_res <= 0)
+		return (NULL);
+	r->height = atoi_res;
+	r->width = 0;
+	r->emp = input->str[rules_len - RULES_CHARSET_LEN];
+	r->obs = input->str[rules_len - (RULES_CHARSET_LEN - 1)];
+	r->fil = input->str[rules_len - (RULES_CHARSET_LEN - 2)];
+	if (!is_print(r->emp) || !is_print(r->obs) || !is_print(r->fil))
+		return (NULL);
+	if (r->emp == r->obs || r->emp == r->fil || r->obs == r->fil)
+		return (NULL);
+	r->len = rules_len;
+	return (r);
+}
+
+t_run	*parse_map(t_run *run)
 {
 	char	*map;
 	size_t	map_len;
@@ -12,8 +40,8 @@ t_bool	parse(t_run *run, t_str *input)
 	size_t	row;
 	size_t	height;
 
-	if (!input || !run_new(run, input))
-		return (FALSE);
+	if (!run)
+		return (NULL);
 	map = run->map->str;
 	map_len = run->map->len;
 	i = 0;
@@ -22,42 +50,14 @@ t_bool	parse(t_run *run, t_str *input)
 	while (i < map_len)
 	{
 		if (!parse_row(run, map, &i, row))
-			return (FALSE);
+			return (run_free(&run));
 		if (++row > height)
-			return (FALSE);
+			return (run_free(&run));
 		i++;
 	}
 	if (row == 0 || row < height)
-		return (FALSE);
-	return (TRUE);
-}
-
-t_bool	parse_rules(t_str *input, t_rules *r)
-{
-	size_t	input_len;
-	int		atoi_res;
-	size_t	rules_len;
-
-	input_len = input->len;
-	rules_len = 0;
-	while (rules_len < input_len && input->str[rules_len] != '\n')
-		rules_len++;
-	if (rules_len < RULES_MIN_LEN)
-		return (FALSE);
-	atoi_res = ft_fast_atoi_n(input, rules_len - RULES_CHARSET_LEN);
-	if (atoi_res <= 0)
-		return (FALSE);
-	r->height = atoi_res;
-	r->width = 0;
-	r->emp = input->str[rules_len - RULES_CHARSET_LEN];
-	r->obs = input->str[rules_len - (RULES_CHARSET_LEN - 1)];
-	r->fil = input->str[rules_len - (RULES_CHARSET_LEN - 2)];
-	if (!is_print(r->emp) || !is_print(r->obs) || !is_print(r->fil))
-		return (FALSE);
-	if (r->emp == r->obs || r->emp == r->fil || r->obs == r->fil)
-		return (FALSE);
-	r->len = rules_len;
-	return (TRUE);
+		return (run_free(&run));
+	return (run);
 }
 
 static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)

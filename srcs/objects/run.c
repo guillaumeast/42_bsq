@@ -1,35 +1,50 @@
 #include "bsq.h"
 
-t_bool	run_new(t_run *run, t_str *input)
+t_run	*run_new()
+{
+	t_run	*run;
+
+	run = malloc(sizeof(t_run));
+	if (!run)
+		return (NULL);
+	return (run);
+}
+
+t_run	*run_add_input(t_run *run, t_str *input)
+{
+	if (!run || !input)
+		return (run_free(&run));
+	run->input = input;
+	return (run);
+}
+
+t_run	*run_add_rules(t_run *run, t_rules *rules)
 {
 	char	*map_p;
 	size_t	map_len;
 
-	run->input = input;
-	if (!parse_rules(input, &(run->rules)))
-		return (FALSE);
-	map_p = input->str + run->rules.len + 1;
-	map_len = input->len - (run->rules.len + 1);
-	run->map = str_new(map_p, map_len, input->cap);
-	run->row_count = 0;
+	if (!run || !rules)
+		return (run_free(&run));
+	map_p = run->input->str + run->rules.len + 1;
+	map_len = run->input->len - (run->rules.len + 1);
+	run->map = str_new(map_p, map_len, run->input->cap);
 	run->dp = malloc(run->map->len * sizeof(int));
-	if (!run->dp)
-	{	
-		run->dp = NULL;
-		return (FALSE);
-	}
-	run->bsq.size = 0;
+	if (!run->map || !run->dp)
+		return (run_free(&run));
 	run->bsq.index = 0;
-	return (TRUE);
+	run->bsq.size = 0;
+	return (run);
 }
 
-t_run	*run_free(t_run *run)
+t_run	*run_free(t_run **run)
 {
-	if (!run)
+	if (!run || !*run)
 		return (NULL);
-	if (run->input)
-		str_free(&(run->input));
-	if (run->dp)
-		free(run->dp);
+	if ((*run)->input)
+		str_free(&((*run)->input));
+	if ((*run)->dp)
+		free((*run)->dp);
+	free(*run);
+	*run = NULL;
 	return (NULL);
 }

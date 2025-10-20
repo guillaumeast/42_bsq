@@ -1,3 +1,10 @@
+## [2.4.1] - ~100 ms on 10,000 x 10,000 maps
+- Avoid useless last buffer grow
+- Refactored main.c, run.c and parse.c
+- Fix multiple freeing of not allocated pointers
+
+---
+
 ## [2.4.0] - ~100 ms on 10,000 x 10,000 maps
 - Reordered parser condition checks to reduce branch mispredictions
 - Implemented precomputation of all possible values

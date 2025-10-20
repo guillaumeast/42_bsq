@@ -6,10 +6,7 @@ t_str	*str_new(char *str, size_t len, size_t cap)
 
 	res = malloc(sizeof(t_str));
 	if (!res)
-	{
-		free(str);
 		return (NULL);
-	}
 	res->str = str;
 	res->len = len;
 	res->cap = cap;
