@@ -3,9 +3,8 @@
 
 # include "bsq.h"
 
-t_str	*str_new(size_t initial_cap);
-t_str	*str_append_buf(t_str **dst, const char *buffer, size_t n);
-t_str	*str_append(t_str **dst, const t_str *src, size_t n);
+t_str	*str_new(char *str, size_t len, size_t cap);
+t_str	*str_grow(t_str **str, size_t cap_need);
 t_str	*str_free(t_str **str);
 
 #endif

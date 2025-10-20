@@ -1,3 +1,9 @@
+## [2.2.1] - ~180 ms on 10 000 x 10 000 maps
+- Switched to native C types during file read operations
+- Implemented in-place reading to remove buffer duplication and reduce latency
+
+---
+
 ## [2.2.0] - ~190 ms on 10 000 x 10 000 maps
 - Reworked `str_grow()` to dereference pointer **once** before loop instead of at each iteration  
 - Reduced redundant memory accesses during buffer reallocation  

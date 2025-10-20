@@ -3,7 +3,7 @@
 
 # include "bsq.h"
 
-t_bool	run_init(t_run *run, t_str *input);
+t_bool	run_new(t_run *run, t_str *input);
 t_run	*run_free(t_run *run);
 
 #endif

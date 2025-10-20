@@ -8,7 +8,7 @@ t_bool	parse(t_run *run, t_str *input)
 	size_t	map_len;
 	size_t	i;
 
-	if (!input || !run_init(run, input))
+	if (!input || !run_new(run, input))
 		return (FALSE);
 	map_len = run->map->len;
 	i = 0;
