@@ -1,7 +1,7 @@
 #include "bsq.h"
 
 static t_str	*read_fd(int fd, char *buffer, size_t cap);
-static char	*grow_buffer(char *buffer, size_t content_len, size_t cap_need);
+static char		*grow_buffer(char *buffer, size_t content_len, size_t cap_need);
 
 t_str	*read_file(const char *file_path)
 {
@@ -35,6 +35,8 @@ static t_str	*read_fd(int fd, char *buffer, size_t cap)
 			return (NULL);
 		available = cap - len - 1;
 	}
+	if (bytes_read < 0)
+		return (NULL);
 	len += bytes_read;
 	buffer[len] = '\0';
 	return (str_new(buffer, len, cap));

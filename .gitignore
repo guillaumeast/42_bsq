@@ -1,5 +1,6 @@
 bsq
 a.out
+obj/
 .vscode/
 .DS_Store
 result*.txt
