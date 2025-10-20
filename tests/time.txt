@@ -3,6 +3,7 @@
 ├--------------------------------------------------------┤
 | Version |   Read   |   Parse  |    Write   |   Total   |
 ├--------------------------------------------------------┤
+|  v2.4.2 |     7 ms |    93 ms |      11 µs |    101 ms |
 |  v2.4.0 |     8 ms |    94 ms |       7 µs |    103 ms |
 |  v2.3.0 |    11 ms |   125 ms |       9 µs |    137 ms |
 |  v2.2.1 |    10 ms |   167 ms |      10 µs |    178 ms |
@@ -18,6 +19,118 @@
 |  v1.2.0 |     n.c. |     n.c. |       n.c. |  5 800 ms |
 |  v1.1.0 |     n.c. |     n.c. |       n.c. | 37 000 ms |
 └--------------------------------------------------------┘
+
+macOS / Apple M4 / <time.h> / clock_gettime() with stdout redirected to /dev/null
+┌-----------------------------------┐
+| C - v2.4.2                        |
+├-----------------------------------┤
+|  Read  |  Parse |  Write | Total  |
+├-----------------------------------┤
+|  30 ms | 130 ms |  16 µs | 160 ms |
+|   7 ms | 103 ms |  15 µs | 111 ms |
+|   7 ms |  93 ms |  16 µs | 100 ms |
+|   7 ms |  93 ms |  14 µs | 100 ms |
+|   7 ms |  95 ms |  14 µs | 102 ms |
+|   7 ms |  92 ms |  10 µs |  99 ms |
+|   7 ms |  92 ms |   8 µs |  99 ms |
+|   7 ms |  93 ms |  11 µs | 100 ms |
+|   7 ms |  91 ms |  12 µs |  99 ms |
+|   7 ms |  91 ms |  12 µs |  99 ms |
+|   7 ms |  92 ms |  13 µs | 100 ms |
+|   7 ms |  95 ms |   9 µs | 103 ms |
+|   7 ms |  91 ms |  10 µs |  99 ms |
+|   7 ms |  96 ms |  21 µs | 103 ms |
+|   7 ms |  90 ms |  12 µs |  98 ms |
+|   7 ms |  92 ms |  12 µs |  99 ms |
+|   7 ms |  88 ms |  13 µs |  96 ms |
+|   7 ms |  93 ms |  10 µs | 101 ms |
+|   7 ms |  90 ms |  15 µs |  98 ms |
+|   7 ms |  91 ms |  12 µs |  98 ms |
+|   7 ms |  92 ms |  14 µs | 100 ms |
+|   7 ms |  95 ms |  12 µs | 103 ms |
+|   7 ms |  94 ms |   9 µs | 101 ms |
+|   7 ms |  95 ms |  10 µs | 102 ms |
+|   7 ms |  94 ms |   8 µs | 101 ms |
+|   7 ms |  90 ms |  13 µs |  98 ms |
+|   7 ms |  93 ms |  12 µs | 100 ms |
+|   7 ms |  92 ms |  15 µs | 100 ms |
+|   7 ms |  92 ms |   9 µs | 100 ms |
+|   7 ms |  93 ms |  10 µs | 100 ms |
+|   7 ms |  89 ms |  12 µs |  96 ms |
+|   7 ms |  91 ms |  14 µs |  99 ms |
+|   7 ms |  94 ms |  10 µs | 101 ms |
+|   7 ms |  92 ms |   8 µs |  99 ms |
+|   7 ms |  91 ms |  12 µs |  99 ms |
+|   7 ms |  94 ms |  10 µs | 101 ms |
+|   7 ms |  93 ms |   8 µs | 100 ms |
+|   7 ms |  90 ms |  13 µs |  98 ms |
+|   7 ms |  94 ms |  11 µs | 101 ms |
+|   7 ms |  92 ms |   8 µs |  99 ms |
+|   7 ms |  92 ms |  14 µs |  99 ms |
+|   7 ms |  93 ms |  13 µs | 100 ms |
+|   7 ms |  91 ms |  11 µs |  98 ms |
+|   7 ms |  93 ms |  12 µs | 101 ms |
+|   7 ms |  92 ms |   9 µs |  99 ms |
+|   7 ms |  91 ms |  10 µs |  99 ms |
+|   7 ms |  93 ms |   7 µs | 100 ms |
+|   7 ms |  90 ms |  11 µs |  97 ms |
+|   7 ms |  89 ms |  10 µs |  97 ms |
+|   7 ms |  93 ms |  11 µs | 100 ms |
+|   7 ms |  95 ms |  19 µs | 102 ms |
+|   7 ms |  90 ms |   9 µs |  98 ms |
+|   7 ms | 101 ms |  17 µs | 108 ms |
+|   7 ms |  98 ms |  16 µs | 106 ms |
+|   7 ms |  93 ms |  12 µs | 101 ms |
+|   7 ms | 100 ms |  15 µs | 107 ms |
+|   7 ms |  93 ms |  10 µs | 100 ms |
+|   7 ms |  94 ms |  12 µs | 101 ms |
+|   8 ms |  93 ms |  12 µs | 101 ms |
+|   7 ms |  92 ms |  12 µs |  99 ms |
+|   7 ms |  94 ms |  11 µs | 101 ms |
+|   7 ms |  97 ms |   9 µs | 105 ms |
+|   7 ms |  93 ms |  10 µs | 101 ms |
+|   7 ms |  92 ms |   9 µs | 100 ms |
+|   7 ms |  93 ms |  10 µs | 100 ms |
+|   7 ms |  94 ms |  14 µs | 102 ms |
+|   7 ms |  90 ms |  14 µs |  98 ms |
+|   7 ms |  94 ms |  10 µs | 101 ms |
+|   7 ms |  92 ms |  13 µs |  99 ms |
+|   7 ms |  90 ms |  10 µs |  97 ms |
+|   7 ms |  94 ms |  12 µs | 101 ms |
+|   7 ms |  94 ms |   9 µs | 102 ms |
+|   7 ms |  95 ms |  13 µs | 102 ms |
+|   7 ms |  94 ms |   9 µs | 101 ms |
+|   7 ms |  94 ms |   9 µs | 101 ms |
+|   7 ms |  91 ms |  10 µs |  99 ms |
+|   7 ms |  91 ms |  10 µs |  98 ms |
+|   7 ms |  94 ms |  12 µs | 101 ms |
+|   7 ms |  95 ms |   9 µs | 102 ms |
+|   7 ms |  96 ms |  13 µs | 103 ms |
+|   7 ms |  91 ms |  10 µs |  99 ms |
+|   7 ms |  95 ms |   8 µs | 103 ms |
+|   7 ms |  87 ms |  11 µs |  94 ms |
+|   7 ms |  92 ms |   9 µs | 100 ms |
+|   7 ms |  95 ms |   9 µs | 102 ms |
+|   7 ms |  94 ms |  12 µs | 102 ms |
+|   7 ms |  95 ms |   8 µs | 103 ms |
+|   7 ms |  91 ms |  13 µs |  98 ms |
+|   7 ms |  91 ms |  12 µs |  98 ms |
+|   7 ms |  95 ms |  10 µs | 102 ms |
+|   7 ms |  90 ms |  10 µs |  98 ms |
+|   7 ms |  94 ms |  14 µs | 102 ms |
+|   7 ms |  92 ms |  13 µs | 100 ms |
+|   7 ms |  93 ms |  11 µs | 101 ms |
+|   7 ms |  95 ms |   9 µs | 103 ms |
+|   7 ms |  94 ms |  12 µs | 102 ms |
+|   7 ms |  95 ms |  10 µs | 102 ms |
+|   7 ms |  95 ms |   8 µs | 102 ms |
+|   7 ms |  93 ms |  16 µs | 100 ms |
+|   7 ms |  95 ms |  12 µs | 102 ms |
+├-----------------------------------┤
+|  Average                          |
+├-----------------------------------┤
+|   7 ms |  93 ms |  11 µs | 101 ms |
+└-----------------------------------┘
 
 macOS / Apple M4 / <time.h> / clock_gettime() with stdout redirected to /dev/null
 ┌-----------------------------------┐

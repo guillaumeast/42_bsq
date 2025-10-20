@@ -1,62 +1,45 @@
 #include "bsq.h"
 
-static t_str	*read_fd(int fd, char *buffer, size_t cap);
-static char	*grow_buffer(char *buffer, size_t content_len, size_t cap_need);
+static t_str	*read_fd(int fd, t_node **first_buffer, size_t cap);
 
 t_str	*read_file(const char *file_path)
 {
 	int		fd;
-	char	*buffer;
+	t_node	*first_buffer;
 	t_str	*res;
 
 	fd = open(file_path, O_RDONLY);
-	buffer = malloc(BUFFER_SIZE);
-	if (fd == -1 || !buffer)
+	first_buffer = node_new(BUFFER_SIZE);
+	if (fd == -1 || !first_buffer)
 		return (NULL);
-	res = read_fd(fd, buffer, BUFFER_SIZE);
+	res = read_fd(fd, &first_buffer, BUFFER_SIZE);
 	close(fd);
 	return (res);
 }
 
-static t_str	*read_fd(int fd, char *buffer, size_t cap)
+static t_str	*read_fd(int fd, t_node **first_buffer, size_t cap)
 {
-	size_t	len;
+	size_t	sm_len;
 	ssize_t	bytes_read;
-	ssize_t available;
+	t_node	*current;
 
-	len = 0;
-	available = BUFFER_SIZE - 1;
-	while ((bytes_read = read(fd, buffer + len, available)) == available)
+	current = *first_buffer;
+	sm_len = 0;
+	while ((bytes_read = read(fd, current->data, cap)) == (ssize_t) cap)
 	{
-		len += bytes_read;
+		current->len += bytes_read;
+		sm_len += bytes_read;
 		cap *= 2;
-		buffer = grow_buffer(buffer, len, cap);
-		if (!buffer)
+		current = node_add_new(first_buffer, current, cap);
+		if (!current)
 			return (NULL);
-		available = cap - len - 1;
 	}
-	len += bytes_read;
-	buffer[len] = '\0';
-	return (str_new(buffer, len, cap));
-}
-
-static char	*grow_buffer(char *buffer, size_t content_len, size_t new_cap)
-{
-	char	*new_buffer;
-	size_t	i;
-
-	new_buffer = malloc(new_cap);
-	if (!new_buffer)
+	if (bytes_read < 0)
 	{
-		free(buffer);
+		node_free(first_buffer);
 		return (NULL);
 	}
-	i = 0;
-	while (i < content_len)
-	{
-		new_buffer[i] = buffer[i];
-		i++;
-	}
-	free(buffer);
-	return (new_buffer);
+	current->len += bytes_read;
+	sm_len += bytes_read;
+	return (node_to_str(first_buffer, sm_len));
 }

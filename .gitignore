@@ -1,8 +1,9 @@
 bsq
-a.out
+obj/
 .vscode/
 .DS_Store
 result*.txt
 *codebase.md
 tmp*.txt
 todo.md
+OLD_read.c

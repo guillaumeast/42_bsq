@@ -3,13 +3,21 @@
 
 # define BENCH_ITERATIONS 100
 
-# define BUFFER_SIZE 1000000
+# define BUFFER_SIZE 4000000
 # define RULES_MIN_LEN 4
 # define RULES_CHARSET_LEN 3
 
 typedef char	t_bool;
 # define FALSE 0
 # define TRUE 1
+
+typedef struct s_node
+{
+	char			*data;
+	size_t			len;
+	size_t			cap;
+	struct s_node	*next;
+}	t_node;
 
 typedef struct s_str
 {
@@ -30,7 +38,7 @@ typedef struct s_rules
 
 typedef struct s_bsq
 {
-	size_t	size;
+	int		size;
 	size_t	index;
 }	t_bsq;
 
