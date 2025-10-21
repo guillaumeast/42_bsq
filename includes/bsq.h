@@ -9,6 +9,7 @@
 
 # include "types.h"
 # include "bench.h"
+# include "bsq_string.h"
 # include "utils.h"
 # include "read.h"
 # include "run.h"

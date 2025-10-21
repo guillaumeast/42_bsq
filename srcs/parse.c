@@ -43,8 +43,8 @@ void	parse_map(t_run **run)
 
 	if (!run || !*run)
 		return ;
-	map = (*run)->map;
-	map_len = (*run)->map_len;
+	map = (*run)->map->str;
+	map_len = (*run)->map->len;
 	height = (*run)->rules.height;
 	i = 0;
 	row = 0;
@@ -70,7 +70,7 @@ static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 	char	c;
 
 	rules = run->rules;
-	map_len = run->map_len;
+	map_len = run->map->len;
 	col = 0;
 	i_tmp = *i;
 	while (i_tmp < map_len && (c = map[i_tmp]) != '\n')
@@ -91,16 +91,16 @@ static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 
 static void	solve_cell(t_run *run, size_t i, size_t row, size_t col)
 {
-	if (run->map[i] == run->rules.obs)
+	if (run->map->str[i] == run->rules.obs)
 		run->dp[i] = 0;
 	else if (row == 0 || col == 0)
 		run->dp[i] = 1;
 	else
-		set_min(run->dp, i, run->row_len);
-	if ((size_t) run->dp[i] > run->bsq_size)
+		set_min(run->dp, i, run->rules.width + 1);
+	if ((size_t) run->dp[i] > run->bsq.size)
 	{
-		run->bsq_size = run->dp[i];
-		run->bsq_index = i;
+		run->bsq.size = run->dp[i];
+		run->bsq.index = i;
 	}
 }
 
