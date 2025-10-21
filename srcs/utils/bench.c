@@ -85,7 +85,7 @@ static void	print_time(long long ns)
 	size_t	dig_count;
 
 	dig_count = get_digits_count(ns);
-	if (ns == 0)
+	if (ns <= 0)
 		fprintf(stderr, "   0 ns ");
 	else if (dig_count <= 3)
 		fprintf(stderr, " %3d ns ", (int) ns);

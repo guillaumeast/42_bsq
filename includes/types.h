@@ -24,19 +24,18 @@ typedef struct s_rules
 	char	fil;
 }	t_rules;
 
+typedef struct	s_dp
+{
+	int		*dp1;
+	int		*dp2;
+}	t_dp;
+
 typedef struct s_bsq
 {
 	int		size;
-	size_t	index;
+	size_t	row;
+	size_t	col;
 }	t_bsq;
-
-typedef struct	s_bounds
-{
-	size_t	rowmin;
-	size_t	rowmax;
-	size_t	colmin;
-	size_t	colmax;
-}	t_bounds;
 
 typedef struct s_run
 {
@@ -45,8 +44,16 @@ typedef struct s_run
 	size_t	row_len;
 	t_str	*input;
 	t_str	*map;
-	int		*dp;
+	t_dp	*dp;
 	t_bsq	bsq;
 }	t_run;
+
+typedef struct	s_bounds
+{
+	size_t	rowmin;
+	size_t	rowmax;
+	size_t	colmin;
+	size_t	colmax;
+}	t_bounds;
 
 #endif
