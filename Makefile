@@ -63,7 +63,7 @@ sfast:
 	@echo "\n✅ PGO build complete! Binary optimized using real runtime data."
 
 clean:
-	rm -rf $(OBJ_DIR) $(PGO_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)

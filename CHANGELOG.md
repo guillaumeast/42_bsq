@@ -1,3 +1,8 @@
+## [2.5.0] - ~50 ms on 10,000 x 10,000 maps
+- Converted full size `int *` array into two little arrays of size row_len to optimize l-cache usage
+- Optimized `if` statements order
+- Separated `parse_rules` from `parse.c` to `rules.c` for compliance with _42 norm_ (5 functions max per file)
+
 ## [2.5.0] - ~98 ms on 10,000 x 10,000 maps
 - Removed all unnecessary return values from functions
 - Removed the unused `cap` attribute from `t_str`

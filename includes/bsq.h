@@ -13,6 +13,7 @@
 # include "utils.h"
 # include "read.h"
 # include "run.h"
+# include "rules.h"
 # include "parse.h"
 # include "result.h"
 

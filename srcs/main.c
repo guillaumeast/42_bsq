@@ -47,6 +47,7 @@ static void	exec_bench(char *file_path)
 static void	exec_from_files(int argc, char **argv)
 {
 	t_run	*run;
+	char	*input;
 	int		i;
 
 	i = 1;
@@ -54,7 +55,8 @@ static void	exec_from_files(int argc, char **argv)
 	{
 		run = run_new();
 		read_file(&run, argv[i]);
-		parse_rules(&run, (*run).input->str, (*run).input->len, &((*run).rules));
+		input = (*run).input->str;
+		parse_rules(&run, input, (*run).input->len, &((*run).rules));
 		parse_map(&run);
 		if (run)
 		{

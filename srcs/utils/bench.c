@@ -4,7 +4,6 @@ static void		print_run_time(t_run_time *time);
 static void		print_avg_time(t_exec_time *exec_time);
 static void		compute_avg(t_exec_time *exec_time);
 static void		print_time(long long ns);
-static size_t	get_digits_count(const long long number);
 static long long ns_since(const struct timespec a, const struct timespec b);
 
 void	print_exec_time(t_exec_time *exec_time)
@@ -82,33 +81,18 @@ static void	compute_avg(t_exec_time *exec_time)
 
 static void	print_time(long long ns)
 {
-	size_t	dig_count;
-
-	dig_count = get_digits_count(ns);
 	if (ns <= 0)
 		fprintf(stderr, "   0 ns ");
-	else if (dig_count <= 3)
+	else if (ns < 1e3)
 		fprintf(stderr, " %3d ns ", (int) ns);
-	else if (dig_count <= 6)
+	else if (ns < 1e6)
 		fprintf(stderr, " %3d µs ", (int) (ns / 1e3));
-	else if (dig_count <= 9)
+	else if (ns < 1e9)
 		fprintf(stderr, " %3d ms ", (int) (ns / 1e6));
-	else if (dig_count <= 11)
+	else if (ns < 1e11)
 		fprintf(stderr, " %3d  s ", (int) (ns / 1e9));
 	else
 		fprintf(stderr, " >99  s ");
-}
-
-static size_t	get_digits_count(const long long number)
-{
-	size_t		count;
-	long long	nb;
-
-	nb = number;
-	count = 1;
-	while ((nb = nb / 10) != 0)
-		count++;
-	return (count);
 }
 
 static long long ns_since(const struct timespec a, const struct timespec b)

@@ -1,41 +1,41 @@
 #include "bsq.h"
 
-static void	compute_bounds(t_bounds *b, const t_bsq *bsq);
-static void fill_map(t_run *run, t_str *map, const t_rules *rules, const t_bounds *bounds);
+static void fill_map(size_t len, char *mp, const char fil, const t_bounds *b);
 
 void	print_result(t_run *run)
 {
 	t_bounds	bounds;
+	t_bsq		bsq;
+	size_t		bsq_row;
+	size_t		bsq_col;
+	size_t		bsq_size;
 
-	compute_bounds(&bounds, &(run->bsq));
-	fill_map(run, run->map, &(run->rules), &bounds);
+	bsq = run->bsq;
+	bsq_row = bsq.row;
+	bsq_col = bsq.col;
+	bsq_size = bsq.size;
+	bounds.rowmin = bsq_row - (bsq_size - 1);
+	bounds.rowmax = bsq_row;
+	bounds.colmin = bsq_col - (bsq_size - 1);
+	bounds.colmax = bsq_col;
+	fill_map(run->row_len, run->map->str, run->rules.fil, &bounds);
 	write(1, run->map->str, run->map->len);
 }
 
-static void	compute_bounds(t_bounds *b, const t_bsq *bsq)
+static void fill_map(size_t len, char *mp, const char fil, const t_bounds *b)
 {
-	b->rowmin = bsq->row - (bsq->size - 1);
-	b->rowmax = bsq->row;
-	b->colmin = bsq->col - (bsq->size - 1);
-	b->colmax = bsq->col;
-}
-
-static void fill_map(t_run *run, t_str *map, const t_rules *rules, const t_bounds *bounds)
-{
-	size_t		row_len;
 	size_t		row;
 	size_t		col;
 	size_t		i;
 
-	row_len = run->row_len;
-	row = bounds->rowmin;
-	while (row <= bounds->rowmax)
+	row = b->rowmin;
+	while (row <= b->rowmax)
 	{
-		col = bounds->colmin;
-		while (col <= bounds->colmax)
+		col = b->colmin;
+		while (col <= b->colmax)
 		{
-			i = row * row_len + col;
-			map->str[i] = rules->fil;
+			i = row * len + col;
+			mp[i] = fil;
 			col++;
 		}
 		row++;
