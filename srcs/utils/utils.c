@@ -8,10 +8,10 @@ t_bool	is_print(char c)
 	return (TRUE);
 }
 
-int	ft_fast_atoi_n(char *str, size_t n)
+size_t	ft_fast_atoi_n(char *str, size_t n)
 {
 	char *end;
-	int result = 0;
+	size_t result = 0;
 
 	end = str + n;
 	while (str < end)

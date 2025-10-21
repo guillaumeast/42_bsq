@@ -17,12 +17,12 @@
 - **Flat _dynamic programming_ table**: reduces computation time  
 - **In-place editing of the original map**: avoids full map copies and checks  
 - **One-time output**: avoids multiple `write` system calls  
-- **Integrated benchmark** (10 iterations) with the `--bench` flag as the first argument
+- **Integrated benchmark** (100 iterations) with the `--bench` flag as the first argument
 
 ---
 
 ## 🚀 Performance
-- A 10 000×10 000 map is processed in **~100 ms**
+- A 10 000×10 000 map is processed in less than **100 ms**
 
 > _Measured on macOS / Apple M4 / `<time.h>` / `clock_gettime()`_
 > 
@@ -41,6 +41,7 @@
 | **v2.2.1** | **Input optimization**<br>→ Switched to native C types during file read operations<br>→ Implemented in-place reading to remove buffer duplication and reduce latency | ~180 ms |
 | **v2.3.0** | **Parse optimization**<br>→ Optimized DP minimum computation to reduce branch-misses | ~140 ms |
 | **v2.4.0** | **Parse optimization**<br>→ Reordered parser condition checks to reduce branch mispredictions<br>→ Implemented precomputation of all possible values<br>→ Minimized dereferencing in hot loops<br>→ Increased integrated benchmark from 10 to 100 iterations | ~100 ms |
+| **v2.5.0** | **Code cleanup & build optimization**<br>→ Removed unused fields, return values and redundant casts<br>→ Inlined hot functions<br>→ Added `-fomit-frame-pointer` and `-fno-stack-protector` flags<br>→ Introduced optional PGO build (`make sfast`) | 98 ms |
 
 ---
 
@@ -104,13 +105,13 @@ bsq/
 
 ### Compilation
 ```bash
-# Compiles the standard binary
+# Compile the standard binary
 make
 
-# Compiles the fast binary
+# Compile the optimized (fast) binary
 make fast
 
-# Compiles the (sometimes) faster binary
+# Compile, run the binary to collect profiling data, then recompile it with PGO optimizations
 make sfast
 ```
 

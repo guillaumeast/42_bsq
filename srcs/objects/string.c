@@ -1,6 +1,6 @@
 #include "bsq.h"
 
-t_str	*str_new(char *str, size_t len, size_t cap)
+t_str	*str_new(char *str, size_t len)
 {
 	t_str	*res;
 
@@ -9,7 +9,6 @@ t_str	*str_new(char *str, size_t len, size_t cap)
 		return (NULL);
 	res->str = str;
 	res->len = len;
-	res->cap = cap;
 	return (res);
 }
 

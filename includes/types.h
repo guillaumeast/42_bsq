@@ -13,14 +13,12 @@ typedef struct s_str
 {
 	char	*str;
 	size_t	len;
-	size_t	cap;
 }	t_str;
 
 typedef struct s_rules
 {
 	size_t	len;
 	size_t	height;
-	size_t	width;
 	char	emp;
 	char	obs;
 	char	fil;
@@ -28,7 +26,7 @@ typedef struct s_rules
 
 typedef struct s_bsq
 {
-	size_t	size;
+	int		size;
 	size_t	index;
 }	t_bsq;
 
@@ -42,8 +40,10 @@ typedef struct	s_bounds
 
 typedef struct s_run
 {
-	t_str	*input;
 	t_rules	rules;
+	size_t	width;
+	size_t	row_len;
+	t_str	*input;
 	t_str	*map;
 	int		*dp;
 	t_bsq	bsq;

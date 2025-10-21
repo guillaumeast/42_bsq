@@ -37,7 +37,7 @@ static void	read_fd(t_run **run, int fd, char **buffer, size_t cap)
 		return (run_free(run));
 	len += bytes_read;
 	(*buffer)[len] = '\0';
-	(*run)->input = str_new(*buffer, len, cap);
+	(*run)->input = str_new(*buffer, len);
 }
 
 static void	grow_buffer(char **buffer, size_t content_len, size_t new_cap)

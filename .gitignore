@@ -1,6 +1,7 @@
 bsq
 a.out
 obj/
+pgo_obj/
 .vscode/
 .DS_Store
 result*.txt

@@ -1,5 +1,12 @@
-## [2.4.3] - ~XXX ms on 10,000 x 10,000 maps
-- Delete all possible return values from functions
+## [2.5.0] - ~98 ms on 10,000 x 10,000 maps
+- Removed all unnecessary return values from functions
+- Removed the unused `cap` attribute from `t_str`
+- Changed `bsq.size` from `size_t` to `int` to avoid casts
+- Changed the return type of `ft_fast_atoi_n` from `int` to `size_t` to avoid casts
+- Inlined `set_min()` into `solve_cell()`
+- Removed the useless `-ffast-math` flag and the associated `make sfast` rule
+- Added the `-fomit-frame-pointer` `-fno-stack-protector` flags to the `make fast` rule
+- Added a `make sfast` rule to enable _PGO_ optimisation
 
 ---
 
@@ -70,18 +77,18 @@
 
 ---
 
-## [1.4.0] - ~5 400 ms on 10 000 x 10 000 maps
+## [1.4.0] - ~3 400 ms on 10 000 x 10 000 maps
 - Removed table/output initialisations
 - Used height/width instead of checking map
 
 ---
 
-## [1.3.0] - ~5 600 ms on 10 000 x 10 000 maps
+## [1.3.0] - ~3 600 ms on 10 000 x 10 000 maps
 - Converted output from `char **` to `char *`
 
 ---
 
-## [1.2.0] - ~5 800 ms on 10 000 x 10 000 maps
+## [1.2.0] - ~3 800 ms on 10 000 x 10 000 maps
 - Added output buffer `char **`
 
 ---
