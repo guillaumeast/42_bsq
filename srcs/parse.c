@@ -4,35 +4,36 @@ static t_bool	parse_row(t_run *r, char *map, size_t *i, size_t row);
 static void		solve_cell(t_run *run, size_t i, size_t row, size_t col);
 static void		set_min(int *dp, size_t i, size_t row_len);
 
-t_rules	*parse_rules(t_str *input, t_rules *r)
+void	parse_rules(t_run **run, char *input, size_t input_len, t_rules *r)
 {
 	int		atoi_res;
 	size_t	rules_len;
 
-	if (!input || !r)
-		return (NULL);
+	if (!run || !*run || !input || !r)
+		return ;
 	rules_len = 0;
-	while (rules_len < input->len && input->str[rules_len] != '\n')
+	while (rules_len < input_len && input[rules_len] != '\n')
 		rules_len++;
 	if (rules_len < RULES_MIN_LEN)
-		return (NULL);
-	atoi_res = ft_fast_atoi_n(input->str, rules_len - RULES_CHARSET_LEN);
+		return (run_free(run));
+	atoi_res = ft_fast_atoi_n(input, rules_len - RULES_CHARSET_LEN);
 	if (atoi_res <= 0)
-		return (NULL);
+		return (run_free(run));
 	r->height = atoi_res;
 	r->width = 0;
-	r->emp = input->str[rules_len - RULES_CHARSET_LEN];
-	r->obs = input->str[rules_len - (RULES_CHARSET_LEN - 1)];
-	r->fil = input->str[rules_len - (RULES_CHARSET_LEN - 2)];
+	r->emp = input[rules_len - RULES_CHARSET_LEN];
+	r->obs = input[rules_len - (RULES_CHARSET_LEN - 1)];
+	r->fil = input[rules_len - (RULES_CHARSET_LEN - 2)];
 	if (!is_print(r->emp) || !is_print(r->obs) || !is_print(r->fil))
-		return (NULL);
+		return (run_free(run));
 	if (r->emp == r->obs || r->emp == r->fil || r->obs == r->fil)
-		return (NULL);
+		return (run_free(run));
 	r->len = rules_len;
-	return (r);
+	run_add_rules(run);
+	return ;
 }
 
-t_run	*parse_map(t_run *run)
+void	parse_map(t_run **run)
 {
 	char	*map;
 	size_t	map_len;
@@ -40,24 +41,24 @@ t_run	*parse_map(t_run *run)
 	size_t	row;
 	size_t	height;
 
-	if (!run)
-		return (NULL);
-	map = run->map->str;
-	map_len = run->map->len;
-	height = run->rules.height;
+	if (!run || !*run)
+		return ;
+	map = (*run)->map->str;
+	map_len = (*run)->map->len;
+	height = (*run)->rules.height;
 	i = 0;
 	row = 0;
 	while (i < map_len)
 	{
-		if (!parse_row(run, map, &i, row))
-			return (run_free(&run));
+		if (!parse_row(*run, map, &i, row))
+			return (run_free(run));
 		if (++row > height)
-			return (run_free(&run));
+			return (run_free(run));
 		i++;
 	}
 	if (row == 0 || row < height)
-		return (run_free(&run));
-	return (run);
+		return (run_free(run));
+	return ;
 }
 
 static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)

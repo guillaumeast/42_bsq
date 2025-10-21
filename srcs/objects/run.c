@@ -10,41 +10,32 @@ t_run	*run_new()
 	return (run);
 }
 
-t_run	*run_add_input(t_run *run, t_str *input)
-{
-	if (!run || !input)
-		return (run_free(&run));
-	run->input = input;
-	return (run);
-}
-
-t_run	*run_add_rules(t_run *run, t_rules *rules)
+void	run_add_rules(t_run **run)
 {
 	char	*map_p;
 	size_t	map_len;
 
-	if (!run || !rules)
-		return (run_free(&run));
-	map_p = run->input->str + run->rules.len + 1;
-	map_len = run->input->len - (run->rules.len + 1);
-	run->map = str_new(map_p, map_len, run->input->cap);
-	run->dp = malloc(run->map->len * sizeof(int));
-	if (!run->map || !run->dp)
-		return (run_free(&run));
-	run->bsq.index = 0;
-	run->bsq.size = 0;
-	return (run);
+	if (!run || !*run)
+		return ;
+	map_p = (*run)->input->str + (*run)->rules.len + 1;
+	map_len = (*run)->input->len - ((*run)->rules.len + 1);
+	(*run)->map = str_new(map_p, map_len, (*run)->input->cap);
+	(*run)->dp = malloc((*run)->map->len * sizeof(int));
+	if (!(*run)->map || !(*run)->dp)
+		return (run_free(run));
+	(*run)->bsq.index = 0;
+	(*run)->bsq.size = 0;
+	return ;
 }
 
-t_run	*run_free(t_run **run)
+void	run_free(t_run **run)
 {
 	if (!run || !*run)
-		return (NULL);
+		return ;
 	if ((*run)->input)
 		str_free(&((*run)->input));
 	if ((*run)->dp)
 		free((*run)->dp);
 	free(*run);
 	*run = NULL;
-	return (NULL);
 }

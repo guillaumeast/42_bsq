@@ -3,7 +3,7 @@
 
 # include "bsq.h"
 
-t_rules	*parse_rules(t_str *input, t_rules *r);
-t_run	*parse_map(t_run *run);
+void	parse_rules(t_run **run, char *input, size_t input_len, t_rules *r);
+void	parse_map(t_run **run);
 
 #endif

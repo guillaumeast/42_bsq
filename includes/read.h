@@ -3,6 +3,6 @@
 
 # include "bsq.h"
 
-t_str	*read_file(const char *file_path);
+void	read_file(t_run **run, const char *file_path);
 
 #endif

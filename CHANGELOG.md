@@ -1,3 +1,14 @@
+## [2.4.3] - ~XXX ms on 10,000 x 10,000 maps
+- Delete all possible return values from functions
+
+---
+
+## [2.4.2] - ~100 ms on 10,000 x 10,000 maps
+- Refactored main.c and bench.c
+- Fix multiple files handling
+
+---
+
 ## [2.4.1] - ~100 ms on 10,000 x 10,000 maps
 - Avoid useless last buffer grow
 - Refactored main.c, run.c, parse.c and bench.c
