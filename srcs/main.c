@@ -29,7 +29,7 @@ static void	exec_bench(char *file_path)
 		run = run_new();
 		read_file(&run, file_path);
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].parse_start));
-		parse_rules(&run, (*run).input->str, (*run).input->len, &((*run).rules));
+		parse_rules(&run, (*run).input, (*run).input_len, &((*run).rules));
 		parse_map(&run);
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_start));
 		if (run)
@@ -54,7 +54,7 @@ static void	exec_from_files(int argc, char **argv)
 	{
 		run = run_new();
 		read_file(&run, argv[i]);
-		parse_rules(&run, (*run).input->str, (*run).input->len, &((*run).rules));
+		parse_rules(&run, (*run).input, (*run).input_len, &((*run).rules));
 		parse_map(&run);
 		if (run)
 		{

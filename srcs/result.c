@@ -1,33 +1,31 @@
 #include "bsq.h"
 
-static void	compute_bounds(t_bounds *b, const size_t rowlen, const t_bsq *bsq);
-static void fill_map(t_str *map, const t_rules *rules, const t_bounds *bounds);
+static void	compute_bounds(t_bounds *b, size_t rowlen, size_t bsq_i, size_t bsq_size);
+static void fill_map(char *map, const size_t row_len, const char fill, const t_bounds *bounds);
 
 void	print_result(t_run *run)
 {
 	t_bounds	bounds;
 
-	compute_bounds(&bounds, run->rules.width + 1, &(run->bsq));
-	fill_map(run->map, &(run->rules), &bounds);
-	write(1, run->map->str, run->map->len);
+	compute_bounds(&bounds, run->row_len, run->bsq_index, run->bsq_size);
+	fill_map(run->map, run->row_len, run->rules.fil, &bounds);
+	write(1, run->map, run->map_len);
 }
 
-static void	compute_bounds(t_bounds *b, const size_t rowlen, const t_bsq *bsq)
+static void	compute_bounds(t_bounds *b, size_t rowlen, size_t bsq_i, size_t bsq_size)
 {
-	b->rowmin = bsq->index / rowlen - (bsq->size - 1);
-	b->rowmax = bsq->index / rowlen;
-	b->colmin = bsq->index % rowlen - (bsq->size - 1);
-	b->colmax = bsq->index % rowlen;
+	b->rowmin = bsq_i / rowlen - (bsq_size - 1);
+	b->rowmax = bsq_i / rowlen;
+	b->colmin = bsq_i % rowlen - (bsq_size - 1);
+	b->colmax = bsq_i % rowlen;
 }
 
-static void fill_map(t_str *map, const t_rules *rules, const t_bounds *bounds)
+static void fill_map(char *map, const size_t row_len, const char fill, const t_bounds *bounds)
 {
-	size_t		row_len;
 	size_t		row;
 	size_t		col;
 	size_t		i;
 
-	row_len = rules->width + 1;
 	row = bounds->rowmin;
 	while (row <= bounds->rowmax)
 	{
@@ -35,7 +33,7 @@ static void fill_map(t_str *map, const t_rules *rules, const t_bounds *bounds)
 		while (col <= bounds->colmax)
 		{
 			i = row * row_len + col;
-			map->str[i] = rules->fil;
+			map[i] = fill;
 			col++;
 		}
 		row++;

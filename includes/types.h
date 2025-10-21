@@ -9,13 +9,6 @@ typedef char	t_bool;
 # define FALSE 0
 # define TRUE 1
 
-typedef struct s_str
-{
-	char	*str;
-	size_t	len;
-	size_t	cap;
-}	t_str;
-
 typedef struct s_rules
 {
 	size_t	len;
@@ -25,12 +18,6 @@ typedef struct s_rules
 	char	obs;
 	char	fil;
 }	t_rules;
-
-typedef struct s_bsq
-{
-	size_t	size;
-	size_t	index;
-}	t_bsq;
 
 typedef struct	s_bounds
 {
@@ -42,11 +29,15 @@ typedef struct	s_bounds
 
 typedef struct s_run
 {
-	t_str	*input;
 	t_rules	rules;
-	t_str	*map;
+	char	*input;
+	size_t	row_len;
+	size_t	input_len;
+	char	*map;
+	size_t	map_len;
 	int		*dp;
-	t_bsq	bsq;
+	size_t	bsq_index;
+	size_t	bsq_size;
 }	t_run;
 
 #endif
