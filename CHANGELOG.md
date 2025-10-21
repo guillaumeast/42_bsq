@@ -1,7 +1,8 @@
 ## [2.4.1] - ~100 ms on 10,000 x 10,000 maps
 - Avoid useless last buffer grow
-- Refactored main.c, run.c and parse.c
+- Refactored main.c, run.c, parse.c and bench.c
 - Fix multiple freeing of not allocated pointers
+- Fix multiple files handling
 
 ---
 

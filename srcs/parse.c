@@ -16,7 +16,7 @@ t_rules	*parse_rules(t_str *input, t_rules *r)
 		rules_len++;
 	if (rules_len < RULES_MIN_LEN)
 		return (NULL);
-	atoi_res = ft_fast_atoi_n(input, rules_len - RULES_CHARSET_LEN);
+	atoi_res = ft_fast_atoi_n(input->str, rules_len - RULES_CHARSET_LEN);
 	if (atoi_res <= 0)
 		return (NULL);
 	r->height = atoi_res;
@@ -44,9 +44,9 @@ t_run	*parse_map(t_run *run)
 		return (NULL);
 	map = run->map->str;
 	map_len = run->map->len;
+	height = run->rules.height;
 	i = 0;
 	row = 0;
-	height = run->rules.height;
 	while (i < map_len)
 	{
 		if (!parse_row(run, map, &i, row))
@@ -76,11 +76,13 @@ static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 	{
 		if (c != rules.emp && c != rules.obs)
 			return (FALSE);
-		solve_cell(run, i_tmp++, row, col++);
+		solve_cell(run, i_tmp, row, col);
+		i_tmp++;
+		col++;
 	}
 	if (row == 0)
 		run->rules.width = i_tmp - *i;
-	else if (rules.width == 0 || i_tmp - *i != rules.width)
+	else if (rules.width == 0 || rules.width != i_tmp - *i)
 		return (FALSE);
 	*i = i_tmp;
 	return (TRUE);

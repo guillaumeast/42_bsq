@@ -1,7 +1,6 @@
 #ifndef BSQ_H
 # define BSQ_H
 
-# include <time.h>		// TEST ONLY - Time measurement
 # include <string.h>	// TEST ONLY - strcmp()
 # include <stdio.h>		// TEST ONLY - printf(), fprintf()
 # include <stdlib.h>	// NULL, malloc(), free()
@@ -9,7 +8,7 @@
 # include <fcntl.h>		// open(), read(), close()
 
 # include "types.h"
-# include "bsq_time.h"
+# include "bench.h"
 # include "bsq_string.h"
 # include "utils.h"
 # include "read.h"

@@ -26,11 +26,9 @@ static void	exec_bench(char *file_path)
 	while (i < BENCH_ITERATIONS)
 	{
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].read_start));
-		run = run_new();
-		run = run_add_input(run, read_file(file_path));
+		run = run_add_input(run_new(), read_file(file_path));
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].parse_start));
-		run = run_add_rules(run, parse_rules(run->input, &(run->rules)));
-		run = parse_map(run);
+		run = parse_map(run_add_rules(run, parse_rules(run->input, &(run->rules))));
 		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_start));
 		if (run)
 		{
@@ -52,10 +50,8 @@ static void	exec_from_files(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		run = run_new();
-		run = run_add_input(run, read_file(argv[i++]));
-		run = run_add_rules(run, parse_rules(run->input, &(run->rules)));
-		run = parse_map(run);
+		run = run_add_input(run_new(), read_file(argv[i]));
+		run = parse_map(run_add_rules(run, parse_rules(run->input, &(run->rules))));
 		if (run)
 		{
 			print_result(run);
@@ -63,8 +59,8 @@ static void	exec_from_files(int argc, char **argv)
 		}
 		else
 			write(2, "map error\n", 10);
+		i++;
 		if (i < argc)
 			write(1, "\n", 1);
-		i++;
 	}
 }
