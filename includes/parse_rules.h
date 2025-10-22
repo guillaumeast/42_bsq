@@ -1,5 +1,5 @@
-#ifndef RULES_H
-# define RULES_H
+#ifndef PARSE_RULES_H
+# define PARSE_RULES_H
 
 # include "bsq.h"
 

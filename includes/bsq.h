@@ -11,10 +11,10 @@
 # include "bench.h"
 # include "bsq_string.h"
 # include "utils.h"
-# include "read.h"
 # include "run.h"
-# include "rules.h"
-# include "parse.h"
+# include "read.h"
+# include "parse_rules.h"
+# include "parse_map.h"
 # include "result.h"
 
 #endif

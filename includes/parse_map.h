@@ -1,5 +1,5 @@
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef PARSE_MAP_H
+# define PARSE_MAP_H
 
 # include "bsq.h"
 

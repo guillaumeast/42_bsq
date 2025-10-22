@@ -51,9 +51,9 @@ static t_bool	parse_r1(t_run *run, char *map, size_t *i, size_t row)
 		if (c != emp && c != obs)
 			return (FALSE);
 		if (row == 0 || col == 0)
-			run->dp->dp1[col] = 1;
+			run->dp->dp1[col++] = 1;
 		else if (c == obs)
-			run->dp->dp1[col] = 0;
+			run->dp->dp1[col++] = 0;
 		else
 			solve_dp1(run, row, col++);
 	}
@@ -74,15 +74,15 @@ static t_bool	parse_r2(t_run *run, char *map, size_t *i, size_t row)
 	emp = run->rules.emp;
 	obs = run->rules.obs;
 	col = 0;
-	i_tmp = *i;
+	i_tmp = *i - 1;
 	while (++i_tmp < run->map->len && (c = map[i_tmp]) != '\n')
 	{
 		if (c != emp && c != obs)
 			return (FALSE);
 		if (row == 0 || col == 0)
-			run->dp->dp2[col] = 1;
+			run->dp->dp2[col++] = 1;
 		else if (c == obs)
-			run->dp->dp2[col] = 0;
+			run->dp->dp2[col++] = 0;
 		else
 			solve_dp2(run, row, col++);
 	}
