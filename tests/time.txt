@@ -1,15 +1,22 @@
+v3.0.0: fixed map parsing, added dp_swap() and evaluated branchless comparisons
+git tag -d v2.5.1
+git push --delete origin v2.5.1
+git reset --soft HEAD~1
+git push origin HEAD --force
+
+sudo caffeinate nice -n -20 ./bsq --bench tests/test_10000 > /dev/null
 ┌--------------------------------------------------------┐
 |   C - macOS / Apple M4 / <time.h> / clock_gettime()    |
 ├--------------------------------------------------------┤
 | Version |   Read   |   Parse  |    Write   |   Total   |
 ├--------------------------------------------------------┤
-|  v3.0.0 |     6 ms |    83 ms |      10 µs |     90 ms | Duplicated functions instead of tab swap
-|  v2.5.0 |     6 ms |    91 ms |      10 µs |     98 ms |
-|  v2.4.0 |     6 ms |    94 ms |      10 µs |    101 ms |
-|  v2.3.0 |    11 ms |   125 ms |      10 µs |    137 ms |
-|  v2.2.1 |    10 ms |   167 ms |      10 µs |    178 ms |
-|  v2.2.0 |    10 ms |   176 ms |      10 µs |    187 ms |
-|  v2.1.1 |    26 ms |   176 ms |      10 µs |    204 ms |
+|  v3.0.0 |     6 ms |    92 ms |      10 µs |     99 ms | // Fixed
+|  v2.5.0 |     6 ms |    91 ms |      10 µs |     98 ms | // Bugged ?
+|  v2.4.0 |     6 ms |    94 ms |      10 µs |    101 ms | // Bugged ?
+|  v2.3.0 |    10 ms |   125 ms |      10 µs |    137 ms | // Bugged ?
+|  v2.2.1 |    10 ms |   167 ms |      10 µs |    178 ms | // Bugged ?
+|  v2.2.0 |    10 ms |   176 ms |      10 µs |    187 ms | // Bugged ?
+|  v2.1.1 |    26 ms |   176 ms |      10 µs |    204 ms | // Bugged ?
 ├--------------------------------------------------------┤
 |          ↑ stdout redirected to /dev/null ↑            |
 ├--------------------------------------------------------┤

@@ -6,6 +6,12 @@
 
 # define BENCH_ITERATIONS 100
 
+#if defined(__APPLE__)
+	# define CLOCK_BENCH CLOCK_UPTIME_RAW
+#else
+	# define CLOCK_BENCH CLOCK_MONOTONIC_RAW
+#endif
+
 typedef struct s_run_time
 {
 	struct timespec	read_start;

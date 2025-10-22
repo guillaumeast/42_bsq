@@ -1,7 +1,29 @@
-## [2.5.0] - ~50 ms on 10,000 x 10,000 maps
+## [3.0.0] - ~87 ms on 10,000 x 10,000 maps
 - Converted full size `int *` array into two little arrays of size row_len to optimize l-cache usage
 - Optimized `if` statements order
-- Separated `parse_rules` from `parse.c` to `rules.c` for compliance with _42 norm_ (5 functions max per file)
+- Splitted `parse.c` to `parse_rules.c` to `parse_map.c` for _42 norm_ compliance (5 functions max per file)
+- Removed **individual** run timings for a more readable output
+- Moved the `BUFFER_SIZE` definition from `types.h` to `read.h`
+- Moved `RULES_MIN_LEN` and `RULES_CHARSET_LEN` definitions from `types.h` to `parse_rules.h`
+- Added a `VERSION` definition to `bsq.h`
+- Added (commented) _bitmask-based_ and _xor-based_ versions of the original _if-based_ `solve_cell()`
+	- The goal was to reduce branch mispredictions using a _branchless_ comparison method
+	- All three versions compile down to a **single `csel` instruction** with `-O1` or higher
+	- _if-based_ and _xor-based_ versions run in **similar time** without optimization flags
+	- _bitmask-based_ version runs **about 35 % slower** without optimization (due to the extra `mask` variable)
+	- For **code readability**, the _if-based_ version remains the one used in the project
+	- Added `bit_masks.md` to document the _bitmask-based_ and _xor-based_ approaches
+- Added `CLOCK_BENCH` conditionnal definition to `bench.h` to improve **timings accuracy**
+	- Changed `CLOCK_MONOTONIC` to `CLOCK_UPTIME_RAW` for macOS
+	- Changed `CLOCK_MONOTONIC` to `CLOCK_MONOTONIC_RAW` for macOS
+- Updated command used to run benchmark to improve **timings accuracy**
+	- Old command = `./bsq --bench tests/test_10000 > /dev/null`
+	- New command = `sudo caffeinate nice -n -20 ./bsq --bench tests/test_10000 > /dev/null`
+- Added `make bench` rule to `Makefile` to make bench running easier
+- Removed `run_set_width()` and added `parse_row_0()` to avoid double read of row 0
+- Added `map_len > 0` check inside `run_add_rules()`
+
+---
 
 ## [2.5.0] - ~98 ms on 10,000 x 10,000 maps
 - Removed all unnecessary return values from functions

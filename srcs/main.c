@@ -21,17 +21,17 @@ static void	exec_bench(char *file_path)
 	size_t	i;
 
 	fprintf(stderr, "Benchmarking on %d iterations...\n", BENCH_ITERATIONS);
-	clock_gettime(CLOCK_MONOTONIC, &(exec_time.start));
+	clock_gettime(CLOCK_BENCH, &(exec_time.start));
 	i = 0;
 	while (i < BENCH_ITERATIONS)
 	{
-		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].read_start));
+		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].read_start));
 		run = run_new();
 		read_file(&run, file_path);
-		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].parse_start));
+		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].parse_start));
 		parse_rules(&run, (*run).input->str, (*run).input->len, &((*run).rules));
 		parse_map(&run);
-		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i].write_start));
+		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].write_start));
 		if (run)
 		{
 			print_result(run);
@@ -39,7 +39,7 @@ static void	exec_bench(char *file_path)
 		}
 		else
 			write(2, "map error\n", 10);
-		clock_gettime(CLOCK_MONOTONIC, &(exec_time.runs[i++].end));
+		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i++].end));
 	}
 	print_exec_time(&exec_time);
 }

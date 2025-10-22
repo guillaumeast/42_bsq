@@ -1,10 +1,6 @@
 #ifndef TYPES_H
 # define TYPES_H
 
-# define BUFFER_SIZE 1000000
-# define RULES_MIN_LEN 4
-# define RULES_CHARSET_LEN 3
-
 typedef char	t_bool;
 # define FALSE 0
 # define TRUE 1
@@ -26,8 +22,8 @@ typedef struct s_rules
 
 typedef struct	s_dp
 {
-	int		*dp1;
-	int		*dp2;
+	int		*prev;
+	int		*curr;
 }	t_dp;
 
 typedef struct s_bsq

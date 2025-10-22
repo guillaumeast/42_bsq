@@ -24,11 +24,11 @@
 ## 🚀 Performance
 - A 10 000×10 000 map is processed in less than **100 ms**
 
-> _Measured on macOS / Apple M4 / `<time.h>` / `clock_gettime()`_
+> _Measured on macOS (Apple M4) using `<time.h>` / `clock_gettime()`_
 > 
 > _`stdout` redirected to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
 
-| Version | Description | 10k×10k |
+| Version | Description | 10k×10k (ms) |
 |:----------|:-------------|------------------------------:|
 | **v1.1.0** | **Baseline** (42 Paris Piscine version) | ~37 000 ms |
 | **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~5 800 ms |
@@ -72,7 +72,7 @@ The program implements a **dynamic programming** approach:
 1. Each cell represents the size of the largest square ending at that point.  
 2. The recurrence relation:
 ```c
-if (map[row][col] == empty)
+if (map[row][col] == EMPTY)
 	dp[row][col] = 1 + min(dp[row-1][col], dp[row][col-1], dp[row-1][col-1]);
 else
 	dp[row][col] = 0;
@@ -91,7 +91,7 @@ bsq/
 ├── includes/				# Header files with type definitions and prototypes
 ├── srcs/					# Source files (C code)
 │   ├── main.c				# Entry point
-│   ├── objects/			# Constructor and free function for custom structs
+│   ├── objects/			# Constructor and destructor functions for custom structs
 │   ├── utils/				# Utilities
 │   ├── read.c				# Reads content from filepath/stdin
 │   ├── parse.c				# Parses rules then simultaneously parses and solves the map
@@ -111,7 +111,7 @@ make
 # Compile the optimized (fast) binary
 make fast
 
-# Compile, run the binary to collect profiling data, then recompile it with PGO optimizations
+# Compile, run the binary to collect profiling data, and then recompile it with PGO optimizations
 make sfast
 ```
 
@@ -121,7 +121,7 @@ make sfast
 ```
 
 ### Run with stdin
-⚠️ This feature has been removed since v2.0.0.
+⚠️ This feature has been removed in v2.0.0.
 Coming back soon...
 ```bash
 cat tests/basic_test | ./bsq
@@ -129,7 +129,7 @@ cat tests/basic_test | ./bsq
 
 ### Run automatic benchmark
 - Automatically runs 10 iterations with the file given as the second argument
-- Displays (on `stderr`) the timings of each run and their average
+- Displays (on `stderr`) the average timings of an individual run
 > _Bench output is printed to `stderr`_
 > 
 > _Redirect `stdout` to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_

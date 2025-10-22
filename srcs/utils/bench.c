@@ -1,6 +1,6 @@
 #include "bsq.h"
 
-static void		print_run_time(t_run_time *time);
+static void		compute_run_time(t_run_time *time);
 static void		print_avg_time(t_exec_time *exec_time);
 static void		compute_avg(t_exec_time *exec_time);
 static void		print_time(long long ns);
@@ -8,38 +8,26 @@ static long long ns_since(const struct timespec a, const struct timespec b);
 
 void	print_exec_time(t_exec_time *exec_time)
 {
-	size_t		i;
+	size_t	i;
 
 	fprintf(stderr, "┌-----------------------------------┐\n");
-	fprintf(stderr, "| C - v2.5.0                        |\n");
+	fprintf(stderr, "| C - v"VERSION"                        |\n");
 	fprintf(stderr, "├-----------------------------------┤\n");
 	fprintf(stderr, "|  Read  |  Parse |  Write | Total  |\n");
 	fprintf(stderr, "├-----------------------------------┤\n");
 	i = 0;
 	while (i < BENCH_ITERATIONS)
-		print_run_time(&(exec_time->runs[i++]));
-	fprintf(stderr, "├-----------------------------------┤\n");
-	fprintf(stderr, "|  Average                          |\n");
-	fprintf(stderr, "├-----------------------------------┤\n");
+		compute_run_time(&(exec_time->runs[i++]));
 	print_avg_time(exec_time);
 	fprintf(stderr, "└-----------------------------------┘\n");
 }
 
-static void	print_run_time(t_run_time *time)
+static void	compute_run_time(t_run_time *time)
 {
 	time->read = ns_since(time->read_start, time->parse_start);
 	time->parse = ns_since(time->parse_start, time->write_start);
 	time->write = ns_since(time->write_start, time->end);
 	time->total = ns_since(time->read_start, time->end);
-	fprintf(stderr, "|");
-	print_time(time->read);
-	fprintf(stderr, "|");
-	print_time(time->parse);
-	fprintf(stderr, "|");
-	print_time(time->write);
-	fprintf(stderr, "|");
-	print_time(time->total);
-	fprintf(stderr, "|\n");
 }
 
 static void	print_avg_time(t_exec_time *exec_time)
