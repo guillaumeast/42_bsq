@@ -153,7 +153,7 @@ min = xor(b, (xor(a, b) & mask));
 
 ## Test it in Compiler Explorer
 
-Go to [Compiler Explorer website](https://godbolt.org/) and see by yourself that the `clang` compiler automatically full optimize the min computing into a single `csel` call since `-O1` optimization flag:
+Go to [Compiler Explorer website](https://godbolt.org/) and see by yourself that the `clang` compiler automatically full optimize the min computing into a single `csel` call since `-O1` optimization flag, even for the _if-based_ version:
 
 1. Compiler
 ```
@@ -170,6 +170,13 @@ armv8-a clang 17.0.1
 3. Code
 ```c
 #include <stdint.h>		// Import uint32_t type
+
+int	min_if(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
 uint32_t min_mask(uint32_t a, uint32_t b)
 {
