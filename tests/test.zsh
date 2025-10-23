@@ -29,9 +29,10 @@ for f in "${inputs_dir}"/*; do
 		echo "------------------------------"
 		echo
 		echo "❌ ./${target} ${input}"
-		echo "⮕ expected <> output"
 		echo
-		paste -d $'\t' "${expected_file}" "${output_file}" | sed $'s/\t/ <> /'
+		echo "⮕ diff ${expected_file} ${output_file}"
+		echo
+		diff "${expected_file}" "${output_file}"
 		echo
 		echo "------------------------------"
 	fi

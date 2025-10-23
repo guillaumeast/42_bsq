@@ -33,12 +33,12 @@ fast: CFLAGS += -O3 -DNDEBUG -march=native -flto -fomit-frame-pointer -fno-stack
 fast: LDFLAGS += -flto
 fast: re
 
-test:
+test: fast
 	@./tests/test.zsh
 
 bench: test
 	@echo
-	@sudo caffeinate nice -n -20 ./bsq --bench tests/0_bench/valid_10k > /dev/null
+	@caffeinate nice -n 0 ./bsq --bench tests/0_bench/valid_10k > /dev/null
 
 # ---------------------------------------------------------
 # 🔥 Profile-Guided Optimization (PGO - Clang/LLVM)

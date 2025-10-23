@@ -1,28 +1,32 @@
-sudo caffeinate nice -n -20 ./bsq --bench tests/test_10000 > /dev/null
+caffeinate nice -n -0 ./bsq --bench tests/test_10000 > /dev/null
 ┌--------------------------------------------------------┐
 |   C - macOS / Apple M4 / <time.h> / clock_gettime()    |
 ├--------------------------------------------------------┤
 | Version |   Read   |   Parse  |    Write   |   Total   |
 ├--------------------------------------------------------┤
-|  v3.0.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ✅ Tested
-|  v2.5.0 |     6 ms |    93 ms |      10 µs |    100 ms | // Bugged ?
-|  v2.4.0 |     6 ms |    93 ms |      10 µs |    100 ms | // Bugged ?
-|  v2.3.0 |    10 ms |   125 ms |      10 µs |    137 ms | // Bugged ?
-|  v2.2.1 |    10 ms |   167 ms |      10 µs |    178 ms | // Bugged ?
-|  v2.2.0 |    10 ms |   176 ms |      10 µs |    187 ms | // Bugged ?
-|  v2.1.1 |    26 ms |   176 ms |      10 µs |    204 ms | // Bugged ?
+|  v3.0.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ✅ Tested (⚠️ No empty line between multi-files outputs ?)
+|  v2.5.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ❌ error_map_no_nl invalid_filepath
+|  v2.4.2 |     6 ms |    93 ms |      10 µs |    100 ms | // ❌ error_map_no_nl
+|  v2.4.1 |     6 ms |    93 ms |      10 µs |    100 ms | // ❌ error_map_no_nl error_multiple_files valid_multiple_files
+|  v2.4.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ❌ error_map_no_nl error_multiple_files
+|  v2.3.0 |    10 ms |   125 ms |      10 µs |    135 ms | // ❌ error_map_no_nl
+|  v2.2.2 |    10 ms |   125 ms |      10 µs |    135 ms | // ❌ error_map_no_nl
+|  v2.2.1 |    10 ms |   170 ms |      10 µs |    180 ms | // ❔ No tag
+|  v2.2.0 |    10 ms |   175 ms |      10 µs |    185 ms | // ❌ error_map_no_nl error_multiple_files
+|  v2.1.1 |    25 ms |   175 ms |      10 µs |    205 ms | // ❌ error_map_no_nl error_multiple_files
 ├--------------------------------------------------------┤
 |          ↑ stdout redirected to /dev/null ↑            |
 ├--------------------------------------------------------┤
-|  v2.1.0 |    59 ms |   183 ms |  10 000 µs |    251 ms |
-|  v2.0.0 |    56 ms |   187 ms |  74 000 µs |    288 ms |
+|  v2.1.0 |    60 ms |   185 ms |  10 000 µs |    255 ms | // ❌ error_multiple_files
+|  v2.0.0 |    60 ms |   185 ms |  70 000 µs |    315 ms | // ❌ error_map_no_nl error_multiple_files
 ├--------------------------------------------------------┤
 |                ↑ optimization flags ↑                  |
 ├--------------------------------------------------------┤
-|  v1.4.0 | 1 800 ms | 1 300 ms | 200 000 µs |  3 300 ms |
-|  v1.3.0 |     n.c. |     n.c. |       n.c. |  3 600 ms |
-|  v1.2.0 |     n.c. |     n.c. |       n.c. |  3 800 ms |
-|  v1.1.0 |     n.c. |     n.c. |       n.c. | 11 000 ms |
+|  v1.4.0 | 1 800 ms | 1 300 ms | 200 000 µs |  3 300 ms | // ❔ No tag
+|  v1.3.0 |     n.c. |     n.c. |       n.c. |  3 600 ms | // ❔ No tag
+|  v1.2.0 |     n.c. |     n.c. |       n.c. |  3 800 ms | // ❔ No tag
+|  v1.1.0 |     n.c. |     n.c. |       n.c. | 11 000 ms | // ❔ No tag
+|  v1.0.0 |     n.c. |     n.c. |       n.c. | ?? ??? ms | // ❌ (10k) pointer being freed was not allocated
 └--------------------------------------------------------┘
 
 ┌------------------------------┐
