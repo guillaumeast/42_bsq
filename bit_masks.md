@@ -1,4 +1,4 @@
-# Understanding _bitmasks-based branchless comparison_ (without an `if` statement)
+# Understanding _bitmasks- and XOR-based branchless comparison_ (without an `if` statement)
 
 > _All examples use 4-bit numbers for easier visualization_
 
