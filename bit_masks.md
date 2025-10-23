@@ -15,17 +15,17 @@ a 		= 0001		// 1
 
 +0 and −0 merge into a single representation due to overflow:
 ```c
-a 		=   0000		// 0
-~a 		=   1111		// Opposite of a (invert all bits)
-~a + 1	= 1 0000		// Add 1 → Overflow → We only keep 8 bits → 0000
+a 		=   0000	// 0
+~a 		=   1111	// Opposite of a (invert all bits)
+~a + 1	= 1 0000	// Add 1 → Overflow → We only keep 8 bits → 0000
 ```
 
 This method allows standard arithmetic to work for both positive and negative binary numbers:
 ```c
-	1111		//   (-1)
-+   0001		// + (+1)
+	1111			//   (-1)
++   0001			// + (+1)
 -------------
-= 1 0000		// Overflow → We only keep 8 bits → 0000 = 0
+= 1 0000			// Overflow → We only keep 8 bits → 0000 = 0
 ```
 
 ---
@@ -69,8 +69,8 @@ min = a_masked | b_masked =	0101	// Keeps all 1 from a_masked and b_masked => mi
 ### Usage
 
 ```c
-mask = -(a < b);						// Generate mask
-min = (a & mask) | (b & ~mask)			// Use mask
+mask = -(a < b);					// Generate mask
+min = (a & mask) | (b & ~mask)		// Use mask
 ```
 
 ---
@@ -153,7 +153,7 @@ min = xor(b, (xor(a, b) & mask));
 
 ## Test it in Compiler Explorer
 
-Go to [Compiler Explorer website](https://godbolt.org/) and see by yourself that the `clang` compiler automatically full optimize the min computing into a simple `csel` call since `-O1` optimization flag:
+Go to [Compiler Explorer website](https://godbolt.org/) and see by yourself that the `clang` compiler automatically full optimize the min computing into a single `csel` call since `-O1` optimization flag:
 
 1. Compiler
 ```
@@ -161,9 +161,10 @@ armv8-a clang 17.0.1
 ```
 
 2. Flags
-```
--O0		// No optimization (42-like)
--O1		// Full optimized (csel used)
+```bash
+-O0		# No optimization (42-like)
+# OR
+-O1		# Full optimized (csel used)
 ```
 
 3. Code
