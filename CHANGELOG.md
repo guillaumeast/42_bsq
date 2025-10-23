@@ -13,12 +13,11 @@
 	- For **code readability**, the _if-based_ version remains the one used in the project
 	- Added `bit_masks.md` to document the _bitmask-based_ and _xor-based_ approaches
 
-### Fixes
+### Bug fixes
 
 - Fix multiple incorrect rules, maps and file path handling
 -Changed `malloc(sizeof(type))` to `malloc(sizeof *p)` to prevent type mismatch errors and simplify code maintainability
 - Fix memory leaks (`run->map` was leaked in some `map error` cases)
-- Split `parse.c` into `parse_rules.c` and `parse_map.c` for _42 norm_ compliance (5 functions max per file)
 
 ### Tests and benchmark mode updates
 
@@ -38,6 +37,7 @@
 - Moved the `BUFFER_SIZE` definition from `types.h` to `read.h`
 - Moved `RULES_MIN_LEN` and `RULES_CHARSET_LEN` definitions from `types.h` to `parse_rules.h`
 - Added a `VERSION` definition to `bsq.h`
+- Split `parse.c` into `parse_rules.c` and `parse_map.c` for _42 norm_ compliance (5 functions max per file)
 
 ---
 

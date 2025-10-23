@@ -31,19 +31,19 @@
 
 | Version | Description | 10k×10k (ms) |
 |:----------|:-------------|------------------------------:|
-| **v1.1.0** | **Baseline** (42 Paris Piscine version) | ~37,000 ms |
-| **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~5,800 ms |
-| **v1.3.0** | **Output optimization**<br>→ Switched output to flat buffer (`char *`) | ~5,600 ms |
-| **v1.4.0** | **General optimization**<br>→ Removed initialization loops | ~5,400 ms |
-| **v2.0.0** | **Major refactor**<br>→ Simplified data structures<br>→ Unified parsing and solving<br>→ Optimized flat I/O buffers<br>→ Flattened map and DP arrays | ~320 ms |
-| **v2.1.0** | **Output optimization**<br>→ In-place map editing (no full copy)<br>→ Only updates the required characters inside the map | ~250 ms |
-| **v2.1.1** | **QoL update**<br>→ Integrated benchmark mode (10 iterations) | ~200 ms |
-| **v2.2.0** | **Input optimization**<br>→ Reworked `str_grow()` to dereference pointer **once** before the loop<br>→ Reduced redundant memory accesses during buffer reallocation | ~190 ms |
+| [**v1.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v1.0.0) | **Baseline** (42 Paris Piscine version) | ~37,000 ms |
+| **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~3,800 ms |
+| **v1.3.0** | **Output optimization**<br>→ Switched output to flat buffer (`char *`) | ~3,600 ms |
+| **v1.4.0** | **General optimization**<br>→ Removed initialization loops | ~3,400 ms |
+| [**v2.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.0.0) | **Major refactor**<br>→ Simplified data structures<br>→ Unified parsing and solving<br>→ Optimized flat I/O buffers<br>→ Flattened map and DP arrays | ~320 ms |
+| [**v2.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.1.0) | **Output optimization**<br>→ In-place map editing (no full copy)<br>→ Only updates the required characters inside the map | ~250 ms |
+| [**v2.1.1**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.1.1) | **QoL update**<br>→ Integrated benchmark mode (10 iterations) | ~200 ms |
+| [**v2.2.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.2.0) | **Input optimization**<br>→ Reworked `str_grow()` to dereference pointer **once** before the loop<br>→ Reduced redundant memory accesses during buffer reallocation | ~190 ms |
 | **v2.2.1** | **Input optimization**<br>→ Switched to native C types during file read operations<br>→ Implemented in-place reading to remove buffer duplication and reduce latency | ~180 ms |
-| **v2.3.0** | **Parse optimization**<br>→ Optimized DP minimum computation to reduce branch-misses | ~140 ms |
-| **v2.4.0** | **Parse optimization**<br>→ Reordered parser condition checks to reduce branch mispredictions<br>→ Implemented precomputation of all possible values<br>→ Minimized dereferencing in hot loops<br>→ Increased integrated benchmark from 10 to 100 iterations | ~100 ms |
+| [**v2.3.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.3.0) | **Parse optimization**<br>→ Optimized DP minimum computation to reduce branch-misses | ~140 ms |
+| [**v2.4.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.4.0) | **Parse optimization**<br>→ Reordered parser condition checks to reduce branch mispredictions<br>→ Implemented precomputation of all possible values<br>→ Minimized dereferencing in hot loops<br>→ Increased integrated benchmark from 10 to 100 iterations | ~100 ms |
 | **v2.5.0** | **Code cleanup & build optimization**<br>→ Removed unused fields, return values and redundant casts<br>→ Inlined hot functions<br>→ Added `-fomit-frame-pointer` and `-fno-stack-protector` flags<br>→ Introduced optional PGO build (`make sfast`) | ~100 ms |
-| **v3.0.0** | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
+| [**v3.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.0.0) | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
 
 ---
 
