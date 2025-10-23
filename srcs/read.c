@@ -38,6 +38,8 @@ static void	read_fd(t_run **run, int fd, char **buffer, size_t cap)
 	len += bytes_read;
 	(*buffer)[len] = '\0';
 	(*run)->input = str_new(*buffer, len);
+	if (!(*run)->input)
+		return (run_free(run));
 }
 
 static void	grow_buffer(char **buffer, size_t content_len, size_t new_cap)
@@ -47,10 +49,7 @@ static void	grow_buffer(char **buffer, size_t content_len, size_t new_cap)
 
 	new_buffer = malloc(new_cap);
 	if (!new_buffer)
-	{
-		free(*buffer);
-		return ;
-	}
+		return (free(*buffer));
 	i = 0;
 	while (i < content_len)
 	{

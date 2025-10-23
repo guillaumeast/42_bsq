@@ -1,11 +1,10 @@
-## [3.0.0] - ~87 ms on 10,000 x 10,000 maps
-- Converted full size `int *` array into two little arrays of size row_len to optimize l-cache usage
+## [3.0.0] - ~100 ms on 10,000 x 10,000 maps
+
+### Optimizations
+
+- Converted full size `int *` array into two little arrays of size row_len to optimize cache usage
 - Optimized `if` statements order
-- Splitted `parse.c` to `parse_rules.c` to `parse_map.c` for _42 norm_ compliance (5 functions max per file)
-- Removed **individual** run timings for a more readable output
-- Moved the `BUFFER_SIZE` definition from `types.h` to `read.h`
-- Moved `RULES_MIN_LEN` and `RULES_CHARSET_LEN` definitions from `types.h` to `parse_rules.h`
-- Added a `VERSION` definition to `bsq.h`
+- Removed `run_set_width()` and added `parse_row_0()` to avoid double read of row 0
 - Added (commented) _bitmask-based_ and _xor-based_ versions of the original _if-based_ `solve_cell()`
 	- The goal was to reduce branch mispredictions using a _branchless_ comparison method
 	- All three versions compile down to a **single `csel` instruction** with `-O1` or higher
@@ -13,19 +12,36 @@
 	- _bitmask-based_ version runs **about 35 % slower** without optimization (due to the extra `mask` variable)
 	- For **code readability**, the _if-based_ version remains the one used in the project
 	- Added `bit_masks.md` to document the _bitmask-based_ and _xor-based_ approaches
-- Added `CLOCK_BENCH` conditionnal definition to `bench.h` to improve **timings accuracy**
-	- Changed `CLOCK_MONOTONIC` to `CLOCK_UPTIME_RAW` for macOS
-	- Changed `CLOCK_MONOTONIC` to `CLOCK_MONOTONIC_RAW` for macOS
+
+### Fixes
+
+- Fix multiple incorrect rules, maps and file path handling
+-Changed `malloc(sizeof(type))` to `malloc(sizeof *p)` to prevent type mismatch errors and simplify code maintainability
+- Fix memory leaks (`run->map` was leaked in some `map error` cases)
+- Split `parse.c` into `parse_rules.c` and `parse_map.c` for _42 norm_ compliance (5 functions max per file)
+
+### Tests and benchmark mode updates
+
+- Added `make test` command to automatically run tests
+- Added `make bench` rule to `Makefile` to make bench running easier
+	- Automatically runs `make test` before starting the bench
 - Updated command used to run benchmark to improve **timings accuracy**
 	- Old command = `./bsq --bench tests/test_10000 > /dev/null`
 	- New command = `sudo caffeinate nice -n -20 ./bsq --bench tests/test_10000 > /dev/null`
-- Added `make bench` rule to `Makefile` to make bench running easier
-- Removed `run_set_width()` and added `parse_row_0()` to avoid double read of row 0
-- Added `map_len > 0` check inside `run_add_rules()`
+- Removed **individual** run timings for a more readable output
+- Added `CLOCK_BENCH` conditionnal definition to `bench.h` to improve **timings accuracy**
+	- Changed `CLOCK_MONOTONIC` to `CLOCK_UPTIME_RAW` for macOS
+	- Changed `CLOCK_MONOTONIC` to `CLOCK_MONOTONIC_RAW` for Linux
+
+### Refactorizations
+
+- Moved the `BUFFER_SIZE` definition from `types.h` to `read.h`
+- Moved `RULES_MIN_LEN` and `RULES_CHARSET_LEN` definitions from `types.h` to `parse_rules.h`
+- Added a `VERSION` definition to `bsq.h`
 
 ---
 
-## [2.5.0] - ~98 ms on 10,000 x 10,000 maps
+## [2.5.0] - ~100 ms on 10,000 x 10,000 maps
 - Removed all unnecessary return values from functions
 - Removed the unused `cap` attribute from `t_str`
 - Changed `bsq.size` from `size_t` to `int` to avoid casts
@@ -39,7 +55,7 @@
 
 ## [2.4.2] - ~100 ms on 10,000 x 10,000 maps
 - Refactored main.c and bench.c
-- Fix multiple files handling
+- Fix multiple files handling issues
 
 ---
 
@@ -47,7 +63,7 @@
 - Avoid useless last buffer grow
 - Refactored main.c, run.c, parse.c and bench.c
 - Fix multiple freeing of not allocated pointers
-- Fix multiple files handling
+- Fix multiple files handling issues
 
 ---
 

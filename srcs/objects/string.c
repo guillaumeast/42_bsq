@@ -14,7 +14,8 @@ t_str	*str_new(char *str, size_t len)
 
 t_str	*str_free(t_str **str)
 {
-	free((*str)->str);
+	if (!str || !*str)
+		return (NULL);
 	free(*str);
 	*str = NULL;
 	return (NULL);

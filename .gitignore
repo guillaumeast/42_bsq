@@ -8,3 +8,4 @@ result*.txt
 *codebase.md
 tmp*.txt
 todo.md
+tests/4_outputs/

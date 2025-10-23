@@ -12,17 +12,18 @@
 ## 🪄 Highlights
 
 - **_Dynamic growth_ I/O buffer**: reduces the number of `read` system calls  
-- **Unified parsing and solving**: single-pass computation  
+- **Unified parsing and solving**: single-pass computation combining map validation and DP update 
 - **Flat memory layouts**: reduce data access time, memory usage, and copy overhead  
-- **Flat _dynamic programming_ table**: reduces computation time  
+- **Two-row flat _dynamic programming_ layout**: improves memory footprint and L1 cache locality.
 - **In-place editing of the original map**: avoids full map copies and checks  
 - **One-time output**: avoids multiple `write` system calls  
-- **Integrated benchmark** (100 iterations) with the `--bench` flag as the first argument
+- **Integrated tests** with the `make test` command
+- **Integrated benchmark** (100 iterations) with the `make bench` command
 
 ---
 
 ## 🚀 Performance
-- A 10 000×10 000 map is processed in less than **100 ms**
+- A 10,000×10,000 map is processed in less than **100 ms**
 
 > _Measured on macOS (Apple M4) using `<time.h>` / `clock_gettime()`_
 > 
@@ -30,10 +31,10 @@
 
 | Version | Description | 10k×10k (ms) |
 |:----------|:-------------|------------------------------:|
-| **v1.1.0** | **Baseline** (42 Paris Piscine version) | ~37 000 ms |
-| **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~5 800 ms |
-| **v1.3.0** | **Output optimization**<br>→ Switched output to flat buffer (`char *`) | ~5 600 ms |
-| **v1.4.0** | **General optimization**<br>→ Removed initialization loops | ~5 400 ms |
+| **v1.1.0** | **Baseline** (42 Paris Piscine version) | ~37,000 ms |
+| **v1.2.0** | **Output optimization**<br>→ Added output buffer (`char **`) | ~5,800 ms |
+| **v1.3.0** | **Output optimization**<br>→ Switched output to flat buffer (`char *`) | ~5,600 ms |
+| **v1.4.0** | **General optimization**<br>→ Removed initialization loops | ~5,400 ms |
 | **v2.0.0** | **Major refactor**<br>→ Simplified data structures<br>→ Unified parsing and solving<br>→ Optimized flat I/O buffers<br>→ Flattened map and DP arrays | ~320 ms |
 | **v2.1.0** | **Output optimization**<br>→ In-place map editing (no full copy)<br>→ Only updates the required characters inside the map | ~250 ms |
 | **v2.1.1** | **QoL update**<br>→ Integrated benchmark mode (10 iterations) | ~200 ms |
@@ -41,7 +42,8 @@
 | **v2.2.1** | **Input optimization**<br>→ Switched to native C types during file read operations<br>→ Implemented in-place reading to remove buffer duplication and reduce latency | ~180 ms |
 | **v2.3.0** | **Parse optimization**<br>→ Optimized DP minimum computation to reduce branch-misses | ~140 ms |
 | **v2.4.0** | **Parse optimization**<br>→ Reordered parser condition checks to reduce branch mispredictions<br>→ Implemented precomputation of all possible values<br>→ Minimized dereferencing in hot loops<br>→ Increased integrated benchmark from 10 to 100 iterations | ~100 ms |
-| **v2.5.0** | **Code cleanup & build optimization**<br>→ Removed unused fields, return values and redundant casts<br>→ Inlined hot functions<br>→ Added `-fomit-frame-pointer` and `-fno-stack-protector` flags<br>→ Introduced optional PGO build (`make sfast`) | 98 ms |
+| **v2.5.0** | **Code cleanup & build optimization**<br>→ Removed unused fields, return values and redundant casts<br>→ Inlined hot functions<br>→ Added `-fomit-frame-pointer` and `-fno-stack-protector` flags<br>→ Introduced optional PGO build (`make sfast`) | ~100 ms |
+| **v3.0.0** | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
 
 ---
 
@@ -51,7 +53,8 @@ The **BSQ (Biggest Square)** is the final algorithmic project of the **42 Paris 
 Its goal is to parse a text-based map - from file(s) or stdin - and compute the largest possible empty square, following the official 42 C **Norm v4**.
 
 This project is a deep dive into:
-- **Dynamic programming** for 2D optimization problems  
+- **_Dynamic programming_** for **2D optimization problems**  
+- **Execution time optimization** using **low-level CPU profiling** and **micro-optimization techniques**
 - **Memory management and I/O efficiency**  
 - **Strict compliance** with the **42 Norm**
 
@@ -79,6 +82,10 @@ else
 ```
 3. The largest value found indicates the **size and position** of the biggest square.
 
+> _For experimental branchless versions of the DP computation, see [bit_masks.md](bit_masks.md)._
+>
+> _This file documents the _bitmask-based_ and _XOR-based_ approaches I tested to minimize _branch mispredictions_, and explains why it didn't produce the expected results._
+
 ---
 
 ## 🗂️ **Repository structure**
@@ -94,7 +101,8 @@ bsq/
 │   ├── objects/			# Constructor and destructor functions for custom structs
 │   ├── utils/				# Utilities
 │   ├── read.c				# Reads content from filepath/stdin
-│   ├── parse.c				# Parses rules then simultaneously parses and solves the map
+│   ├── parse_rules.c		# Parses rules
+│   ├── parse_map.c			# Simultaneously parses and solves the map
 │   └── result.c			# Prints result
 └── tests/					# Sample maps and performance benchmarks
 ```
@@ -127,14 +135,17 @@ Coming back soon...
 cat tests/basic_test | ./bsq
 ```
 
-### Run automatic benchmark
-- Automatically runs 10 iterations with the file given as the second argument
-- Displays (on `stderr`) the average timings of an individual run
-> _Bench output is printed to `stderr`_
-> 
-> _Redirect `stdout` to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
+### Run tests
 ```bash
-./bsq --bench file_path > /dev/null
+make test
+```
+
+### Run automatic benchmark
+- Automatically runs 100 iterations with 10kx10k map as input
+- Displays average timings to `stderr`
+> _`stdout` is redirected to `/dev/null` to eliminate potential shell or terminal I/O bottlenecks_
+```bash
+make bench
 ```
 
 ### Clean build files

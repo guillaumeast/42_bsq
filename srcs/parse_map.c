@@ -20,16 +20,16 @@ void	parse_map(t_run **run)
 	map_len = (*run)->map->len;
 	height = (*run)->rules.height;
 	i = 0;
-	if (!parse_row_0(*run, map, &i))
+	if (!parse_row_0(*run, map, &i) || (*run)->width == 0)
 		return (run_free(run));
 	row = 0;
 	while (++i < map_len)
 	{
-		if (++row > height || !parse_row(*run, map, &i, row))
+		if (++row == height || !parse_row(*run, map, &i, row))
 			return (run_free(run));
 		dp_swap((*run)->dp);
 	}
-	if (row == 0 || row < height - 1)
+	if (map[i - 1] != '\n' || row == 0 || row < height - 1)
 		return (run_free(run));
 	return ;
 }

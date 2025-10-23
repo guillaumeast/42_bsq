@@ -18,6 +18,7 @@ static void	exec_bench(char *file_path)
 {
 	t_exec_time	exec_time;
 	t_run	*run;
+	char	*input;
 	size_t	i;
 
 	fprintf(stderr, "Benchmarking on %d iterations...\n", BENCH_ITERATIONS);
@@ -29,7 +30,9 @@ static void	exec_bench(char *file_path)
 		run = run_new();
 		read_file(&run, file_path);
 		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].parse_start));
-		parse_rules(&run, (*run).input->str, (*run).input->len, &((*run).rules));
+		if (run)
+			input = (*run).input->str;
+		parse_rules(&run, input, (*run).input->len, &((*run).rules));
 		parse_map(&run);
 		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].write_start));
 		if (run)
@@ -55,7 +58,8 @@ static void	exec_from_files(int argc, char **argv)
 	{
 		run = run_new();
 		read_file(&run, argv[i]);
-		input = (*run).input->str;
+		if (run)
+			input = (*run).input->str;
 		parse_rules(&run, input, (*run).input->len, &((*run).rules));
 		parse_map(&run);
 		if (run)

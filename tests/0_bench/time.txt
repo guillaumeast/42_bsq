@@ -10,9 +10,9 @@ sudo caffeinate nice -n -20 ./bsq --bench tests/test_10000 > /dev/null
 ├--------------------------------------------------------┤
 | Version |   Read   |   Parse  |    Write   |   Total   |
 ├--------------------------------------------------------┤
-|  v3.0.0 |     6 ms |    92 ms |      10 µs |     99 ms | // Fixed
-|  v2.5.0 |     6 ms |    91 ms |      10 µs |     98 ms | // Bugged ?
-|  v2.4.0 |     6 ms |    94 ms |      10 µs |    101 ms | // Bugged ?
+|  v3.0.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ✅ Tested
+|  v2.5.0 |     6 ms |    93 ms |      10 µs |    100 ms | // Bugged ?
+|  v2.4.0 |     6 ms |    93 ms |      10 µs |    100 ms | // Bugged ?
 |  v2.3.0 |    10 ms |   125 ms |      10 µs |    137 ms | // Bugged ?
 |  v2.2.1 |    10 ms |   167 ms |      10 µs |    178 ms | // Bugged ?
 |  v2.2.0 |    10 ms |   176 ms |      10 µs |    187 ms | // Bugged ?
