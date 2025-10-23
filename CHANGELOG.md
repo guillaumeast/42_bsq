@@ -11,7 +11,7 @@
 	- _if-based_ and _xor-based_ versions run in **similar time** without optimization flags
 	- _bitmask-based_ version runs **about 35 % slower** without optimization (due to the extra `mask` variable)
 	- For **code readability**, the _if-based_ version remains the one used in the project
-	- Added `bit_masks.md` to document the _bitmask-based_ and _xor-based_ approaches
+	- Added `branchless_comparison.md` to document the _bitmask-based_ and _xor-based_ approaches
 
 ### Bug fixes
 

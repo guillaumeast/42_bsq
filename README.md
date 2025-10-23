@@ -82,7 +82,7 @@ else
 ```
 3. The largest value found indicates the **size and position** of the biggest square.
 
-> _For experimental branchless versions of the DP computation, see [bit_masks.md](bit_masks.md)._
+> _For experimental branchless versions of the DP computation, see [branchless_comparison.md](branchless_comparison.md)._
 >
 > _This file documents the _bitmask-based_ and _XOR-based_ approaches I tested to minimize _branch mispredictions_, and explains why it didn't produce the expected results._
 
