@@ -22,8 +22,8 @@ typedef struct s_rules
 
 typedef struct	s_dp
 {
-	int		*prev;
-	int		*curr;
+	int		prev;
+	int		*tab;
 }	t_dp;
 
 typedef struct s_bsq

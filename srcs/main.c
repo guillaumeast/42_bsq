@@ -3,6 +3,7 @@
 static void	exec_from_files(int argc, char **argv);
 static void	exec_bench(char *file_path);
 
+// Entry point: runs benchmark mode or solves maps from given files
 int	main(int argc, char **argv)
 {
 	if (argc == 1)
@@ -14,6 +15,7 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+// Runs multiple iterations on a map file to benchmark execution time
 static void	exec_bench(char *file_path)
 {
 	t_exec_time	exec_time;
@@ -47,6 +49,7 @@ static void	exec_bench(char *file_path)
 	print_exec_time(&exec_time);
 }
 
+// Processes and solves each map file provided as a command-line argument
 static void	exec_from_files(int argc, char **argv)
 {
 	t_run	*run;

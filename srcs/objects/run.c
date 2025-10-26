@@ -1,5 +1,6 @@
 #include "bsq.h"
 
+// Allocates and initializes a new `t_run` structure
 t_run	*run_new()
 {
 	t_run	*run;
@@ -11,6 +12,7 @@ t_run	*run_new()
 	return (run);
 }
 
+// Initializes the `map` and `bsq` fields in `t_run` after parsing the `rules`
 void	run_add_rules(t_run **run)
 {
 	char	*map_p;
@@ -31,18 +33,19 @@ void	run_add_rules(t_run **run)
 	return ;
 }
 
+// Allocates the dynamic programming table
 t_bool dp_init(t_run *run, size_t width)
 {
 	run->dp = malloc(sizeof *(run->dp));
 	if (!run->dp)
 		return (FALSE);
-	run->dp->prev = malloc((width) * sizeof(int));
-	run->dp->curr = malloc((width) * sizeof(int));
-	if (!run->dp->prev || !run->dp->curr)
+	run->dp->tab = malloc((width) * sizeof(int));
+	if (!run->dp->tab)
 		return (FALSE);
 	return (TRUE);
 }
 
+// Frees all memory associated with a `t_run` structure and sets its pointer to `NULL`
 void	run_free(t_run **run)
 {
 	if (!run || !*run)
@@ -57,10 +60,8 @@ void	run_free(t_run **run)
 		free((*run)->map);
 	if ((*run)->dp)
 	{
-		if ((*run)->dp->prev)
-			free((*run)->dp->prev);
-		if ((*run)->dp->curr)
-			free((*run)->dp->curr);
+		if ((*run)->dp->tab)
+			free((*run)->dp->tab);
 		free((*run)->dp);
 	}
 	free(*run);

@@ -3,6 +3,7 @@
 static void	read_fd(t_run **run, int fd, char **buffer, size_t cap);
 static void	grow_buffer(char **buffer, size_t content_len, size_t cap_need);
 
+// Opens the given file, reads its content, and stores it in `run->input`
 void	read_file(t_run **run, const char *file_path)
 {
 	int		fd;
@@ -16,6 +17,7 @@ void	read_file(t_run **run, const char *file_path)
 	close(fd);
 }
 
+// Reads data from a file descriptor into a dynamically growing buffer
 static void	read_fd(t_run **run, int fd, char **buffer, size_t cap)
 {
 	size_t	len;
@@ -42,6 +44,7 @@ static void	read_fd(t_run **run, int fd, char **buffer, size_t cap)
 		return (run_free(run));
 }
 
+// Expands the buffer capacity while preserving its current content
 static void	grow_buffer(char **buffer, size_t content_len, size_t new_cap)
 {
 	char	*new_buffer;

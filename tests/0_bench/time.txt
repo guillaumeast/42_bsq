@@ -4,6 +4,7 @@ caffeinate nice -n -0 ./bsq --bench tests/test_10000 > /dev/null
 ├--------------------------------------------------------┤
 | Version |   Read   |   Parse  |    Write   |   Total   |
 ├--------------------------------------------------------┤
+|  v3.2.0 |     6 ms |    70 ms |      10 µs |     77 ms | // ✅ Tested
 |  v3.1.0 |     6 ms |    80 ms |      10 µs |     87 ms | // ✅ Tested
 |  v3.0.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ✅ Tested
 |  v2.5.0 |     6 ms |    93 ms |      10 µs |    100 ms | // ❌ error_map_no_nl invalid_filepath

@@ -1,5 +1,6 @@
 #include "bsq.h"
 
+// Checks if a character is printable (ASCII range 32–126)
 t_bool	is_print(char c)
 {
 	c = (unsigned char) c;
@@ -8,6 +9,7 @@ t_bool	is_print(char c)
 	return (TRUE);
 }
 
+// Converts the first n characters of a string to an integer, returns -1 if invalid
 int	ft_fast_atoi_n(char *str, size_t n)
 {
 	char	*end;

@@ -1,3 +1,14 @@
+## [3.2.0] - ~77 ms on 10,000 x 10,000 maps
+
+- Implemented **single-row array `dp`** for faster updates:
+	- Up-left = `dp->prev`
+	- Up = `dp->tab[col]`
+	- Left = `dp->tab[col - 1]`
+	- `dp->prev` is set to `dp->tab[col]` before modification
+- Added comments above each function
+
+---
+
 ## [3.1.0] - ~87 ms on 10,000 x 10,000 maps
 
 - Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row

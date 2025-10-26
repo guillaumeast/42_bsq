@@ -12,9 +12,9 @@
 ## 🪄 Highlights
 
 - **_Dynamic growth_ I/O buffer**: reduces the number of `read` system calls  
-- **Unified parsing and solving**: single-pass computation combining map validation and DP update 
+- **Unified parsing and solving**: single-pass computation combining map validation and `dp` update 
 - **Flat memory layouts**: reduce data access time, memory usage, and copy overhead  
-- **Two-row flat _dynamic programming_ layout**: improves memory footprint and L1 cache locality.
+- **Single-row array _dynamic programming_ layout**: improves memory footprint and L1 cache locality.
 - **In-place editing of the original map**: avoids full map copies and checks  
 - **One-time output**: avoids multiple `write` system calls  
 - **Integrated tests** with the `make test` command
@@ -23,7 +23,7 @@
 ---
 
 ## 🚀 Performance
-- A 10,000×10,000 map is processed in less than **100 ms**
+- A 10,000×10,000 map is processed in less than **80 ms**
 
 > _Measured on macOS (Apple M4) using `<time.h>` / `clock_gettime()`_
 > 
@@ -45,6 +45,7 @@
 | **v2.5.0** | **Code cleanup & build optimization**<br>→ Removed unused fields, return values and redundant casts<br>→ Inlined hot functions<br>→ Added `-fomit-frame-pointer` and `-fno-stack-protector` flags<br>→ Introduced optional PGO build (`make sfast`) | ~100 ms |
 | [**v3.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.0.0) | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
 | [**v3.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.1.0) | **Parse optimization**<br>→ Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row | ~87 ms |
+| [**v3.2.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.2.0) | **Parse optimization**<br>→ Implemented **single-row array `dp`** for faster updates | ~77 ms |
 
 ---
 
@@ -82,6 +83,12 @@ else
 	dp[row][col] = 0;
 ```
 3. The largest value found indicates the **size and position** of the biggest square.
+
+> _For performance reasons, the first row and the first column of each row are computed by dedicated functions: `parse_row_0()` and `parse_col_0()`._
+>
+> _Additionally, the `dp` is implemented using a single-row array and a temporary value (representing the up-left cell: `dp[row-1][col-1]`)._
+>
+> _The 2D relation above is shown for clarity, as the actual implementation uses a 1D array for better memory locality._
 
 > _For experimental branchless versions of the DP computation, see [branchless_comparison.md](branchless_comparison.md)._
 >

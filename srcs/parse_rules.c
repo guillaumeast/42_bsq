@@ -1,5 +1,6 @@
 #include "bsq.h"
 
+// Parses and validates the map rules line (height, empty, obstacle, filler)
 void	parse_rules(t_run **run, char *input, size_t input_len, t_rules *r)
 {
 	int		atoi_res;

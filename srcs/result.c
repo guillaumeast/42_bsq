@@ -1,7 +1,8 @@
 #include "bsq.h"
 
-static void fill_map(size_t len, char *mp, const char fil, const t_bounds *b);
+static void fill_map(size_t len, char *map, const char fil, const t_bounds *b);
 
+// Prints the final `map` with the largest square filled
 void	print_result(t_run *run)
 {
 	t_bounds	bounds;
@@ -22,7 +23,8 @@ void	print_result(t_run *run)
 	write(1, run->map->str, run->map->len);
 }
 
-static void fill_map(size_t len, char *mp, const char fil, const t_bounds *b)
+// Fills the `map` with the filler character within the given square bounds
+static void fill_map(size_t len, char *map, const char fil, const t_bounds *b)
 {
 	size_t		row;
 	size_t		col;
@@ -35,7 +37,7 @@ static void fill_map(size_t len, char *mp, const char fil, const t_bounds *b)
 		while (col <= b->colmax)
 		{
 			i = row * len + col;
-			mp[i] = fil;
+			map[i] = fil;
 			col++;
 		}
 		row++;
