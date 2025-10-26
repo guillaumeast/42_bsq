@@ -2,8 +2,8 @@
 
 static t_bool	parse_row_0(t_run *run, char *map, size_t *i);
 static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row);
+static t_bool	parse_col_0(char map_cell, int *dp_cell, char empty, char obs);
 static void		solve_cell(t_run *run, size_t row, size_t col);
-static void		dp_swap(t_dp *dp);
 
 void	parse_map(t_run **run)
 {
@@ -26,7 +26,6 @@ void	parse_map(t_run **run)
 	{
 		if (++row == height || !parse_row(*run, map, &i, row))
 			return (run_free(run));
-		dp_swap((*run)->dp);
 	}
 	if (map[i - 1] != '\n' || row == 0 || row < height - 1)
 		return (run_free(run));
@@ -51,9 +50,9 @@ static t_bool	parse_row_0(t_run *run, char *map, size_t *i)
 	if (!dp_init(run, i_tmp))
 		return (FALSE);
 	i_tmp = -1;
-	while (++i_tmp < run->map->len && (c = map[i_tmp]) != '\n')
+	while (++i_tmp < run->width)
 	{
-		if (c == run->rules.obs)
+		if (map[i_tmp] == run->rules.obs)
 			run->dp->prev[col++] = 0;
 		else
 			run->dp->prev[col++] = 1;
@@ -62,39 +61,48 @@ static t_bool	parse_row_0(t_run *run, char *map, size_t *i)
 	return (TRUE);
 }
 
-// TODO: solve first cell first (add solve_cell_0() ?)
 static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 {
+	int		*tmp;
 	size_t	col;
 	size_t	i_tmp;
 	char	c;
 
-	col = 0;
-	i_tmp = *i - 1;
+	if (!parse_col_0(map[*i], run->dp->curr, run->rules.emp, run->rules.obs))
+		return (FALSE);
+	col = 1;
+	i_tmp = *i;
 	while (++i_tmp < run->map->len && (c = map[i_tmp]) != '\n')
 	{
-		if (c != run->rules.emp && c != run->rules.obs)
-			return (FALSE);
 		if (c == run->rules.obs)
 			run->dp->curr[col++] = 0;
-		else if (col == 0)
-			run->dp->curr[col++] = 1;
-		else
+		else if (c == run->rules.emp)
 			solve_cell(run, row, col++);
+		else
+			return (FALSE);
 	}
 	if (run->width != i_tmp - *i)
 		return (FALSE);
+	tmp = run->dp->curr;
+	run->dp->curr = run->dp->prev;
+	run->dp->prev = tmp;
 	*i = i_tmp;
 	return (TRUE);
 }
 
-static void	dp_swap(t_dp *dp)
+static t_bool	parse_col_0(char map_cell, int *dp_cell, char empty, char obs)
 {
-	int	*tmp;
-
-	tmp = dp->curr;
-	dp->curr = dp->prev;
-	dp->prev = tmp;
+	if (map_cell == obs)
+	{
+		*dp_cell = 0;
+		return (TRUE);
+	}
+	if (map_cell == empty)
+	{
+		*dp_cell = 1;
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 static void	solve_cell(t_run *run, size_t row, size_t col)

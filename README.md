@@ -44,6 +44,7 @@
 | [**v2.4.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v2.4.0) | **Parse optimization**<br>→ Reordered parser condition checks to reduce branch mispredictions<br>→ Implemented precomputation of all possible values<br>→ Minimized dereferencing in hot loops<br>→ Increased integrated benchmark from 10 to 100 iterations | ~100 ms |
 | **v2.5.0** | **Code cleanup & build optimization**<br>→ Removed unused fields, return values and redundant casts<br>→ Inlined hot functions<br>→ Added `-fomit-frame-pointer` and `-fno-stack-protector` flags<br>→ Introduced optional PGO build (`make sfast`) | ~100 ms |
 | [**v3.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.0.0) | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
+| [**v3.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.1.0) | **Parse optimization**<br>→ Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row | ~87 ms |
 
 ---
 

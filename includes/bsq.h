@@ -17,6 +17,6 @@
 # include "parse_map.h"
 # include "result.h"
 
-# define VERSION "3.0.1"
+# define VERSION "3.1.0"
 
 #endif

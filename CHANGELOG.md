@@ -1,3 +1,10 @@
+## [3.1.0] - ~87 ms on 10,000 x 10,000 maps
+
+- Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row
+- Fine-tuned `parse_map.c` for _42 Norm_ compliance
+
+---
+
 ## [3.0.0] - ~100 ms on 10,000 x 10,000 maps
 
 ### Optimizations
@@ -5,7 +12,7 @@
 - Converted full size `int *` array into two little arrays of size row_len to optimize cache usage
 - Optimized `if` statements order
 - Removed `run_set_width()` and added `parse_row_0()` to avoid double read of row 0
-- Added (commented) _bitmask-based_ and _xor-based_ versions of the original _if-based_ `solve_cell()`
+- Tried _bitmask-based_ and _xor-based_ versions of the original _if-based_ `solve_cell()`
 	- The goal was to reduce branch mispredictions using a _branchless_ comparison method
 	- All three versions compile down to a **single `csel` instruction** with `-O1` or higher
 	- _if-based_ and _xor-based_ versions run in **similar time** without optimization flags
