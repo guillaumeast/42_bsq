@@ -153,7 +153,7 @@ min = xor(b, (xor(a, b) & mask));
 
 ## Test it in Compiler Explorer
 
-Go to [Compiler Explorer website](https://godbolt.org/) and see by yourself that the `clang` compiler automatically full optimize the min computing into a single `csel` call since `-O1` optimization flag, even for the _if-based_ version:
+Go to [Compiler Explorer website](https://godbolt.org/) and see by yourself that the `clang` compiler automatically full optimizes the min computing into a single `csel` call since `-O1` optimization flag, even for the _if-based_ version:
 
 1. Compiler
 ```
@@ -164,7 +164,7 @@ armv8-a clang 17.0.1
 ```bash
 -O0		# No optimization (42-like)
 # OR
--O1		# Full optimized (csel used)
+-O1		# First level optimization (csel used)
 ```
 
 3. Code
