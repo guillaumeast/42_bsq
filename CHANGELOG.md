@@ -1,3 +1,21 @@
+## [3.2.1] - ~200 ms on 10,000 x 10,000 maps
+
+- **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go 
+- Simplified benchmark logic and removed redundant time tracking fields
+- Updated `print_result()` for cleaner in-place map filling
+- Simplified runtime structures (`t_buffer`, `t_str`, `t_run`) and removed unnecessary pointers
+- Major refactor of the project structure for clarity and maintainability  
+	- Moved `parse_rules.c` and `parse_map.c` into a single `parse/` module  
+	- Moved `read.c` and `read_rules.c` and `read_map.c` into a single `read/` module  
+	- Replaced multiple headers with unified `parse.h` and `objects.h`  
+	- Introduced dedicated object initializers (`init_buffer`, `init_str`, `init_rules`, etc.)
+
+> ⚠️ **Performance note:**  
+> These changes improved the execution time by **≈36 % without optimization flags**,  
+> but caused a **≈150 % slowdown when compiled with optimization flags.**
+
+---
+
 ## [3.2.0] - ~77 ms on 10,000 x 10,000 maps
 
 - Implemented **single-row array `dp`** for faster updates:

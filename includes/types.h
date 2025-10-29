@@ -5,15 +5,24 @@ typedef char	t_bool;
 # define FALSE 0
 # define TRUE 1
 
+typedef struct s_buffer
+{
+	char	*data;
+	size_t	len;
+	size_t	cap;
+}	t_buffer;
+
 typedef struct s_str
 {
-	char	*str;
-	size_t	len;
+	char	*p;
+	size_t	row_width;
+	size_t	row_len;
+	size_t	str_len;
 }	t_str;
 
 typedef struct s_rules
 {
-	size_t	len;
+	t_str	input;
 	size_t	height;
 	char	emp;
 	char	obs;
@@ -35,13 +44,11 @@ typedef struct s_bsq
 
 typedef struct s_run
 {
-	t_rules	rules;
-	size_t	width;
-	size_t	row_len;
-	t_str	*input;
-	t_str	*map;
-	t_dp	*dp;
-	t_bsq	bsq;
+	t_buffer	buffer;
+	t_rules		rules;
+	t_str		map;
+	t_dp		dp;
+	t_bsq		bsq;
 }	t_run;
 
 typedef struct	s_bounds

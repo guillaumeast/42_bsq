@@ -6,6 +6,6 @@ pgo_obj/
 .DS_Store
 result*.txt
 *codebase.md
-tmp*.txt
+tmp*
 todo.md
 tests/4_outputs/

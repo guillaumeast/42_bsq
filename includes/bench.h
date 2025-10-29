@@ -26,13 +26,11 @@ typedef struct s_run_time
 
 typedef struct s_exec_time
 {
-	struct timespec	start;
 	t_run_time 		runs[BENCH_ITERATIONS];
 	long long		avg_read;
 	long long		avg_parse;
 	long long		avg_write;
 	long long		avg_total;
-	struct timespec	end;
 }	t_exec_time;
 
 void	print_exec_time(t_exec_time *exec_time);

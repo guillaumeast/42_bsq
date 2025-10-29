@@ -3,7 +3,6 @@
 static void	exec_from_files(int argc, char **argv);
 static void	exec_bench(char *file_path);
 
-// Entry point: runs benchmark mode or solves maps from given files
 int	main(int argc, char **argv)
 {
 	if (argc == 1)
@@ -15,16 +14,13 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-// Runs multiple iterations on a map file to benchmark execution time
 static void	exec_bench(char *file_path)
 {
 	t_exec_time	exec_time;
 	t_run	*run;
-	char	*input;
 	size_t	i;
 
 	fprintf(stderr, "Benchmarking on %d iterations...\n", BENCH_ITERATIONS);
-	clock_gettime(CLOCK_BENCH, &(exec_time.start));
 	i = 0;
 	while (i < BENCH_ITERATIONS)
 	{
@@ -32,9 +28,6 @@ static void	exec_bench(char *file_path)
 		run = run_new();
 		read_file(&run, file_path);
 		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].parse_start));
-		if (run)
-			input = (*run).input->str;
-		parse_rules(&run, input, (*run).input->len, &((*run).rules));
 		parse_map(&run);
 		clock_gettime(CLOCK_BENCH, &(exec_time.runs[i].write_start));
 		if (run)
@@ -49,11 +42,9 @@ static void	exec_bench(char *file_path)
 	print_exec_time(&exec_time);
 }
 
-// Processes and solves each map file provided as a command-line argument
 static void	exec_from_files(int argc, char **argv)
 {
 	t_run	*run;
-	char	*input;
 	int		i;
 
 	i = 1;
@@ -61,9 +52,6 @@ static void	exec_from_files(int argc, char **argv)
 	{
 		run = run_new();
 		read_file(&run, argv[i]);
-		if (run)
-			input = (*run).input->str;
-		parse_rules(&run, input, (*run).input->len, &((*run).rules));
 		parse_map(&run);
 		if (run)
 		{

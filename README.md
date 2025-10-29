@@ -11,7 +11,7 @@
 
 ## 🪄 Highlights
 
-- **_Dynamic growth_ I/O buffer**: reduces the number of `read` system calls  
+- **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go 
 - **Unified parsing and solving**: single-pass computation combining map validation and `dp` update 
 - **Flat memory layouts**: reduce data access time, memory usage, and copy overhead  
 - **Single-row array _dynamic programming_ layout**: improves memory footprint and L1 cache locality.
@@ -23,7 +23,10 @@
 ---
 
 ## 🚀 Performance
-- A 10,000×10,000 map is processed in less than **80 ms**
+- Best recorded: **~77 ms** on 10,000×10,000 ([**v3.2.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.2.0), optimized build)
+
+> ⚠️ **Performance note (v3.2.1)**  
+> The **adaptive I/O buffer** improves **no-opt builds by ≈36%** (435 ms vs 595 ms) but causes a **≈150% slowdown** in optimized builds (~200 ms vs ~80 ms).
 
 > _Measured on macOS (Apple M4) using `<time.h>` / `clock_gettime()`_
 > 
@@ -46,6 +49,7 @@
 | [**v3.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.0.0) | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
 | [**v3.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.1.0) | **Parse optimization**<br>→ Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row | ~87 ms |
 | [**v3.2.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.2.0) | **Parse optimization**<br>→ Implemented **single-row array `dp`** for faster updates | ~77 ms |
+| **v3.2.1** | **Input optimization**<br>→ Improved (only for no-opt builds) map reading logic with a **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go | ~200 ms |
 
 ---
 
@@ -107,11 +111,10 @@ bsq/
 ├── srcs/					# Source files (C code)
 │   ├── main.c				# Entry point
 │   ├── objects/			# Constructor and destructor functions for custom structs
-│   ├── utils/				# Utilities
-│   ├── read.c				# Reads content from filepath/stdin
-│   ├── parse_rules.c		# Parses rules
-│   ├── parse_map.c			# Simultaneously parses and solves the map
-│   └── result.c			# Prints result
+│   ├── read/				# Streamed input pipeline
+│   ├── parse/				# Unified parse module
+│   ├── result.c			# Result printer
+│   └── bench.c				# Benchmark utilities
 └── tests/					# Sample maps and performance benchmarks
 ```
 

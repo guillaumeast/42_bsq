@@ -1,24 +1,17 @@
 #include "bsq.h"
 
-// Creates a new `t_str` structure with the given string and length
-t_str	*str_new(char *str, size_t len)
+void	init_str(t_str *str)
 {
-	t_str	*res;
-
-	res = malloc(sizeof(t_str));
-	if (!res)
-		return (NULL);
-	res->str = str;
-	res->len = len;
-	return (res);
+	str->p = NULL;
+	str->row_width = 0;
+	str->row_len = 0;
+	str->str_len = 0;
 }
 
-// Frees a `t_str` structure and sets its pointer to `NULL`
-t_str	*str_free(t_str **str)
+void	set_str(t_str *str, char *p, size_t row_width, size_t str_len)
 {
-	if (!str || !*str)
-		return (NULL);
-	free(*str);
-	*str = NULL;
-	return (NULL);
+	str->p = p;
+	str->row_width = row_width;
+	str->row_len = row_width + 1;
+	str->str_len = str_len;
 }
