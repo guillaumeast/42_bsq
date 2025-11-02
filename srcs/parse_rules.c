@@ -7,7 +7,7 @@ void	parse_rules(t_run **run, char *input, size_t input_len, t_rules *r)
 	size_t	rules_len;
 
 	if (!run || !*run || !input || !r)
-		return ;
+		return (run_free(run));
 	rules_len = 0;
 	while (rules_len < input_len && input[rules_len] != '\n')
 		rules_len++;

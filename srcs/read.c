@@ -9,12 +9,20 @@ void	read_file(t_run **run, const char *file_path)
 	int		fd;
 	char	*buffer;
 
-	fd = open(file_path, O_RDONLY);
+
 	buffer = malloc(BUFFER_SIZE);
-	if (fd == -1 || !buffer)
+	if (!buffer)
 		return (run_free(run));
-	read_fd(run, fd, &buffer, BUFFER_SIZE);
-	close(fd);
+	if (file_path)
+	{
+		fd = open(file_path, O_RDONLY);
+		if (fd == -1)
+			return (run_free(run));
+		read_fd(run, fd, &buffer, BUFFER_SIZE);
+		close(fd);
+	}
+	else
+		read_fd(run, 0, &buffer, BUFFER_SIZE);
 }
 
 // Reads data from a file descriptor into a dynamically growing buffer

@@ -1,6 +1,6 @@
 # 🧩 **BSQ - 42 Paris Piscine**
 
-> _Fast C CLI that reads maps from files or stdin, computes the largest empty square (dynamic programming), and prints them back with the largest empty square._
+> _Fast C CLI that reads maps from files or `stdin`, computes the largest empty square (dynamic programming), and prints them back with the largest empty square._
 
 [![Language: C](https://img.shields.io/badge/language-C-lightgrey)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![Type: CLI](https://img.shields.io/badge/type-CLI-8b949e)]()
@@ -46,7 +46,8 @@
 | [**v3.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.0.0) | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
 | [**v3.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.1.0) | **Parse optimization**<br>→ Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row | ~87 ms |
 | [**v3.2.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.2.0) | **Parse optimization**<br>→ Implemented **single-row array `dp`** for faster updates | ~77 ms |
-| **v3.2.1** | **Input optimization**<br>→ Improved (only for no-opt builds) map reading logic with a **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go<br>→ Aborted because unexpectly increased execution time (only with optimisation flags) | ~200 ms |
+| **v3.2.1** | **Input optimization**<br>→ Improved (only for no-opt builds) map reading logic with a **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go<br>→ > This version has **not** been released because execution time was higher than expected | ~200 ms |
+| [**v4.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v4.0.0) | **Reimplemented `stdin` parsing**<br>→ No on-the-fly parsing — thus no handling of potential `stdin` flooding edge cases<br>→ Real-time `stdin` parsing would require more granular parsing steps, which would reduce overall performance and conflict with the primary optimization goal | ~77 ms |
 
 ---
 
@@ -59,7 +60,16 @@ This project is a deep dive into:
 - **_Dynamic programming_** for **2D optimization problems**  
 - **Execution time optimization** using **low-level CPU profiling** and **micro-optimization techniques**
 - **Memory management and I/O efficiency**  
-- **Strict compliance** with the **42 Norm**
+- **Compliance** with the **42 Norm**
+
+> ⚠️ **Note on 42 Norm deviations:**  
+> For the purpose of real-world performance analysis, this project intentionally:  
+> - Uses **compiler optimization flags** (normally forbidden by the `42 C Norm`)  
+> - Implements a **basic `stdin` handler** only, without on-the-fly parsing or flooding edge case handling  
+>
+> These choices were made to focus exclusively on **execution time optimization** when parsing from files —  
+> since real-time `stdin` parsing requires more granular (and thus slower) parsing steps,  
+> which would conflict with the project's main optimization objective.
 
 ---
 
@@ -138,7 +148,6 @@ make sfast
 ```
 
 ### Run with stdin
-⚠️ This feature has been removed in v2.0.0.
 Coming back soon...
 ```bash
 cat tests/basic_test | ./bsq
@@ -159,10 +168,10 @@ make bench
 
 ### Clean build files
 ```bash
-# Only clean objects
+# Only clean objects and tests results
 make clean
 
-# Clean objects and binary
+# Clean objects, tests results and binary
 make fclean
 ```
 

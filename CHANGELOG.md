@@ -1,5 +1,15 @@
-## [3.3.0] - ~XX ms on 10,000 x 10,000 maps
+## [4.0.0] - ~77 ms on 10,000 x 10,000 maps
 
+- Reimplemented basic `stdin` handling.  
+  (No on-the-fly parsing — thus no handling of potential `stdin` flooding edge cases —  
+  to focus on optimizing execution time when parsing from files.  
+  Real-time `stdin` parsing would require more granular parsing steps,  
+  which would reduce overall performance and conflict with the primary optimization goal.)
+- Added fix for BSQ detection inside **row 0 / column 0**.
+- Added tests for:
+  - BSQ inside **row 0 / column 0**
+  - **height = `INT_MAX` + 1**
+  - **height = `SIZE_MAX` + 1**
 
 ## [3.2.1] - ~200 ms on 10,000 x 10,000 maps
 
@@ -14,8 +24,9 @@
 	- Introduced dedicated object initializers (`init_buffer`, `init_str`, `init_rules`, etc.)
 
 > ⚠️ **Performance note:**  
-> These changes improved the execution time by **≈36 % without optimization flags**,  
-> but caused a **≈150 % slowdown when compiled with optimization flags.**
+> These changes improved execution time by **≈36% without optimization flags**,  
+> but caused a **≈150% slowdown when compiled with optimization flags.**
+> Therefore, this version has **not** been released
 
 ---
 
