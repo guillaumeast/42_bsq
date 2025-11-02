@@ -2,7 +2,7 @@
 
 static t_bool	parse_row_0(t_run *run, char *map, size_t *i);
 static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row);
-static t_bool	parse_col_0(char map_cell, t_dp *dp, char empty, char obs);
+static t_bool	parse_col_0(t_run *r, size_t *row, t_dp *dp, char em, char ob);
 static void		solve_cell(t_run *run, size_t row, size_t col);
 
 // Parses the map and solves the DP for all rows
@@ -28,7 +28,7 @@ void	parse_map(t_run **run)
 		if (++row == height || !parse_row(*run, map, &i, row))
 			return (run_free(run));
 	}
-	if (map[i - 1] != '\n' || row == 0 || row < height - 1)
+	if (map[i - 1] != '\n' || row != height - 1)
 		return (run_free(run));
 	return ;
 }
@@ -46,21 +46,21 @@ static t_bool	parse_row_0(t_run *run, char *map, size_t *i)
 		if (c != run->rules.emp && c != run->rules.obs)
 			return (FALSE);
 	}
-	run->width = i_tmp;
-	run->row_len = i_tmp + 1;
 	if (!dp_init(run, i_tmp))
 		return (FALSE);
 	i_tmp = -1;
 	col = 0;
 	while (++i_tmp < run->width)
 	{
-		if (map[i_tmp] == run->rules.obs)
-			run->dp->tab[col++] = 0;
-		else
-			run->dp->tab[col++] = 1;
+		run->dp->tab[col] = (map[i_tmp] != run->rules.obs);
+		if (run->dp->tab[col] > run->bsq.size)
+		{
+			run->bsq.size = run->dp->tab[col];
+			run->bsq.col = col;
+		}
+		col++;
 	}
-	*i = i_tmp;
-	return (TRUE);
+	return (*i = i_tmp);
 }
 
 // Parses and solves all rows except the first one
@@ -70,7 +70,7 @@ static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 	size_t	i_tmp;
 	char	c;
 
-	if (!parse_col_0(map[*i], run->dp, run->rules.emp, run->rules.obs))
+	if (!parse_col_0(run, &row, run->dp, run->rules.emp, run->rules.obs))
 		return (FALSE);
 	col = 1;
 	i_tmp = *i;
@@ -93,17 +93,25 @@ static t_bool	parse_row(t_run *run, char *map, size_t *i, size_t row)
 }
 
 // Parses and solves the first column of each row (except the first row)
-static t_bool	parse_col_0(char map_cell, t_dp *dp, char empty, char obs)
+static t_bool	parse_col_0(t_run *r, size_t *row, t_dp *dp, char em, char ob)
 {
+	char	map_cell;
+
+	map_cell = r->map->str[*row * r->row_len];
 	dp->prev = dp->tab[0];
-	if (map_cell == obs)
+	if (map_cell == ob)
 	{
 		dp->tab[0] = 0;
 		return (TRUE);
 	}
-	if (map_cell == empty)
+	if (map_cell == em)
 	{
 		dp->tab[0] = 1;
+		if (r->bsq.size == 0)
+		{
+			r->bsq.size = 1;
+			r->bsq.row = *row;
+		}
 		return (TRUE);
 	}
 	return (FALSE);

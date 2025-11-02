@@ -36,6 +36,8 @@ void	run_add_rules(t_run **run)
 // Allocates the dynamic programming table
 t_bool dp_init(t_run *run, size_t width)
 {
+	run->width = width;
+	run->row_len = width + 1;
 	run->dp = malloc(sizeof *(run->dp));
 	if (!run->dp)
 		return (FALSE);

@@ -1,3 +1,6 @@
+## [3.3.0] - ~XX ms on 10,000 x 10,000 maps
+
+
 ## [3.2.1] - ~200 ms on 10,000 x 10,000 maps
 
 - **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go 

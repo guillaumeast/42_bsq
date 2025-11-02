@@ -14,7 +14,7 @@ void	parse_rules(t_run **run, char *input, size_t input_len, t_rules *r)
 	if (rules_len == input_len || rules_len < RULES_MIN_LEN)
 		return (run_free(run));
 	atoi_res = ft_fast_atoi_n(input, rules_len - RULES_CHARSET_LEN);
-	if (atoi_res <= 0)
+	if (atoi_res < 1)
 		return (run_free(run));
 	r->height = (size_t) atoi_res;
 	r->emp = input[rules_len - RULES_CHARSET_LEN];
