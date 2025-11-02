@@ -1,7 +1,8 @@
 #include "bsq.h"
 
-static void fill_map(t_str *map, const char fil, const t_bounds *b);
+static void fill_map(size_t len, char *map, const char fil, const t_bounds *b);
 
+// Prints the final `map` with the largest square filled
 void	print_result(t_run *run)
 {
 	t_bounds	bounds;
@@ -10,53 +11,35 @@ void	print_result(t_run *run)
 	size_t		bsq_col;
 	size_t		bsq_size;
 
-	// fprintf(stderr, "\n--------------------\n");
-	// fprintf(stderr, "print_result()\n");
-	// fprintf(stderr, "--------------------\n");
 	bsq = run->bsq;
 	bsq_row = bsq.row;
 	bsq_col = bsq.col;
 	bsq_size = bsq.size;
-	// fprintf(stderr, "-> BSQ: size = %zu | row = %zu | col = %zu\n", bsq_size, bsq_row, bsq_col);
-	// fprintf(stderr, "-> map.str_len = %zu\n", run->map.str_len);
 	bounds.rowmin = bsq_row - (bsq_size - 1);
 	bounds.rowmax = bsq_row;
 	bounds.colmin = bsq_col - (bsq_size - 1);
 	bounds.colmax = bsq_col;
-	fill_map(&(run->map), run->rules.fil, &bounds);
-	write(1, run->map.p, run->map.str_len);
-	// fprintf(stderr, "--------------------\n");
+	fill_map(run->row_len, run->map->str, run->rules.fil, &bounds);
+	write(1, run->map->str, run->map->len);
 }
 
-static void fill_map(t_str *map, const char fil, const t_bounds *b)
+// Fills the `map` with the filler character within the given square bounds
+static void fill_map(size_t len, char *map, const char fil, const t_bounds *b)
 {
-	char	*map_start;
-	char	*p;
-	char	*p_start;
-	char	*end;
-	size_t	row_len;
-	size_t	row_max;
-	size_t	col_min;
-	size_t	bsq_len;
-	size_t	row;
+	size_t		row;
+	size_t		col;
+	size_t		i;
 
-	map_start = map->p;
-	row_len = map->row_len;
-	row_max = b->rowmax;
-	col_min = b->colmin;
-	bsq_len = b->colmax - b->colmin + 1;
 	row = b->rowmin;
-	p_start = map_start + (row * row_len) + col_min;
-	while (row <= row_max)
+	while (row <= b->rowmax)
 	{
-		p = p_start;
-		end = p + bsq_len;
-		while (p < end)
+		col = b->colmin;
+		while (col <= b->colmax)
 		{
-			*p = fil;
-			p++;
+			i = row * len + col;
+			map[i] = fil;
+			col++;
 		}
-		p_start += row_len;
 		row++;
 	}
 }

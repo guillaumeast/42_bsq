@@ -1,10 +1,10 @@
 #include "bsq.h"
 
-static void			compute_run_time(t_run_time *time);
-static void			print_avg_time(t_exec_time *exec_time);
-static void			compute_avg(t_exec_time *exec_time);
-static void			print_time(long long ns);
-static long long	ns_since(const struct timespec a, const struct timespec b);
+static void		compute_run_time(t_run_time *time);
+static void		print_avg_time(t_exec_time *exec_time);
+static void		compute_avg(t_exec_time *exec_time);
+static void		print_time(long long ns);
+static long long ns_since(const struct timespec a, const struct timespec b);
 
 // Displays benchmark results and average execution times
 void	print_exec_time(t_exec_time *exec_time)

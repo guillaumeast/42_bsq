@@ -8,12 +8,15 @@
 # include <fcntl.h>		// open(), read(), close()
 
 # include "types.h"
-# include "objects.h"
 # include "bench.h"
+# include "bsq_string.h"
+# include "utils.h"
+# include "run.h"
 # include "read.h"
-# include "parse.h"
+# include "parse_rules.h"
+# include "parse_map.h"
 # include "result.h"
 
-# define VERSION "3.2.1"
+# define VERSION "3.2.0"
 
 #endif
