@@ -38,7 +38,7 @@
 ## 🎓 Context
 
 The **BSQ (Biggest Square)** is the final algorithmic project of the **42 Paris Piscine**.  
-Its goal is to parse a text-based map - from file(s) or stdin - and compute the largest possible empty square, following the official 42 C **Norm v4**.
+Its goal is to parse a text-based map - from file(s) or `stdin` - and compute the largest possible empty square, following the official 42 C **Norm v4**.
 
 This project is a deep dive into:
 - **_Dynamic programming_** for **2D optimization problems**  
@@ -60,7 +60,7 @@ This project is a deep dive into:
 <a id="objective"></a>
 ## ⚙️ Objective
 
-- Read maps from one or more **files**, or directly from **stdin**  
+- Read maps from one or more **files**, or directly from **`stdin`**  
 - Detect invalid or corrupted maps (missing lines, inconsistent width, invalid characters, etc.)  
 - Efficiently compute the **largest empty square**, even on large maps (e.g. 10k×10k)  
 - Output the map with the square marked using the `filled` character
@@ -118,7 +118,7 @@ else
 | [**v3.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.0.0) | **Code cleanup, tests implementation, bug fixes, and _branchless_ comparison investigation**<br>→ Added `make test` and `make bench` commands<br>→ Fixed multiple issues<br>→ See [CHANGELOG.md](CHANGELOG.md) for more details | ~100 ms |
 | [**v3.1.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.1.0) | **Parse optimization**<br>→ Implemented `parse_col_0()` to speed up parsing and solving of the first col of each row | ~87 ms |
 | [**v3.2.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v3.2.0) | **Parse optimization**<br>→ Implemented **single-row array `dp`** for faster updates | ~77 ms |
-| **v3.2.1** | **Input optimization**<br>→ Improved (only for no-opt builds) map reading logic with a **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go<br>→ > This version has **not** been released because execution time was higher than expected | ~200 ms |
+| **v3.2.1** | **Input optimization**<br>→ Improved (only for no-opt builds) map reading logic with a **Adaptive I/O buffer**: grows dynamically to read headers, then resizes to load the full map in one go<br>→ This version has **not** been released because optimized binary execution time was higher than expected | ~200 ms |
 | [**v4.0.0**](https://github.com/guillaumeast/42_bsq/releases/tag/v4.0.0) | **Reimplemented `stdin` parsing**<br>→ No on-the-fly parsing — thus no handling of potential `stdin` flooding edge cases<br>→ Real-time `stdin` parsing would require more granular parsing steps, which would reduce overall performance and conflict with the primary optimization goal | ~77 ms |
 
 ---
