@@ -166,9 +166,8 @@ make sfast
 ```
 
 ### Run with stdin
-Coming back soon...
 ```bash
-cat tests/basic_test | ./bsq
+cat file_path | ./bsq
 ```
 
 ### Run tests
