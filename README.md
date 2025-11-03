@@ -9,6 +9,18 @@
 
 ---
 
+## 📋 Table of Contents
+1. [🪄 Highlights](#highlights)
+2. [🎓 Context](#context)
+3. [⚙️ Objective](#objective)
+4. [🧩 Algorithm](#algorithm)
+5. [🚀 Performance](#performance)
+6. [🗂️ Repository structure](#repository-structure)
+7. [🧰 Build and Run](#build-and-run)
+
+---
+
+<a id="highlights"></a>
 ## 🪄 Highlights
 
 - **_Dynamic growth_ I/O buffer**: reduces the number of `read` system calls  
@@ -22,7 +34,8 @@
 
 ---
 
-## 🎓 **Context**
+<a id="context"></a>
+## 🎓 Context
 
 The **BSQ (Biggest Square)** is the final algorithmic project of the **42 Paris Piscine**.  
 Its goal is to parse a text-based map - from file(s) or stdin - and compute the largest possible empty square, following the official 42 C **Norm v4**.
@@ -44,7 +57,8 @@ This project is a deep dive into:
 
 ---
 
-## ⚙️ **Objective**
+<a id="objective"></a>
+## ⚙️ Objective
 
 - Read maps from one or more **files**, or directly from **stdin**  
 - Detect invalid or corrupted maps (missing lines, inconsistent width, invalid characters, etc.)  
@@ -53,7 +67,8 @@ This project is a deep dive into:
 
 ---
 
-## 🧩 **Algorithm**
+<a id="algorithm"></a>
+## 🧩 Algorithm
 
 The program implements a **dynamic programming** approach:
 1. Each cell represents the size of the largest square ending at that point.  
@@ -78,6 +93,7 @@ else
 
 ---
 
+<a id="performance"></a>
 ## 🚀 Performance
 - A 10,000×10,000 map is processed in less than **80 ms**
 
@@ -107,7 +123,8 @@ else
 
 ---
 
-## 🗂️ **Repository structure**
+<a id="repository-structure"></a>
+## 🗂️ Repository structure
 
 ```
 bsq/
@@ -128,7 +145,8 @@ bsq/
 
 ---
 
-## 🧰 **Build and Run**
+<a id="build-and-run"></a>
+## 🧰 Build and Run
 
 ### Compilation
 ```bash
